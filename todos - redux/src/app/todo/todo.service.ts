@@ -75,7 +75,10 @@ export class TodoService {
       map(data => data.map(t =>
         t.title.length > 20 ? ({ ...t, title: t.title.substring(0, 20) }) : t
       )),
-      catchError(err => this.setError(err))
+      catchError(err => {
+        this.setError(err);
+        return of([]);
+      })
     )
   }
 
@@ -122,12 +125,10 @@ export class TodoService {
     }));
   }
 
-  private setError(err: HttpErrorResponse): Observable<Todo[]> {
-    const errorMessage = setErrorMessage(err);
+  private setError(err: HttpErrorResponse) {
     this.state.update(state => ({
       ...state,
-      error: errorMessage
+      error: setErrorMessage(err)
     }))
-    return of([]);
   }
 }
