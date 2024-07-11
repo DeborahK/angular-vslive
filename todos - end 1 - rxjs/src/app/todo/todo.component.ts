@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { AsyncPipe, NgClass } from '@angular/common';
 import { Todo } from './todo';
 import { User } from '../user/user';
+import { UserService } from '../user/user.service';
+import { TodoService } from './todo.service';
 
 @Component({
   selector: 'app-todo',
@@ -13,11 +15,15 @@ import { User } from '../user/user';
 export class TodoComponent {
   pageTitle = 'Todo List';
 
+  // Services
+  userService = inject(UserService);
+  todoService = inject(TodoService);
+  
   // State
-  members: User[] = [];
+  members$ = this.userService.members$;
   isLoading = false;
   incompleteOnly = false;
-  selectedMember: User | undefined = undefined;
+  selectedMember$ = this.userService.selectedMember$;
   todosForMember: Todo[] = [];
   errorMessage = '';
 
@@ -26,6 +32,7 @@ export class TodoComponent {
   }
 
   onSelected(ele:EventTarget | null) {
+    this.userService.setSelectedId(Number((ele as HTMLSelectElement).value));
   }
 
   onChangeStatus(task: Todo, ele: EventTarget | null) {
