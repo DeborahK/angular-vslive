@@ -54,6 +54,8 @@ export class TodoService {
       filter(Boolean),
       // Set the loading indicator
       tap(() => this.setLoadingIndicator(true)),
+      // Set the current member
+      tap(id => this.setCurrentMember(id)),
       // Get the related todos
       switchMap(id => this.getTodos(id)),
       // To better see the loading message
@@ -94,7 +96,7 @@ export class TodoService {
     }))
   }
 
-  getToDosForMember(memberId: number) {
+  getTodosForMember(memberId: number) {
     this.selectedIdSubject.next(memberId);
   }
 
@@ -106,11 +108,10 @@ export class TodoService {
   }
 
   private setCurrentMember(id: number) {
-    const member = this.userService.getCurrentMember(id);
     this.state.update(state => ({
       ...state,
-      currentMember: member,
-      memberToDos: []
+      currentMember: this.userService.getCurrentMember(id),
+      memberTodos: []
     }));
   }
 

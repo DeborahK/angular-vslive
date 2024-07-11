@@ -1,7 +1,9 @@
 <div class="container">
+  @let member = selectedMember();
+
   <h1>{{pageTitle}}
-    @if (selectedMember(); as currentMember) {
-    for: {{ currentMember.name}}
+    @if (member) {
+    for: {{ member.name}}
     }
   </h1>
 
@@ -26,12 +28,13 @@
     <div class='indicator'>Loading ...</div>
   }
 
-  @if (todosForMember()) {
+  @let todos = todosForMember();
+  @if (todos.length>0) {
     <div class='grid'>
       <div class='cellHeader'>Task</div>
       <div class='cellHeader'>Completed?</div>
 
-      @for(t of todosForMember(); track t.id) {
+      @for(t of todos; track t.id) {
         <div class='row' [ngClass]='{stripe: $even}'>
           <div class='cell'>{{ t.title}}</div>
           <div class='cellCheck'>
@@ -40,7 +43,7 @@
           </div>
         </div>
       } @empty {
-        @if(selectedMember()) {
+        @if(member) {
           @if(incompleteOnly()) {
             <div>No incomplete todos</div>
           } @else {
@@ -51,7 +54,8 @@
     </div>
   }
 
-  @if (errorMessage()) {
-    <div>Error: {{ errorMessage() }}</div>
+  @let message = errorMessage();
+  @if (message) {
+    <div>Error: {{ message }}</div>
   }
 </div>

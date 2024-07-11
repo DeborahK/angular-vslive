@@ -33,7 +33,7 @@ export class TodoComponent {
 
   onSelected(ele:EventTarget | null) {
     //this.userService.setCurrentMember(Number((ele as HTMLSelectElement).value));
-    this.todoService.getToDosForMember(Number((ele as HTMLSelectElement).value));
+    this.todoService.getTodosForMember(Number((ele as HTMLSelectElement).value));
   }
 
   onChangeStatus(task: Todo, ele: EventTarget | null) {
