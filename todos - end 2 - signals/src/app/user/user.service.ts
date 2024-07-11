@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { computed, inject, Injectable, signal } from '@angular/core';
 import { User } from './user';
 import { combineLatest, map, Subject } from 'rxjs';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Injectable({
   providedIn: 'root'
@@ -11,24 +12,14 @@ export class UserService {
   private http = inject(HttpClient);
 
   // Retrieve team members
-  members$ = this.http.get<User[]>(this.userUrl);
+  members = toSignal(this.http.get<User[]>(this.userUrl), {initialValue: []});
 
   // Get notified when a member is selected
-  private idSelectedSubject = new Subject<number>();
-  selectedMemberId$ = this.idSelectedSubject.asObservable();
-
-  // Find the selected member in the retrieved array of members
-  // Caches last value from each observable
-  selectedMember$ = combineLatest([
-    this.members$,
-    this.selectedMemberId$
-  ]).pipe(
-    map(([members, memberId]) =>
-      members.find(m => m.id === memberId)
-    )
-  );
+  selectedMemberId = signal<number | undefined>(undefined);
+  selectedMember = computed(() => 
+    this.members().find(m => m.id === this.selectedMemberId()));
 
   setSelectedId(id: number) {
-    this.idSelectedSubject.next(id);
+    this.selectedMemberId.set(id);
   }
 }

@@ -1,7 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { AsyncPipe, NgClass } from '@angular/common';
 import { Todo } from './todo';
-import { User } from '../user/user';
 import { UserService } from '../user/user.service';
 import { TodoService } from './todo.service';
 
@@ -20,10 +19,10 @@ export class TodoComponent {
   todoService = inject(TodoService);
   
   // State
-  members$ = this.userService.members$;
+  members = this.userService.members;
   isLoading = false;
   incompleteOnly = false;
-  selectedMember$ = this.userService.selectedMember$;
+  selectedMember = this.userService.selectedMember;
   todosForMember: Todo[] = [];
   errorMessage = '';
 

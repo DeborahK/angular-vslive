@@ -1,6 +1,7 @@
-# RxJS
 ### Notes
 Use Ctrl+K V to preview the markdown
+
+# RxJS
 
 ## Retrieve members
 
@@ -71,4 +72,51 @@ Use Ctrl+K V to preview the markdown
 ### 9 - Review: user.service.ts
 
 # signals
+
+## Expose signals from service
+
+### 1 - member signal: user.service.ts [4] + [14]
+  `import { toSignal } from '@angular/core/rxjs-interop';`
+
+  `members = toSignal(this.http.get<User[]>(this.userUrl), {initialValue: []});`
+
+### 2 - selectedMemberId signal: user.service.ts [2] + [18]
+  `import { inject, Injectable, signal } from '@angular/core';`
+
+  `selectedMemberId = signal<number | undefined>(undefined);`
+
+### 3 - React when member is selected: user.service.ts [19]
+  ```
+  selectedMember = computed(() => 
+    this.members().find(m => m.id === this.selectedMemberId()));
+  ```
+
+### 4 - No longer need combineLatest: user.service.ts [DELETE 21-30]
+
+### 5 - Set the id into the signal: user.service.ts [22]
+  ```
+  setSelectedId(id: number) {
+    this.selectedMemberId.set(id);
+  }
+  ```
+
+## Reference signals from service
+
+### 1 - member: todo.component.ts [22]
+`members = this.userService.members;`
+
+### 2 - selectedMember: todo.component.ts [25]
+`selectedMember = this.userService.selectedMember;`
+
+## Read signals in template
+
+### 1 - selectedMember: todo.component.html [4]
+`@let member = selectedMember();`
+
+### 2 - members: todo.component.html [16]
+`@for(member of members(); track member.id) {`
+
+### 3 - Demo: Selected member's name is displayed (again)!
+
+### 4 - Review: user.service.ts
 
