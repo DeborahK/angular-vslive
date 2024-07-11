@@ -20,18 +20,18 @@ export class TodoComponent {
   
   // State
   members = this.userService.members;
-  isLoading = false;
-  incompleteOnly = false;
-  selectedMember = this.userService.selectedMember;
-  todosForMember: Todo[] = [];
+  selectedMember = this.todoService.currentMember;
+  todosForMember = this.todoService.filteredTodos;
   errorMessage = '';
+  incompleteOnly = this.todoService.incompleteOnly;
 
   // Actions
   onFilter(ele:EventTarget | null) {
+    this.todoService.setIncompleteOnly((ele as HTMLInputElement).checked)
   }
 
   onSelected(ele:EventTarget | null) {
-    this.userService.setSelectedId(Number((ele as HTMLSelectElement).value));
+    this.todoService.setSelectedId(Number((ele as HTMLSelectElement).value));
   }
 
   onChangeStatus(task: Todo, ele: EventTarget | null) {

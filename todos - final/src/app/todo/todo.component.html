@@ -26,17 +26,13 @@
     </div>
   </div>
 
-  @if (isLoading) {
-    <div class='indicator'>Loading ...</div>
-  }
-
   @let todos = todosForMember;
   @if (todos) {
     <div class='grid'>
       <div class='cellHeader'>Task</div>
       <div class='cellHeader'>Completed?</div>
 
-      @for(t of todos; track t.id) {
+      @for(t of todos(); track t.id) {
         <div class='row' [ngClass]='{stripe: $even}'>
           <div class='cell'>{{ t.title}}</div>
           <div class='cellCheck'>
@@ -45,8 +41,8 @@
           </div>
         </div>
       } @empty {
-        @if(member && !isLoading) {
-          @if(incompleteOnly) {
+        @if(member) {
+          @if(incompleteOnly()) {
             <div>No incomplete todos</div>
           } @else {
             <div>No todos found</div>

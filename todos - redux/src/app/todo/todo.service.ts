@@ -1,5 +1,5 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { computed, effect, inject, Injectable, signal } from '@angular/core';
+import { computed, inject, Injectable, signal } from '@angular/core';
 import { UserService } from '../user/user.service';
 import { Todo, TodoState } from './todo';
 import { catchError, delay, filter, map, Observable, of, Subject, switchMap, tap } from 'rxjs';
@@ -43,11 +43,6 @@ export class TodoService {
   // Use a subject to react to changes that need an async operation
   private selectedIdSubject = new Subject<number | undefined>();
 
-  // eff = effect(() =>
-  //   this.selectedIdSubject.next(this.userService.selectedMember()?.id),
-  //   { allowSignalWrites: true }
-  // );
-
   constructor() {
 
     this.selectedIdSubject.pipe(
@@ -82,6 +77,7 @@ export class TodoService {
     )
   }
 
+  // Based on user action
   changeStatus(task: Todo, status: boolean) {
     // Mark the task as completed
     const updatedTasks = this.todos().map(t =>
@@ -92,6 +88,7 @@ export class TodoService {
     }));
   }
 
+  // Based on user action
   changeFilter(filter: boolean) {
     this.state.update(state => ({
       ...state,
@@ -99,6 +96,7 @@ export class TodoService {
     }))
   }
 
+  // Based on user action
   getTodosForMember(memberId: number) {
     this.selectedIdSubject.next(memberId);
   }

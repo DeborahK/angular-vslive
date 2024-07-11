@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { computed, inject, Injectable, signal } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { User } from './user';
-import { combineLatest, map, Subject } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
 
 @Injectable({
