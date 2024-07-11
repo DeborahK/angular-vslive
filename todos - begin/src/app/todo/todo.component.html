@@ -1,10 +1,21 @@
+<!-- v17 - New template syntax (control flow) -->
+<!-- v18.1 - New @let declaration -->
 <div class="container">
-  <h1>{{pageTitle}}</h1>
+  @let member = selectedMember;
+
+  <h1>{{pageTitle}}
+    @if (member) {
+      for: {{ member.name}}
+    }
+  </h1>
 
   <div class="grid">
     <div class="row">
       <select class="select" (change)="onSelected($event.target)">
         <option value="" disabled selected>--Select a team member--</option>
+        @for(member of members; track member.id) {
+          <option [value]='member.id'>{{ member.name }}</option>
+        }
       </select>
     </div>
     <div class="row">
@@ -19,12 +30,13 @@
     <div class='indicator'>Loading ...</div>
   }
 
-  @if (todosForMember) {
+  @let todos = todosForMember;
+  @if (todos.length>0) {
     <div class='grid'>
       <div class='cellHeader'>Task</div>
       <div class='cellHeader'>Completed?</div>
 
-      @for(t of todosForMember; track t.id) {
+      @for(t of todos; track t.id) {
         <div class='row' [ngClass]='{stripe: $even}'>
           <div class='cell'>{{ t.title}}</div>
           <div class='cellCheck'>
@@ -33,7 +45,7 @@
           </div>
         </div>
       } @empty {
-        @if(selectedMember) {
+        @if(member) {
           @if(incompleteOnly) {
             <div>No incomplete todos</div>
           } @else {
@@ -44,4 +56,8 @@
     </div>
   }
 
+  @let message = errorMessage;
+  @if (message) {
+    <div>Error: {{ message }}</div>
+  }
 </div>

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AsyncPipe, NgClass } from '@angular/common';
 import { Todo } from './todo';
+import { User } from '../user/user';
 
 @Component({
   selector: 'app-todo',
@@ -13,10 +14,12 @@ export class TodoComponent {
   pageTitle = 'Todo List';
 
   // State
+  members: User[] = [];
   isLoading = false;
   incompleteOnly = false;
-  selectedMember = undefined;
+  selectedMember: User | undefined = undefined;
   todosForMember: Todo[] = [];
+  errorMessage = '';
 
   // Actions
   onFilter(ele:EventTarget | null) {
