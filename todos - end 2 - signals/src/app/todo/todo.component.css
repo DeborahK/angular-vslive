@@ -1,0 +1,58 @@
+h2 {
+  color: firebrick;
+}
+
+.container {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  padding: 10px;
+}
+
+.select {
+  font-size: 18px;
+  width: 90%
+}
+
+input[type=checkbox] {
+  transform: scale(1.5);
+}
+
+.indicator {
+  font-size: 18px;
+  color: cornflowerblue;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  width: 100%;
+  margin: 0 0 auto;
+  font-size: 18px;
+}
+
+.cellHeader {
+  padding: 5px;
+  text-align: left;
+  color: firebrick;
+  font-weight: bold;
+}
+
+.row {
+  display: contents;
+}
+/* .row > div {
+  padding: 3px;
+  text-align: left;
+} */
+.row.stripe > div {
+  background-color: blanchedalmond;
+}
+
+.cell {
+  padding: 3px;
+  text-align: left;
+}
+
+.cellCheck {
+  padding: 3px 3px 3px 40px;
+  text-align: left;
+}
