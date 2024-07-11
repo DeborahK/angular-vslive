@@ -14,12 +14,7 @@ export class UserService {
   // Retrieve team members
   members = toSignal(this.http.get<User[]>(this.userUrl), {initialValue: []});
 
-  // Get notified when a member is selected
-  selectedMemberId = signal<number | undefined>(undefined);
-  selectedMember = computed(() => 
-    this.members().find(m => m.id === this.selectedMemberId()));
-
-  setSelectedId(id: number) {
-    this.selectedMemberId.set(id);
+  getCurrentMember(id: number): User | undefined {
+    return this.members().find(m => m.id === id);
   }
 }
