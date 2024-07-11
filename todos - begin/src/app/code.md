@@ -120,3 +120,11 @@ Use Ctrl+K V to preview the markdown
 
 ### 4 - Review: user.service.ts
 
+# redux
+
+## Define state
+
+### 1 - Declare an interface: todo.ts [8]
+Done
+
+### 2 - 
