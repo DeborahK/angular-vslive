@@ -21,10 +21,10 @@ export class TodoComponent {
 
   // State
   members: User[] = [];
-  incompleteOnly = false;
   selectedMember: User | undefined = undefined;
   todosForMember: Todo[] = [];
   errorMessage = '';
+  incompleteOnly = false;
 
   // Actions
   onFilter(ele: EventTarget | null) {

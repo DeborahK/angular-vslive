@@ -20,8 +20,11 @@ Use Ctrl+K V to preview the markdown
 ### 4 - Demo: Select box is populated!
 
 ## React when member is selected
+(1) Get notified when the user selects a team member.
 
-### 1 - Get notified when a member is selected: user.service.ts [4] + [16]
+(2) Find the team member in the list of users.
+
+### 1 - Get notified when a member is selected: user.service.ts [4] + [15]
   `import { Subject } from 'rxjs';`
 
   ```  
@@ -37,7 +40,15 @@ Use Ctrl+K V to preview the markdown
   }
   ```
 
-### 3 - React to the emission: user.service.ts []
+### 3 - Component method that calls the service: todo.component.ts [33]
+  ```
+  onSelected(ele:EventTarget | null) {
+    const id = Number((ele as HTMLSelectElement).value);
+    this.userService.setSelectedId(id);
+  }
+  ```
+
+### 4 - React to the emission: user.service.ts [19]
   ```
   // Find the selected member in the retrieved array of members
   // Caches last value from each observable
@@ -51,15 +62,7 @@ Use Ctrl+K V to preview the markdown
   );
   ```
 
-### 4 - Component method that calls the service: todo.component.ts [35]
-  ```
-  onSelected(ele:EventTarget | null) {
-    const id = Number((ele as HTMLSelectElement).value);
-    this.userService.setSelectedId(id);
-  }
-  ```
-
-### 5 - Reference in the component: todo.component.ts [26]
+### 5 - Reference in the component: todo.component.ts [25]
   `selectedMember$ = this.userService.selectedMember$;`
 
 ### 6 - Use async pipe in template [4]
@@ -76,20 +79,22 @@ Use Ctrl+K V to preview the markdown
 
 ## Expose signals from service
 
-### 1 - member signal: user.service.ts [4] + [14]
+### 1 - member signal: user.service.ts [5] + [14]
   `import { toSignal } from '@angular/core/rxjs-interop';`
 
   `members = toSignal(this.http.get<User[]>(this.userUrl), {initialValue: []});`
 
-### 2 - selectedMemberId signal: user.service.ts [2] + [18]
+### 2 - selectedMemberId signal: user.service.ts [2] + [16]
+  Delete the subject
+
   `import { inject, Injectable, signal } from '@angular/core';`
 
-  `currentMemberId = signal<number | undefined>(undefined);`
+  `selectedMemberId = signal<number | undefined>(undefined);`
 
-### 3 - React when member is selected: user.service.ts [19]
+### 3 - React when member is selected: user.service.ts [18]
   ```
-  currentMember = computed(() => {
-    const id = this.currentMemberId();
+  selectedMember = computed(() => {
+    const id = this.selectedMemberId();
     if (id) {
       return this.members().find(m => m.id === id)
     } else {
@@ -98,9 +103,9 @@ Use Ctrl+K V to preview the markdown
   });
   ```
 
-### 4 - No longer need combineLatest: user.service.ts [DELETE 21-30]
+### 4 - No longer need combineLatest: user.service.ts [DELETE 27-33]
 
-### 5 - Set the id into the signal: user.service.ts [22]
+### 5 - Set the id into the signal: user.service.ts [27]
   ```
   setSelectedId(id: number) {
     this.currentMemberId.set(id);
@@ -109,7 +114,7 @@ Use Ctrl+K V to preview the markdown
 
 ## Reference signals from service
 
-### 1 - member: todo.component.ts [22]
+### 1 - member: todo.component.ts [23]
 `members = this.userService.members;`
 
 ### 2 - selectedMember: todo.component.ts [25]
@@ -131,26 +136,34 @@ Use Ctrl+K V to preview the markdown
 
 ## Display ToDos
 
-### 1 - Call http get: todo.service.ts [61]
+### 1 - Create a signal for todos: todo.service.ts [15]
+  `  todos = signal<Todo[]>([]);`
+
+### 2 - Call http get: todo.service.ts [17]
+NOTE: Parameterized query!
+
+Why not use toSignal?
+
   ```
-  // Why not use toSignal?
-  this.http.get<Todo[]>(`${this.todoUrl}?userId=${id}`).pipe(
-    // Cut the length of the long strings
-    map(data => data.map(t =>
-      t.title.length > 20 ? ({ ...t, title: t.title.substring(0, 20) }) : t
-    ))
-  )
+  setSelectedId(id: number) {
+    this.http.get<Todo[]>(`${this.todoUrl}?userId=${id}`).pipe(
+      // Cut the length of the long strings
+      map(data => data.map(t =>
+        t.title.length > 20 ? ({ ...t, title: t.title.substring(0, 20) }) : t
+      ))
+    )
+  }
   ```
 
-### 2 - Subscribe: todo.service.ts [72]
+### 3 - Subscribe: todo.service.ts [72]
   `.subscribe(todos => this.todos.set(todos));`
 
-### 3 - Unsubscribe: todo.service.ts [18] + [67]
+### 4 - Unsubscribe: todo.service.ts [12] + [25]
   ` private destroyRef = inject(DestroyRef);`
 
   `takeUntilDestroyed(this.destroyRef),`
 
-### 4 - Error handling: todo.service.ts [22] + [68]
+### 5 - Error handling: todo.service.ts [18] + [27]
   Create a signal for the error message
   ```
   errorMessage = signal('');
@@ -164,24 +177,34 @@ Use Ctrl+K V to preview the markdown
   })
   ```
 
-### 5 - Reference signals from service: todo.component.ts [24]
+### 6 - Reference signals from service: todo.component.ts [26]
 ```
-  todosForMember = this.todoService.filteredTodos;
+  todosForMember = this.todoService.todos;
   errorMessage = this.todoService.errorMessage;
 ```
 
-### 6 - Read signals in template: todo.component.html [29] + [55]
+### 7 - Call the service method: todo.component.ts [36]
+  ```
+  onSelected(ele: EventTarget | null) {
+    const id = Number((ele as HTMLSelectElement).value);
+    this.userService.setSelectedId(id);
+    this.todoService.setSelectedId(id);
+  }
+  ```
+
+### 8 - Read signals in template: todo.component.html [35] + [55]
   `@let todos = todosForMember();`
 
   `@let message = errorMessage();`
 
-### 7 - Demo: Selected member's todos appear!
+### 9 - Demo: Selected member's todos appear!
 
-### 8 - Review: todo.service.ts
+### 10 - Review: todo.service.ts
 
 ## Filter to only incomplete tasks
+Look at the template and component first
 
-### 1 - Define signals: todo.service.ts [34]
+### 1 - Define signals: todo.service.ts [20]
   ```
   incompleteOnly = signal(false);
   filteredTodos = computed(() => {
@@ -193,8 +216,9 @@ Use Ctrl+K V to preview the markdown
     }
   });
   ```
+Set todos to private!
 
-### 2 - Define a method to set the filter: todo.service.ts [53]
+### 2 - Define a method to set the filter: todo.service.ts [43]
   ```
   // Based on user action
   setIncompleteOnly(filter: boolean) {
@@ -202,14 +226,19 @@ Use Ctrl+K V to preview the markdown
   }
   ```
 
-### 3 - Reference signals from service: todo.component.ts [24]
+### 3 - Reference signals from service: todo.component.ts [26]
   ```
   todosForMember = this.todoService.filteredTodos;
+  errorMessage = this.todoService.errorMessage;
   incompleteOnly = this.todoService.incompleteOnly;
   ```
 
 ### 4 - Call the service method: todo.component.ts [30]
-  `this.todoService.setSelectedId(Number((ele as HTMLSelectElement).value));`
+  ```
+  onFilter(ele: EventTarget | null) {
+    this.todoService.setIncompleteOnly((ele as HTMLInputElement).checked)
+  }
+  ```
 
 ### 5 - Read signals in template: todo.component.html [45]
   `@if(incompleteOnly()) {`
@@ -219,8 +248,9 @@ Use Ctrl+K V to preview the markdown
 ### 7 - Review: todo.service.ts
 
 ## Update todo status
+Look at the template and component first
 
-### 1 - Define a method to update the signal: todo.service.ts [44]
+### 1 - Define a method to update the signal: todo.service.ts [47]
   ```
   // Based on user action
   changeStatus(task: Todo, status: boolean) {
@@ -228,6 +258,9 @@ Use Ctrl+K V to preview the markdown
     task.completed = status;
   }
   ```
+  Need to update the signal in an immutable way!
+
+  Spread the object.
   ```
     // Mark the task as completed
     const updatedTasks = this.todos().map(t =>
