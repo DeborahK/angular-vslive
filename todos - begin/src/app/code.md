@@ -161,7 +161,7 @@ Why not use toSignal?
 ### 3 - Subscribe: todo.service.ts [72]
   `.subscribe(todos => this.todos.set(todos));`
 
-### 4 - Unsubscribe: todo.service.ts [12] + [25]
+### 4 - Unsubscribe: todo.service.ts [16] + [25]
   ` private destroyRef = inject(DestroyRef);`
 
   `takeUntilDestroyed(this.destroyRef),`
@@ -195,7 +195,7 @@ Why not use toSignal?
   }
   ```
 
-### 8 - Read signals in template: todo.component.html [35] + [55]
+### 8 - Read signals in template: todo.component.html [29] + [55]
   `@let todos = todosForMember();`
 
   `@let message = errorMessage();`
@@ -213,8 +213,7 @@ Look at the template and component first
   filteredTodos = computed(() => {
     if (this.incompleteOnly()) {
       return this.todos().filter(t => t.completed === false);
-    }
-    else {
+    } else {
       return this.todos();
     }
   });

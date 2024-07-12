@@ -18,37 +18,17 @@ export class TodoService {
   // Signals
   private todos = signal<Todo[]>([]);
   errorMessage = signal('');
-
   incompleteOnly = signal(false);
   filteredTodos = computed(() => {
     if (this.incompleteOnly()) {
       return this.todos().filter(t => t.completed === false);
-    }
-    else {
+    } else {
       return this.todos();
     }
   });
 
   // Based on user action
-  changeStatus(task: Todo, status: boolean) {
-    // Why doesn't this work?
-    task.completed = status;
-    // Mark the task as completed
-    const updatedTasks = this.todos().map(t =>
-      t.id === task.id ? { ...t, completed: status } : t);
-    // Set the signal
-    this.todos.set(updatedTasks);
-  }
-
-  // Based on user action
-  setIncompleteOnly(filter: boolean) {
-    this.incompleteOnly.set(filter);
-  }
-
-  // Based on user action
   setSelectedId(id: number) {
-
-    // Why not use toSignal?
     this.http.get<Todo[]>(`${this.todoUrl}?userId=${id}`).pipe(
       // Cut the length of the long strings
       map(data => data.map(t =>
@@ -61,4 +41,19 @@ export class TodoService {
       })
     ).subscribe(todos => this.todos.set(todos));
   }
+
+  // Based on user action
+  setIncompleteOnly(filter: boolean) {
+    this.incompleteOnly.set(filter);
+  }
+
+  // Based on user action
+  changeStatus(task: Todo, status: boolean) {
+    // Mark the task as completed
+    const updatedTasks = this.todos().map(t =>
+      t.id === task.id ? { ...t, completed: status } : t);
+    // Set the signal
+    this.todos.set(updatedTasks);
+  }
+
 }

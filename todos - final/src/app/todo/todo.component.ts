@@ -17,13 +17,13 @@ export class TodoComponent {
   // Services
   userService = inject(UserService);
   todoService = inject(TodoService);
-  
+
   // State
   members = this.userService.members;
-  incompleteOnly = this.todoService.incompleteOnly;
   selectedMember = this.userService.selectedMember;
   todosForMember = this.todoService.filteredTodos;
   errorMessage = this.todoService.errorMessage;
+  incompleteOnly = this.todoService.incompleteOnly;
 
   // Actions
   onFilter(ele: EventTarget | null) {
