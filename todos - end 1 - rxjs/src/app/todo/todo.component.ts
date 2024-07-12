@@ -21,7 +21,6 @@ export class TodoComponent {
   
   // State
   members$ = this.userService.members$;
-  isLoading = false;
   incompleteOnly = false;
   selectedMember$ = this.userService.selectedMember$;
   todosForMember: Todo[] = [];

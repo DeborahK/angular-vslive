@@ -26,10 +26,6 @@
     </div>
   </div>
 
-  @if (isLoading) {
-    <div class='indicator'>Loading ...</div>
-  }
-
   @let todos = todosForMember;
   @if (todos) {
     <div class='grid'>
@@ -45,7 +41,7 @@
           </div>
         </div>
       } @empty {
-        @if(member && !isLoading) {
+        @if(member) {
           @if(incompleteOnly) {
             <div>No incomplete todos</div>
           } @else {

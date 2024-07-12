@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { User } from './user';
-import { combineLatest, map, Subject } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
 
 @Injectable({
@@ -16,8 +15,14 @@ export class UserService {
 
   // Get notified when a member is selected
   selectedMemberId = signal<number | undefined>(undefined);
-  selectedMember = computed(() => 
-    this.members().find(m => m.id === this.selectedMemberId()));
+  selectedMember = computed(() => {
+    const id = this.selectedMemberId();
+    if (id) {
+      return this.members().find(m => m.id === id)
+    } else {
+      return undefined;
+    }
+  });
 
   setSelectedId(id: number) {
     this.selectedMemberId.set(id);

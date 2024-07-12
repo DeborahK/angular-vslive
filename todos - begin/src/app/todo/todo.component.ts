@@ -21,7 +21,6 @@ export class TodoComponent {
 
   // State
   members: User[] = [];
-  isLoading = false;
   incompleteOnly = false;
   selectedMember: User | undefined = undefined;
   todosForMember: Todo[] = [];

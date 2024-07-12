@@ -1,6 +1,5 @@
 import { HttpClient } from "@angular/common/http";
 import { computed, DestroyRef, inject, Injectable, signal } from "@angular/core";
-import { UserService } from "../user/user.service";
 import { Todo } from "./todo";
 import { catchError, map, of, tap } from "rxjs";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
@@ -14,22 +13,11 @@ export class TodoService {
 
   // Services
   private http = inject(HttpClient);
-  private userService = inject(UserService);
   private destroyRef = inject(DestroyRef);
 
   // Signals
   private todos = signal<Todo[]>([]);
   errorMessage = signal('');
-
-  currentMemberId = signal<number | undefined>(undefined);
-  currentMember = computed(() => {
-    const id = this.currentMemberId();
-    if (id) {
-      return this.userService.getCurrentMember(id);
-    } else {
-      return undefined;
-    }
-  });
 
   incompleteOnly = signal(false);
   filteredTodos = computed(() => {
@@ -59,7 +47,6 @@ export class TodoService {
 
   // Based on user action
   setSelectedId(id: number) {
-    this.currentMemberId.set(id);
 
     // Why not use toSignal?
     this.http.get<Todo[]>(`${this.todoUrl}?userId=${id}`).pipe(

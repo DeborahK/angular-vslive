@@ -54,7 +54,8 @@ Use Ctrl+K V to preview the markdown
 ### 4 - Component method that calls the service: todo.component.ts [35]
   ```
   onSelected(ele:EventTarget | null) {
-    this.userService.setSelectedId(Number((ele as HTMLSelectElement).value));
+    const id = Number((ele as HTMLSelectElement).value);
+    this.userService.setSelectedId(id);
   }
   ```
 
@@ -83,12 +84,18 @@ Use Ctrl+K V to preview the markdown
 ### 2 - selectedMemberId signal: user.service.ts [2] + [18]
   `import { inject, Injectable, signal } from '@angular/core';`
 
-  `selectedMemberId = signal<number | undefined>(undefined);`
+  `currentMemberId = signal<number | undefined>(undefined);`
 
 ### 3 - React when member is selected: user.service.ts [19]
   ```
-  selectedMember = computed(() => 
-    this.members().find(m => m.id === this.selectedMemberId()));
+  currentMember = computed(() => {
+    const id = this.currentMemberId();
+    if (id) {
+      return this.members().find(m => m.id === id)
+    } else {
+      return undefined;
+    }
+  });
   ```
 
 ### 4 - No longer need combineLatest: user.service.ts [DELETE 21-30]
@@ -96,7 +103,7 @@ Use Ctrl+K V to preview the markdown
 ### 5 - Set the id into the signal: user.service.ts [22]
   ```
   setSelectedId(id: number) {
-    this.selectedMemberId.set(id);
+    this.currentMemberId.set(id);
   }
   ```
 
@@ -106,7 +113,7 @@ Use Ctrl+K V to preview the markdown
 `members = this.userService.members;`
 
 ### 2 - selectedMember: todo.component.ts [25]
-`selectedMember = this.userService.selectedMember;`
+`selectedMember = this.userService.currentMember;`
 
 ## Read signals in template
 
@@ -201,12 +208,15 @@ Use Ctrl+K V to preview the markdown
   incompleteOnly = this.todoService.incompleteOnly;
   ```
 
-### 4 - Read signals in template: todo.component.html [30]
+### 4 - Call the service method: todo.component.ts [30]
   `this.todoService.setSelectedId(Number((ele as HTMLSelectElement).value));`
 
-### 5 - Demo: Todos are filtered!
+### 5 - Read signals in template: todo.component.html [45]
+  `@if(incompleteOnly()) {`
 
-### 6 - Review: todo.service.ts
+### 6 - Demo: Todos are filtered!
+
+### 7 - Review: todo.service.ts
 
 ## Update todo status
 
@@ -228,4 +238,8 @@ Use Ctrl+K V to preview the markdown
 
 ### 2 - Call the method from the component: todo.component.ts [37]
   `this.todoService.changeStatus(task, (ele as HTMLInputElement).checked);`
+
+### 3 - Demo: Status is changed (but only temporarily)!
+
+### 4 - Review: todo.service.ts
 

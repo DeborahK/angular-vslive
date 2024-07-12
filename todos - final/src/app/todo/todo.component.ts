@@ -7,7 +7,7 @@ import { TodoService } from './todo.service';
 @Component({
   selector: 'app-todo',
   standalone: true,
-  imports: [ AsyncPipe, NgClass ],
+  imports: [AsyncPipe, NgClass],
   templateUrl: './todo.component.html',
   styleUrl: './todo.component.css'
 })
@@ -20,22 +20,24 @@ export class TodoComponent {
   
   // State
   members = this.userService.members;
-  selectedMember = this.todoService.currentMember;
+  incompleteOnly = this.todoService.incompleteOnly;
+  selectedMember = this.userService.selectedMember;
   todosForMember = this.todoService.filteredTodos;
   errorMessage = this.todoService.errorMessage;
-  incompleteOnly = this.todoService.incompleteOnly;
 
   // Actions
-  onFilter(ele:EventTarget | null) {
+  onFilter(ele: EventTarget | null) {
     this.todoService.setIncompleteOnly((ele as HTMLInputElement).checked)
   }
 
-  onSelected(ele:EventTarget | null) {
-    this.todoService.setSelectedId(Number((ele as HTMLSelectElement).value));
+  onSelected(ele: EventTarget | null) {
+    const id = Number((ele as HTMLSelectElement).value);
+    this.userService.setSelectedId(id);
+    this.todoService.setSelectedId(id);
   }
 
   onChangeStatus(task: Todo, ele: EventTarget | null) {
     this.todoService.changeStatus(task, (ele as HTMLInputElement).checked);
   }
-  
+
 }
