@@ -1,4 +1,3 @@
-### Notes
 Use Ctrl+K V to preview the markdown
 
 # RxJS
@@ -75,6 +74,8 @@ Use Ctrl+K V to preview the markdown
 
 ### 9 - Review: user.service.ts
 
+<div style="page-break-after: always;"></div>
+
 # signals
 
 ## Expose signals from service
@@ -131,6 +132,8 @@ Use Ctrl+K V to preview the markdown
 ### 3 - Demo: Selected member's name is displayed (again)!
 
 ### 4 - Review: user.service.ts
+
+<div style="page-break-after: always;"></div>
 
 # RxJS + Signals
 
