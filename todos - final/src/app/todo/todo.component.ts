@@ -22,7 +22,7 @@ export class TodoComponent {
   members = this.userService.members;
   selectedMember = this.todoService.currentMember;
   todosForMember = this.todoService.filteredTodos;
-  errorMessage = '';
+  errorMessage = this.todoService.errorMessage;
   incompleteOnly = this.todoService.incompleteOnly;
 
   // Actions
@@ -35,6 +35,7 @@ export class TodoComponent {
   }
 
   onChangeStatus(task: Todo, ele: EventTarget | null) {
+    this.todoService.changeStatus(task, (ele as HTMLInputElement).checked);
   }
   
 }

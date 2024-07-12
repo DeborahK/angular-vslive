@@ -119,3 +119,113 @@ Use Ctrl+K V to preview the markdown
 ### 3 - Demo: Selected member's name is displayed (again)!
 
 ### 4 - Review: user.service.ts
+
+# RxJS + Signals
+
+## Display ToDos
+
+### 1 - Call http get: todo.service.ts [61]
+  ```
+  // Why not use toSignal?
+  this.http.get<Todo[]>(`${this.todoUrl}?userId=${id}`).pipe(
+    // Cut the length of the long strings
+    map(data => data.map(t =>
+      t.title.length > 20 ? ({ ...t, title: t.title.substring(0, 20) }) : t
+    ))
+  )
+  ```
+
+### 2 - Subscribe: todo.service.ts [72]
+  `.subscribe(todos => this.todos.set(todos));`
+
+### 3 - Unsubscribe: todo.service.ts [18] + [67]
+  ` private destroyRef = inject(DestroyRef);`
+
+  `takeUntilDestroyed(this.destroyRef),`
+
+### 4 - Error handling: todo.service.ts [22] + [68]
+  Create a signal for the error message
+  ```
+  errorMessage = signal('');
+  ```
+
+  Add catchError
+  ```
+  catchError(err => {
+    this.errorMessage.set(setErrorMessage(err));
+    return of([]);
+  })
+  ```
+
+### 5 - Reference signals from service: todo.component.ts [24]
+```
+  todosForMember = this.todoService.filteredTodos;
+  errorMessage = this.todoService.errorMessage;
+```
+
+### 6 - Read signals in template: todo.component.html [29] + [55]
+  `@let todos = todosForMember();`
+
+  `@let message = errorMessage();`
+
+### 7 - Demo: Selected member's todos appear!
+
+### 8 - Review: todo.service.ts
+
+## Filter to only incomplete tasks
+
+### 1 - Define signals: todo.service.ts [34]
+  ```
+  incompleteOnly = signal(false);
+  filteredTodos = computed(() => {
+    if (this.incompleteOnly()) {
+      return this.todos().filter(t => t.completed === false);
+    }
+    else {
+      return this.todos();
+    }
+  });
+  ```
+
+### 2 - Define a method to set the filter: todo.service.ts [53]
+  ```
+  // Based on user action
+  setIncompleteOnly(filter: boolean) {
+    this.incompleteOnly.set(filter);
+  }
+  ```
+
+### 3 - Reference signals from service: todo.component.ts [24]
+  ```
+  todosForMember = this.todoService.filteredTodos;
+  incompleteOnly = this.todoService.incompleteOnly;
+  ```
+
+### 4 - Read signals in template: todo.component.html [30]
+  `this.todoService.setSelectedId(Number((ele as HTMLSelectElement).value));`
+
+### 5 - Demo: Todos are filtered!
+
+### 6 - Review: todo.service.ts
+
+## Update todo status
+
+### 1 - Define a method to update the signal: todo.service.ts [44]
+  ```
+  // Based on user action
+  changeStatus(task: Todo, status: boolean) {
+    // Why doesn't this work?
+    task.completed = status;
+  }
+  ```
+  ```
+    // Mark the task as completed
+    const updatedTasks = this.todos().map(t =>
+      t.id === task.id ? { ...t, completed: status } : t);
+    // Set the signal
+    this.todos.set(updatedTasks);
+  ```
+
+### 2 - Call the method from the component: todo.component.ts [37]
+  `this.todoService.changeStatus(task, (ele as HTMLInputElement).checked);`
+

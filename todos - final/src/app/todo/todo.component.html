@@ -26,13 +26,13 @@
     </div>
   </div>
 
-  @let todos = todosForMember;
+  @let todos = todosForMember();
   @if (todos) {
     <div class='grid'>
       <div class='cellHeader'>Task</div>
       <div class='cellHeader'>Completed?</div>
 
-      @for(t of todos(); track t.id) {
+      @for(t of todos; track t.id) {
         <div class='row' [ngClass]='{stripe: $even}'>
           <div class='cell'>{{ t.title}}</div>
           <div class='cellCheck'>
@@ -52,7 +52,7 @@
     </div>
   }
 
-  @let message = errorMessage;
+  @let message = errorMessage();
   @if (message) {
     <div>Error: {{ message }}</div>
   }
