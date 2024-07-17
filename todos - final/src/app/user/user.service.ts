@@ -15,6 +15,7 @@ export class UserService {
 
   // Get notified when a member is selected
   selectedMemberId = signal<number | undefined>(undefined);
+
   selectedMember = computed(() => {
     const id = this.selectedMemberId();
     if (id) {

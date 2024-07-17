@@ -18,7 +18,7 @@ export class TodoComponent {
   // Services
   userService = inject(UserService);
   todoService = inject(TodoService);
-  
+
   // State
   members$ = this.userService.members$;
   incompleteOnly = false;

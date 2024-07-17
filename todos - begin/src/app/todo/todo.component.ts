@@ -8,7 +8,7 @@ import { TodoService } from './todo.service';
 @Component({
   selector: 'app-todo',
   standalone: true,
-  imports: [AsyncPipe, NgClass],
+  imports: [ AsyncPipe, NgClass ],
   templateUrl: './todo.component.html',
   styleUrl: './todo.component.css'
 })

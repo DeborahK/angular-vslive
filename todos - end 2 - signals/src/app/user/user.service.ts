@@ -11,14 +11,15 @@ export class UserService {
   private http = inject(HttpClient);
 
   // Retrieve team members
-  members = toSignal(this.http.get<User[]>(this.userUrl), {initialValue: []});
+  members = toSignal(this.http.get<User[]>(this.userUrl), { initialValue: [] });
 
   // Get notified when a member is selected
   selectedMemberId = signal<number | undefined>(undefined);
+
   selectedMember = computed(() => {
     const id = this.selectedMemberId();
     if (id) {
-      return this.members().find(m => m.id === id)
+      return this.members().find(m => m.id === id);
     } else {
       return undefined;
     }

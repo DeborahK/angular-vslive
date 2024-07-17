@@ -27,7 +27,8 @@ export class TodoComponent {
 
   // Actions
   onFilter(ele: EventTarget | null) {
-    this.todoService.setIncompleteOnly((ele as HTMLInputElement).checked)
+    const filter = (ele as HTMLInputElement).checked;
+    this.todoService.setIncompleteOnly(filter);
   }
 
   onSelected(ele: EventTarget | null) {
@@ -37,7 +38,8 @@ export class TodoComponent {
   }
 
   onChangeStatus(task: Todo, ele: EventTarget | null) {
-    this.todoService.changeStatus(task, (ele as HTMLInputElement).checked);
+    const checked = (ele as HTMLInputElement).checked;
+    this.todoService.changeStatus(task, checked);
   }
 
 }

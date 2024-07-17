@@ -1,10 +1,11 @@
 Use Ctrl+K V to preview the markdown
+INCREASE BROWSER FONT!
 
 # RxJS
 
 ## Retrieve members
 
-### 1 - Call http.get: user.service.ts [13]
+### 1 - Call http.get: user.service.ts [12]
   ```
   // Retrieve team members
   members$ = this.http.get<User[]>(this.userUrl);
@@ -23,7 +24,7 @@ Use Ctrl+K V to preview the markdown
 
 (2) Find the team member in the list of users.
 
-### 1 - Get notified when a member is selected: user.service.ts [4] + [15]
+### 1 - Get notified when a member is selected: user.service.ts [4] + [14]
   `import { Subject } from 'rxjs';`
 
   ```  
@@ -50,7 +51,7 @@ Use Ctrl+K V to preview the markdown
 ### 4 - React to the emission: user.service.ts [19]
   ```
   // Find the selected member in the retrieved array of members
-  // Caches last value from each observable
+  // combineLatest operator caches last value from each observable
   selectedMember$ = combineLatest([
     this.members$,
     this.selectedMemberId$
@@ -161,12 +162,37 @@ Why not use toSignal?
 ### 3 - Subscribe: todo.service.ts [72]
   `.subscribe(todos => this.todos.set(todos));`
 
-### 4 - Unsubscribe: todo.service.ts [16] + [25]
-  ` private destroyRef = inject(DestroyRef);`
+### 4 - Reference signals from service: todo.component.ts [26]
+```
+  todosForMember = this.todoService.todos;
+```
+
+### 5 - Call the service method: todo.component.ts [36]
+  ```
+  onSelected(ele: EventTarget | null) {
+    const id = Number((ele as HTMLSelectElement).value);
+    this.userService.setSelectedId(id);
+    this.todoService.setSelectedId(id);
+  }
+  ```
+
+### 6 - Read signals in template: todo.component.html [29] + [55]
+  `@let todos = todosForMember();`
+
+### 7 - Demo: Selected member's todos appear!
+
+## Unsubscribe
+
+### 1 - Unsubscribe: todo.service.ts [16] + [25]
+  Must be in an injection context
+
+  `private destroyRef = inject(DestroyRef);`
 
   `takeUntilDestroyed(this.destroyRef),`
 
-### 5 - Error handling: todo.service.ts [18] + [27]
+## Handle Errors
+
+### 1 - Error handling: todo.service.ts [18] + [27]
   Create a signal for the error message
   ```
   errorMessage = signal('');
@@ -180,29 +206,18 @@ Why not use toSignal?
   })
   ```
 
-### 6 - Reference signals from service: todo.component.ts [26]
+### 2 - Reference signals from service: todo.component.ts [26]
 ```
-  todosForMember = this.todoService.todos;
   errorMessage = this.todoService.errorMessage;
 ```
 
-### 7 - Call the service method: todo.component.ts [36]
-  ```
-  onSelected(ele: EventTarget | null) {
-    const id = Number((ele as HTMLSelectElement).value);
-    this.userService.setSelectedId(id);
-    this.todoService.setSelectedId(id);
-  }
-  ```
-
-### 8 - Read signals in template: todo.component.html [29] + [55]
-  `@let todos = todosForMember();`
-
+### 3 - Read signals in template: todo.component.html [29] + [55]
   `@let message = errorMessage();`
 
-### 9 - Demo: Selected member's todos appear!
+### 4 - Demo: See what happens on an error
 
-### 10 - Review: todo.service.ts
+### 5 - Review: todo.service.ts
+  UNDO error
 
 ## Filter to only incomplete tasks
 Look at the template and component first
@@ -230,15 +245,14 @@ Set todos to private!
 
 ### 3 - Reference signals from service: todo.component.ts [26]
   ```
-  todosForMember = this.todoService.filteredTodos;
-  errorMessage = this.todoService.errorMessage;
   incompleteOnly = this.todoService.incompleteOnly;
   ```
 
 ### 4 - Call the service method: todo.component.ts [30]
   ```
   onFilter(ele: EventTarget | null) {
-    this.todoService.setIncompleteOnly((ele as HTMLInputElement).checked)
+    const filter = (ele as HTMLInputElement).checked;
+    this.todoService.setIncompleteOnly(filter);
   }
   ```
 
@@ -246,6 +260,7 @@ Set todos to private!
   `@if(incompleteOnly()) {`
 
 ### 6 - Demo: Todos are filtered!
+  PICK Leanne
 
 ### 7 - Review: todo.service.ts
 
@@ -272,9 +287,11 @@ Look at the template and component first
   ```
 
 ### 2 - Call the method from the component: todo.component.ts [37]
-  `this.todoService.changeStatus(task, (ele as HTMLInputElement).checked);`
+  ```
+  const checked = (ele as HTMLInputElement).checked;
+  this.todoService.changeStatus(task, checked);
+  ```
 
 ### 3 - Demo: Status is changed (but only temporarily)!
 
 ### 4 - Review: todo.service.ts
-
