@@ -1,30 +1,22 @@
 import { Component, computed, inject, signal } from '@angular/core';
-import { NgClass } from '@angular/common';
 import { VehicleService } from '../vehicle.service';
-import { Filter } from '../../filter/filter';
 import { Vehicle } from '../vehicle';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'sw-vehicle-list',
-    imports: [NgClass, Filter],
+    imports: [FormsModule],
     templateUrl: './vehicle-list.html'
 })
 export class VehicleList {
   pageTitle = 'Vehicles';
   vehicleService = inject(VehicleService);
-  
-  errorMessage = '';
-  listFilter = signal('');
+  selectedVehicle = this.vehicleService.selectedVehicle;
 
   // Component signals
-  filteredVehicles = computed(() => 
-    this.vehicleService.vehicles().filter(v => v.name.includes(this.listFilter())));
-  selectedVehicle = this.vehicleService.selectedVehicle;
+  vehicles = this.vehicleService.vehicles;
   isLoading = this.vehicleService.vehiclesResource.isLoading;
-
-  // When a vehicle is selected, set it into the signal
-  onSelected(selectedVehicle: Vehicle): void {
-    this.vehicleService.vehicleSelected(selectedVehicle);
-  }
+  error = this.vehicleService.vehiclesResource.error;
+  errorMessage = computed(() => this.error() ? this.error()?.message : '');
 
 }

@@ -1,4 +1,4 @@
-import { Component, computed, inject, input, signal } from '@angular/core';
+import { Component, computed, inject, input } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -6,30 +6,21 @@ import { CartItem } from '../cart';
 import { CartService } from '../cart.service';
 
 @Component({
-    selector: 'sw-cart-item',
-    imports: [DecimalPipe, FormsModule],
-    templateUrl: './cart-item-detail.html'
+  selector: 'sw-cart-item',
+  imports: [DecimalPipe, FormsModule],
+  templateUrl: './cart-item-detail.html'
 })
 export class CartItemDetail {
   cartService = inject(CartService);
 
-  // Using signals
+  // Provided by parent component
   cartItem = input.required<CartItem>();
 
-  // Hard-coded quantity
-  // These could instead come from an inventory system
-  qtyArr = signal([1, 2, 3, 4, 5, 6, 7, 8]);
-
-  // When the item changes, recalculate the extended price
-  exPrice = computed(() =>
-    this.cartItem().quantity * Number(this.cartItem().vehicle.cost_in_credits));
-
-  onQuantitySelected(quantity: number): void {
-    // Update the quantity in the item
-    this.cartService.updateInCart(this.cartItem(), Number(quantity));
-  }
+  // When the quantity or item changes, recalculate the extended price
+  itemTotal = computed(() =>
+    this.cartItem().quantity() * Number(this.cartItem()?.vehicle.cost_in_credits));
 
   onRemove(): void {
-    this.cartService.removeFromCart(this.cartItem());
+    this.cartService.removeFromCart(this.cartItem()?.vehicle.name ?? '');
   }
 }

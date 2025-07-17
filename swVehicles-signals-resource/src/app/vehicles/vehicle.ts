@@ -15,7 +15,6 @@ export interface Vehicle {
   passengers: number;
   vehicle_class: string;
   films: string[];
-  price?: number;
 }
 
 export interface Film {

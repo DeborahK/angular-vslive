@@ -3,26 +3,22 @@
     {{pageTitle}}
   </div>
 
-  <sw-filter [(filter)]='listFilter' />
-
   <div class='card-body'>
     @if (isLoading()) {
       <div>...Loading</div>
     }
     <div class="list-group">
-      @for (vehicle of filteredVehicles(); track vehicle) {
-        <button type="button"
-                class="list-group-item"
-                [ngClass]="{'active': vehicle?.name === selectedVehicle()?.name}"
-                (click)="onSelected(vehicle)">
-          {{ vehicle.name }}
-        </button>
-      }
+        <select [(ngModel)]="selectedVehicle">
+          <option value="undefined" selected>--Select a vehicle--</option>
+          @for(vehicle of vehicles(); track vehicle) {
+          <option [ngValue]="vehicle">{{vehicle.name}}</option>
+          }
+        </select>
     </div>
 
-    @if (errorMessage) {
+    @if (errorMessage()) {
       <div class="alert alert-danger">
-        {{errorMessage }}
+        {{errorMessage() }}
       </div>
     }
   </div>

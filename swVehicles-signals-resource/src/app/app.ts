@@ -13,6 +13,6 @@ export class App {
   cartService = inject(CartService);
 
   cartCount = computed(() => this.cartService.cartItems().reduce(
-    (acc, item) => acc + item.quantity, 0));
+    (acc, item) => acc + item.quantity(), 0));
 
 }

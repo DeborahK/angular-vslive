@@ -12,10 +12,10 @@ export class CartService {
 
   // Total up the extended price for each item
   subTotal = computed(() => this.cartItems().reduce((a, b) =>
-    a + (b.quantity * Number(b.vehicle.cost_in_credits)), 0));
+    a + (b.quantity() * Number(b.vehicle.cost_in_credits)), 0));
 
-  // Delivery is free if spending more than 100,000 credits
-  deliveryFee = computed(() => this.subTotal() < 100000 ? 999 : 0);
+  // Delivery is free if spending more than 10,000 credits
+  deliveryFee = computed(() => this.subTotal() < 10000 ? 999 : 0);
 
   // Tax could be based on shipping address zip code
   tax = computed(() => Math.round(this.subTotal() * 10.75) / 100);
@@ -30,24 +30,21 @@ export class CartService {
       item.vehicle.name === vehicle.name);
     if (index === -1) {
       // Not already in the cart, so add with default quantity of 1
-      this.cartItems.update(items => [...items, { vehicle, quantity: 1 }]);
+      this.cartItems.update(items => [...items, { vehicle, quantity: signal(1) }]);
     } else {
       // Already in the cart, so increase the quantity by 1
-      this.cartItems.update(items =>
-        [
-          ...items.slice(0, index),
-          { ...items[index], quantity: items[index].quantity + 1 },
-          ...items.slice(index + 1)
-        ]);
+      this.cartItems()[index].quantity.update(q => q + 1);
     }
   }
 
-  // Remove the item from the cart
-  removeFromCart(cartItem: CartItem): void {
+  // Remove the item from the cart by name
+  removeFromCart(vehicleName: string): void {
     // Update the cart with a new array containing
     // all but the filtered out deleted item
-    this.cartItems.update(items => items.filter(item =>
-      item.vehicle.name !== cartItem.vehicle.name));
+    if (vehicleName) {
+      this.cartItems.update(items => items.filter(item =>
+        item.vehicle.name !== vehicleName));
+    }
   }
 
   updateInCart(cartItem: CartItem, quantity: number) {
@@ -55,7 +52,7 @@ export class CartService {
     // the updated item and all other original items
     this.cartItems.update(items =>
       items.map(item => item.vehicle.name === cartItem.vehicle.name ?
-        { vehicle: cartItem.vehicle, quantity } : item));
+        { vehicle: cartItem.vehicle, quantity: signal(quantity) } : item));
   }
 
 }
