@@ -1,0 +1,31 @@
+@let item = cartItem();
+@if (item) {
+  <div>
+    <div class="row mb-2">
+      <div class="col-md-2">
+        {{ item.vehicle.name }}
+      </div>
+      <div class="col-md-2">
+        {{ item.vehicle.vehicle_class }}
+      </div>
+      <div class="col-md-2 text-center">
+        {{ item.vehicle.cost_in_credits | number:'1.2-2' }}
+      </div>
+      <div class="col-md-2 text-center">
+        <input type="number" style="width: 50px;"
+              [(ngModel)]="item.quantity">
+      </div>
+      <div class="col-md-2 text-end">
+        {{ itemTotal() | number:'1.2-2'}}
+      </div>
+      <div class="col-md-2 text-center">
+        <button type="button"
+                class="btn btn-warning"
+                aria-label="Close"
+                (click)="onRemove()">
+          Delete
+        </button>
+      </div>
+    </div>
+  </div>
+}
