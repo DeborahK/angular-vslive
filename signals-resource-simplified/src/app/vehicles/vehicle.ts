@@ -1,10 +1,3 @@
-export interface VehicleResponse {
-  count: number;
-  next: string;
-  previous: string;
-  results: Vehicle[]
-}
-
 export interface Vehicle {
   cargo_capacity: number;
   crew: number;
@@ -15,8 +8,4 @@ export interface Vehicle {
   passengers: number;
   vehicle_class: string;
   films: string[];
-}
-
-export interface Film {
-  title: string;
 }

@@ -14,7 +14,7 @@ export class VehicleList {
   selectedVehicle = this.vehicleService.selectedVehicle;
 
   // Component signals
-  vehicles = this.vehicleService.vehicles;
+  vehicles = this.vehicleService.vehiclesResource.value;
   isLoading = this.vehicleService.vehiclesResource.isLoading;
   error = this.vehicleService.vehiclesResource.error;
   errorMessage = computed(() => this.error() ? this.error()?.message : '');

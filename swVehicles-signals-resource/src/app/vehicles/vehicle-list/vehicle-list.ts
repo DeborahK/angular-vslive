@@ -1,6 +1,5 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { VehicleService } from '../vehicle.service';
-import { Vehicle } from '../vehicle';
 import { FormsModule } from '@angular/forms';
 
 @Component({
