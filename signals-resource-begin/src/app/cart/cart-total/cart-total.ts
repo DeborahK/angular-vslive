@@ -11,17 +11,15 @@ import { VehicleService } from '../../vehicles/vehicle.service';
   templateUrl: './cart-total.html'
 })
 export class CartTotal {
-  cartService = inject(CartService);
-  vehicleService = inject(VehicleService);
 
   // Signals used in the UI
-  selectedVehicle = this.vehicleService.selectedVehicle;
-  price = this.cartService.price;
-  quantity = this.cartService.quantity;
+  selectedVehicle = undefined;
+  price = 0;
+  quantity = 1;
 
-  subTotal = this.cartService.subTotal;
-  deliveryFee = this.cartService.deliveryFee;
-  tax = this.cartService.tax;
-  totalPrice = this.cartService.totalPrice;
+  subTotal = 0;
+  deliveryFee = 0;
+  tax = 0;
+  totalPrice = 0;
 
 }
