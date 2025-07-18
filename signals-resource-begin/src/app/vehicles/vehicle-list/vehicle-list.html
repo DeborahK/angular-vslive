@@ -4,17 +4,17 @@
   </div>
 
   <div class='card-body'>
-    @if (isLoading()) {
+    @if (isLoading) {
       <div>...Loading</div>
-    } @else if (errorMessage()) {
+    } @else if (errorMessage) {
       <div class="alert alert-danger">
-        {{errorMessage() }}
+        {{errorMessage }}
       </div>
     } @else {
       <div class="list-group">
           <select [(ngModel)]="selectedVehicle">
             <option value="undefined" selected>--Select a vehicle--</option>
-            @for(vehicle of vehicles(); track vehicle) {
+            @for(vehicle of vehicles; track vehicle) {
             <option [ngValue]="vehicle">{{vehicle.name}}</option>
             }
           </select>

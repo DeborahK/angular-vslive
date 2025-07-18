@@ -1,7 +1,7 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
-import { VehicleService } from '../vehicle.service';
-import { FilmService } from '../../films/film.service';
+import { Film } from '../../films/film';
+import { Vehicle } from '../vehicle';
 
 @Component({
   selector: 'sw-vehicle-detail',
@@ -9,13 +9,10 @@ import { FilmService } from '../../films/film.service';
   templateUrl: './vehicle-detail.html'
 })
 export class VehicleDetail {
-  vehicleService = inject(VehicleService);
-  filmService = inject(FilmService);
 
-  // Signals used in the template
-  vehicle = this.vehicleService.selectedVehicle;
-  pageTitle = computed(() => this.vehicle() ? `Detail for: ${this.vehicle()?.name}` : '');
+  vehicle: Vehicle | undefined = undefined;
+  pageTitle = 'Detail for:';
 
-  vehicleFilms = this.filmService.vehicleFilmsResource.value;
-  errorMessage = this.filmService.errorMessage;
+  vehicleFilms: Film[] = [];
+  errorMessage = '';
 }

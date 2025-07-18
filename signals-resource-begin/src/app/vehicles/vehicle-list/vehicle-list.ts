@@ -1,6 +1,6 @@
-import { Component, computed, inject } from '@angular/core';
-import { VehicleService } from '../vehicle.service';
+import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Vehicle } from '../vehicle';
 
 @Component({
   selector: 'sw-vehicle-list',
@@ -9,14 +9,12 @@ import { FormsModule } from '@angular/forms';
 })
 export class VehicleList {
   pageTitle = 'Vehicles';
-  vehicleService = inject(VehicleService);
 
-  // Component signals
-  selectedVehicle = this.vehicleService.selectedVehicle;
+  selectedVehicle: Vehicle | undefined = undefined;
 
-  vehicles = this.vehicleService.vehiclesResource.value;
-  isLoading = this.vehicleService.vehiclesResource.isLoading;
-  error = this.vehicleService.vehiclesResource.error;
-  errorMessage = computed(() => this.error() ? this.error()?.message : '');
+  vehicles: Vehicle[] = [];
+  isLoading = false;
+  error = false;
+  errorMessage = '';
 
 }

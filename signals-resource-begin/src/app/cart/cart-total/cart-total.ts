@@ -1,9 +1,6 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component} from '@angular/core';
 import { DecimalPipe } from '@angular/common';
-
-import { CartService } from '../cart.service';
 import { FormsModule } from '@angular/forms';
-import { VehicleService } from '../../vehicles/vehicle.service';
 
 @Component({
   selector: 'sw-cart-total',
@@ -12,7 +9,6 @@ import { VehicleService } from '../../vehicles/vehicle.service';
 })
 export class CartTotal {
 
-  // Signals used in the UI
   selectedVehicle = undefined;
   price = 0;
   quantity = 1;
