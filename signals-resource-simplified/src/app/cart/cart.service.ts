@@ -1,4 +1,4 @@
-import { Injectable, computed, inject, linkedSignal } from "@angular/core";
+import { Injectable, computed, effect, inject, linkedSignal } from "@angular/core";
 import { VehicleService } from "../vehicles/vehicle.service";
 
 @Injectable({
@@ -28,4 +28,5 @@ export class CartService {
   // Total price
   totalPrice = computed(() => this.subTotal() + this.deliveryFee() + this.tax());
 
+  eff = effect(() => console.log('Qty:', this.quantity()));
 }
