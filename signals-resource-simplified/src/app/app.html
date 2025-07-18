@@ -17,10 +17,6 @@
         [routerLink]="['/cart']"
         routerLinkActive="active"
         [routerLinkActiveOptions]="{ exact : true}">Cart
-        @if (cartCount()) {
-          <span class="badge bg-primary"
-          >{{cartCount()}}</span>
-        }
       </a>
     </li>
   </ul>

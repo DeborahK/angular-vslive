@@ -1,24 +1,27 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 
 import { CartService } from '../cart.service';
+import { FormsModule } from '@angular/forms';
+import { VehicleService } from '../../vehicles/vehicle.service';
 
 @Component({
-    selector: 'sw-cart-total',
-    imports: [DecimalPipe],
-    templateUrl: './cart-total.html'
+  selector: 'sw-cart-total',
+  imports: [DecimalPipe, FormsModule],
+  templateUrl: './cart-total.html'
 })
 export class CartTotal {
   cartService = inject(CartService);
+  vehicleService = inject(VehicleService);
 
-  cartItems = this.cartService.cartItems;
+  // Signals used in the UI
+  selectedVehicle = this.vehicleService.selectedVehicle;
+  price = this.cartService.price;
+  quantity = this.cartService.quantity;
 
   subTotal = this.cartService.subTotal;
-
   deliveryFee = this.cartService.deliveryFee;
-
   tax = this.cartService.tax;
-
   totalPrice = this.cartService.totalPrice;
-  
+
 }

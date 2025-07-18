@@ -6,7 +6,7 @@ export class VehicleData {
   static vehicles: Vehicle[] = [
     {
       cargo_capacity: 50000,
-      cost_in_credits: "150000",
+      cost_in_credits: 150000,
       crew: 46,
       films: ['api/films/1/', 'api/films/5'],
       manufacturer: "Corellia Mining Corporation",
@@ -17,7 +17,7 @@ export class VehicleData {
     },
     {
       cargo_capacity: 50,
-      cost_in_credits: "14500",
+      cost_in_credits: 14500,
       crew: 1,
       films: ['api/films/1'],
       manufacturer: "Incom Corporation",
@@ -28,7 +28,7 @@ export class VehicleData {
     },
     {
       cargo_capacity: 5,
-      cost_in_credits: "10550",
+      cost_in_credits: 10550,
       crew: 1,
       films: ['api/films/1'],
       manufacturer: "SoroSuub Corporation",
@@ -39,7 +39,7 @@ export class VehicleData {
     },
     {
       cargo_capacity: 65,
-      cost_in_credits: "250000",
+      cost_in_credits: 250000,
       crew: 1,
       films: ['api/films/1', 'api/films/2', 'api/films/3'],
       manufacturer: "Sienar Fleet Systems",
@@ -50,7 +50,7 @@ export class VehicleData {
     },
     {
       cargo_capacity: 10,
-      cost_in_credits: "150000",
+      cost_in_credits: 150000,
       crew: 2,
       films: ['api/films/2'],
       manufacturer: "Incom corporation",
@@ -61,7 +61,7 @@ export class VehicleData {
     },
     {
       cargo_capacity: 0,
-      cost_in_credits: "400000",
+      cost_in_credits: 400000,
       crew: 1,
       films: ['api/films/2', 'api/films/3'],
       manufacturer: "Sienar Fleet Systems",
@@ -72,7 +72,7 @@ export class VehicleData {
     },
     {
       cargo_capacity: 1000,
-      cost_in_credits: "200000",
+      cost_in_credits: 200000,
       crew: 5,
       films: ['api/films/2', 'api/films/3'],
       manufacturer: "Kuat Drive Yards, Imperial Department of Military Research",
@@ -83,7 +83,7 @@ export class VehicleData {
     },
     {
       cargo_capacity: 200,
-      cost_in_credits: "100000",
+      cost_in_credits: 100000,
       crew: 2,
       films: ['api/films/2', 'api/films/3'],
       manufacturer: "Kuat Drive Yards, Imperial Department of Military Research",
@@ -94,7 +94,7 @@ export class VehicleData {
     },
     {
       cargo_capacity: 10,
-      cost_in_credits: "75000",
+      cost_in_credits: 75000,
       crew: 2,
       films: ['api/films/2'],
       manufacturer: "Bespin Motors",
@@ -105,7 +105,7 @@ export class VehicleData {
     },
     {
       cargo_capacity: 2000000,
-      cost_in_credits: "285000",
+      cost_in_credits: 285000,
       crew: 26,
       films: ['api/films/3'],
       manufacturer: "Ubrikkian Industries Custom Vehicle Division",

@@ -1,5 +1,5 @@
 import { httpResource } from '@angular/common/http';
-import { Injectable, ResourceStatus, effect, signal } from '@angular/core';
+import { Injectable, effect, signal } from '@angular/core';
 import { Vehicle } from './vehicle';
 
 @Injectable({
@@ -14,8 +14,13 @@ export class VehicleService {
   // Retrieve data with httpResource: simpliest/most flexible
   vehiclesResource = httpResource<Vehicle[]>(() => this.url);
 
+  // Accessing the resource generates an error if the http request fails
   private eff = effect(() => {
-    // console.log('Status:',ResourceStatus[this.vehiclesResource.status()])
-    console.log('Value:', this.vehiclesResource.value())
+    if (!this.vehiclesResource.error()) {
+      console.log('Vehicles', JSON.stringify(this.vehiclesResource.value()));
+    } else {
+      console.error('Failed to load vehicles', this.vehiclesResource.error());
+    }
   });
+
 }

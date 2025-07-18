@@ -1,19 +1,19 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { VehicleService } from '../vehicle.service';
-import { Vehicle } from '../vehicle';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-    selector: 'sw-vehicle-list',
-    imports: [FormsModule],
-    templateUrl: './vehicle-list.html'
+  selector: 'sw-vehicle-list',
+  imports: [FormsModule],
+  templateUrl: './vehicle-list.html'
 })
 export class VehicleList {
   pageTitle = 'Vehicles';
   vehicleService = inject(VehicleService);
-  selectedVehicle = this.vehicleService.selectedVehicle;
 
   // Component signals
+  selectedVehicle = this.vehicleService.selectedVehicle;
+
   vehicles = this.vehicleService.vehiclesResource.value;
   isLoading = this.vehicleService.vehiclesResource.isLoading;
   error = this.vehicleService.vehiclesResource.error;

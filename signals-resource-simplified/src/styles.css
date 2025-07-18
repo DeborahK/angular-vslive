@@ -2,7 +2,10 @@
 @import "bootstrap/dist/css/bootstrap.min.css";
 
 div.card-header {
+ background-color: cornflowerblue;
+ color: white;
  font-size: large;
+ font-weight: bold;
 }
 
 div.card {

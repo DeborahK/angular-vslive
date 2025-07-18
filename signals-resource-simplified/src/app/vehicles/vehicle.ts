@@ -4,7 +4,7 @@ export interface Vehicle {
   name: string;
   model: string;
   manufacturer: string,
-  cost_in_credits: string
+  cost_in_credits: number,
   passengers: number;
   vehicle_class: string;
   films: string[];
