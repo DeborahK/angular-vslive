@@ -5,7 +5,7 @@ import { VehicleService } from "../vehicles/vehicle.service";
   providedIn: 'root'
 })
 export class CartService {
-  vehicleService = inject(VehicleService);
+  private vehicleService = inject(VehicleService);
 
   // Manage state with signals
   quantity = linkedSignal({

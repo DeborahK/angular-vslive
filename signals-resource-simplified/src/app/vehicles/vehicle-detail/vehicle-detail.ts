@@ -9,8 +9,8 @@ import { FilmService } from '../../films/film.service';
   templateUrl: './vehicle-detail.html'
 })
 export class VehicleDetail {
-  vehicleService = inject(VehicleService);
-  filmService = inject(FilmService);
+  private vehicleService = inject(VehicleService);
+  private filmService = inject(FilmService);
 
   // Signals used in the template
   vehicle = this.vehicleService.selectedVehicle;

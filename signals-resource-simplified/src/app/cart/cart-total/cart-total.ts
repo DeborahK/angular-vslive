@@ -11,8 +11,8 @@ import { VehicleService } from '../../vehicles/vehicle.service';
   templateUrl: './cart-total.html'
 })
 export class CartTotal {
-  cartService = inject(CartService);
-  vehicleService = inject(VehicleService);
+  private cartService = inject(CartService);
+  private vehicleService = inject(VehicleService);
 
   // Signals used in the UI
   selectedVehicle = this.vehicleService.selectedVehicle;

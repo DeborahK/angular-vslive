@@ -9,7 +9,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class VehicleList {
   pageTitle = 'Vehicles';
-  vehicleService = inject(VehicleService);
+  private vehicleService = inject(VehicleService);
 
   // Component signals
   selectedVehicle = this.vehicleService.selectedVehicle;

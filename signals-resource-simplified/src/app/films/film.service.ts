@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, computed, effect, inject } from '@angular/core';
-import { forkJoin, of } from 'rxjs';
+import { forkJoin} from 'rxjs';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { VehicleService } from '../vehicles/vehicle.service';
 import { Film } from './film';
@@ -16,13 +16,9 @@ export class FilmService {
   // Retrieve data with rxResource: Best for complex data
   vehicleFilmsResource = rxResource({
     params: this.vehicleService.selectedVehicle,
-    stream: ({ params: vehicle }) => {
-      if (vehicle) {
-        return forkJoin(vehicle.films.map(link =>
-          this.http.get<Film>(link)));
-      }
-      return of([] as Film[]);
-    },
+    stream: p => forkJoin(p.params.films.map(link =>
+      this.http.get<Film>(link)
+    )),
     defaultValue: []
   });
   error = this.vehicleFilmsResource.error;
