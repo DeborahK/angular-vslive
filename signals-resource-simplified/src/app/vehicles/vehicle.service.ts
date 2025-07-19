@@ -12,7 +12,7 @@ export class VehicleService {
   selectedVehicle = signal<Vehicle | undefined>(undefined);
 
   // Retrieve data with httpResource: simpliest/most flexible
-  vehiclesResource = httpResource<Vehicle[]>(() => this.url);
+  vehiclesResource = httpResource<Vehicle[]>(() => this.url, {defaultValue: []});
 
   // Accessing the resource generates an error if the http request fails
   private eff = effect(() => {
