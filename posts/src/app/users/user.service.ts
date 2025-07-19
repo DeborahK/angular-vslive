@@ -1,7 +1,7 @@
 import { HttpClient, httpResource } from '@angular/common/http';
-import { Injectable, computed, effect, inject, signal } from '@angular/core';
+import { Injectable, effect, inject, signal } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop'
-import { filter, map } from 'rxjs';
+import { map } from 'rxjs';
 import { Post, User } from './user';
 
 @Injectable({
@@ -33,6 +33,8 @@ export class UserService {
   eff = effect(() => console.log('Retrieving posts', this.postsResource.isLoading()));
 
 
+
+  
   // *** Using rxResource *** //
   private http = inject(HttpClient);
 
