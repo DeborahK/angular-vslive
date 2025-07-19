@@ -22,15 +22,15 @@ export class UserService {
 
   // Retrive posts for the user
   // Reacts to changes in the selected user!
-  // This will issue a request even if no user name is selected
-  // postsResource = httpResource<Post[]>(() =>
-  //   `${this.postUrl}?userId=${this.selectedUser()?.id}`);
-  // eff = effect(() => console.log('Retrieving posts', this.postsResource.isLoading()));
-
-  // Check for selected user first
+  // Template literal to define the URL with query parameter
+  // This will issue a request even if no user is selected
   postsResource = httpResource<Post[]>(() =>
-    this.selectedUser() ? `${this.postUrl}?userId=${this.selectedUser()?.id}` : undefined);
-  eff = effect(() => console.log('Retrieving posts', this.postsResource.isLoading()));
+    `${this.postUrl}?userId=${this.selectedUser()?.id}`);
+
+  // Use this code instead to check for selected user first
+  // postsResource = httpResource<Post[]>(() =>
+  //   this.selectedUser() ? `${this.postUrl}?userId=${this.selectedUser()?.id}` : undefined);
+  // eff = effect(() => console.log('Retrieving posts', this.postsResource.isLoading()));
 
 
 
@@ -41,7 +41,7 @@ export class UserService {
   // Retrieve the users information
   // Since it is an observable, we can pipe it through a set of operators
   usersResourceRx = rxResource({
-    stream: p =>
+    stream: () =>
       this.http.get<User[]>(this.userUrl).pipe(
         map(items => items.sort((a, b) => a.name < b.name ? -1 : 0))
       )
