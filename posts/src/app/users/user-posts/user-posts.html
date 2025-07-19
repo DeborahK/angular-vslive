@@ -1,0 +1,46 @@
+<div class="container">
+   <div class="page-title">
+      {{pageTitle}}
+   </div>
+
+   <div>
+      <select [(ngModel)]="user">
+         <option value="undefined"
+                 disabled
+                 selected>--Select a user --</option>
+         @for(user of users(); track user.id) {
+         <option [ngValue]="user">{{ user.name }}</option>
+         }
+      </select>
+   </div>
+
+   @if (user()) {
+      <div class="grid">
+         <div class="row">
+            <div class="cellLeft">UserName:</div>
+            <div class="cellRight">{{ user()?.username }}</div>
+         </div>
+      </div>
+
+      <table>
+         <thead>
+            <tr>
+               <th>Title</th>
+               <th>Post</th>
+            </tr>
+         </thead>
+
+         <tbody>
+            @for (post of posts(); track post.id) {
+               <tr>
+                  <td> {{ post.title.slice(0, 20) + '...' }} </td>
+                  <td> {{ post.body.slice(0, 20) + '...' }} </td>
+               </tr>
+            }
+         </tbody>
+      </table>
+
+   } @else if(user()) {
+      <div>No data found for the selected user</div>
+   }
+</div>
