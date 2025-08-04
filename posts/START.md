@@ -1,5 +1,7 @@
 *** SETUP ***
 - Replace code with code from below
+- Open all three user.* files
+- Leave START.md open to code at the bottom
 - Run the application
 - Set the browser to 125%
 
@@ -22,9 +24,8 @@ export class UserService {
 }
 
 *** user-posts.ts ***
-import { Component, inject, signal } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { UserService } from '../user.service';
 import { Post, User } from '../user';
 
 @Component({
