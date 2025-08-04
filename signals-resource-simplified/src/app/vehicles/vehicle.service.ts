@@ -19,7 +19,7 @@ export class VehicleService {
     if (!this.vehiclesResource.error()) {
       console.log('Vehicles', JSON.stringify(this.vehiclesResource.value()));
     } else {
-      console.error('Failed to load vehicles', this.vehiclesResource.error());
+      console.error('Failed to load vehicles', this.vehiclesResource.error()?.message);
     }
   });
 
