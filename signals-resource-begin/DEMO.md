@@ -2,12 +2,18 @@
 
 ## Set up
 * Signals-resource-begin
-* Close all open files
+* Open needed files
 * Run the application
+* Set browser to 125%
 
 ## Basic Signals
 
+### RUN
+
+Application doesn't do anything!
+
 ### cart.service.ts
+  // Initial value
   quantity = signal(1);
   price = signal(5);
 
@@ -47,6 +53,8 @@ When quantity changes, the calculated properties automatically change!
 
 ### cart-total.ts
   selectedVehicle = this.cartService.selectedVehicle;
+  pageTitle = computed(() => 
+    this.selectedVehicle() ? `Total for: ${this.selectedVehicle()?.name}` : '');
 
 ### cart-total.html
 @if (selectedVehicle()) { }
@@ -68,7 +76,10 @@ Total component no longer appears!
 
 ### vehicle-list.html
 
-Change each variable to read a signal
+Change each variable to read a signal:
+* isLoading
+* errorMessage (2 times)
+* vehicles
 
 ### RUN
 

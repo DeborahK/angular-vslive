@@ -7,7 +7,7 @@ import { CartTotal } from '../../cart/cart-total/cart-total';
     selector: 'sw-vehicle-shell',
     template: `
     <div class='row'>
-      <div class='col-md-6'>
+      <div class='col-md-12'>
         <sw-vehicle-list/>
       </div>
     </div>
@@ -15,7 +15,7 @@ import { CartTotal } from '../../cart/cart-total/cart-total';
       <!-- <div class='col-md-6'>
         <sw-vehicle-detail/>
       </div> -->
-      <div class='col-md-6'>
+      <div class='col-md-12'>
         <sw-cart-total/>
       </div>
     </div>
