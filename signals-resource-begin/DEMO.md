@@ -1,18 +1,16 @@
-# Demo Notes
-
-## Set up
+# Set up
 * Signals-resource-begin
 * Open needed files
 * Run the application
 * Set browser to 125%
 
-## Basic Signals
+# Basic Signals
 
-### *** RUN ***
+## *** RUN ***
 
 Application doesn't do anything!
 
-### cart.service.ts
+## cart.service.ts
   ```
   // Initial value
   quantity = signal(1);
@@ -23,7 +21,7 @@ Application doesn't do anything!
   tax = computed(() => Math.round(this.subTotal() * 12) / 100);
   totalPrice = computed(() => this.subTotal() + this.deliveryFee() + this.tax());
 ```
-### cart-total.ts
+## cart-total.ts
 ```
   price = this.cartService.price;
   quantity = this.cartService.quantity;
@@ -33,56 +31,56 @@ Application doesn't do anything!
   tax = this.cartService.tax;
   totalPrice = this.cartService.totalPrice;
 ```
-### cart-total.html
+## cart-total.html
 
 * Fix bindings
 * NOT two-way binding
 
-### *** RUN ***
+## *** RUN ***
 
 When quantity changes, the calculated properties automatically change!
 
-## More Complex Signals
+# More Complex Signals
 
-### vehicle.service.ts
+## vehicle.service.ts
   `selectedVehicle = signal<Vehicle | undefined>(undefined);`
-### cart.service.ts
+## cart.service.ts
 ```
   private vehicleService = inject(VehicleService);
 
   price = computed(() =>
     this.vehicleService.selectedVehicle()?.cost_in_credits ?? 0);
 ```
-### cart-total.ts
+## cart-total.ts
 ```
   selectedVehicle = this.cartService.selectedVehicle;
   pageTitle = computed(() => 
     this.selectedVehicle() ? `Total for: ${this.selectedVehicle()?.name}` : '');
 ```
-### cart-total.html
+## cart-total.html
 `@if (selectedVehicle()) { }`
-### *** RUN ***
+## *** RUN ***
 
 Total component no longer appears!
 
-## Retrieve Vehicles with httpResource()
+# Retrieve Vehicles with httpResource()
 
-### vehicle.service.ts
+## vehicle.service.ts
   `vehiclesResource = httpResource<Vehicle[]>(() => this.url, { defaultValue: []});`
-### vehicle-list.ts
+## vehicle-list.ts
 ```
   vehicles = this.vehicleService.vehiclesResource.value;
   isLoading = this.vehicleService.vehiclesResource.isLoading;
   error = this.vehicleService.vehiclesResource.error;
   errorMessage = computed(() => this.error() ? this.error()?.message : '');
 ```
-### vehicle-list.html
+## vehicle-list.html
 
 Change each variable to read a signal:
 * isLoading
 * errorMessage (2 times)
 * vehicles
 
-### *** RUN ***
+## *** RUN ***
 
 Can now see the list of vehicles
