@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Vehicle } from '../vehicle';
+import { VehicleService } from '../vehicle.service';
 
 @Component({
   selector: 'sw-vehicle-list',
@@ -9,6 +10,7 @@ import { Vehicle } from '../vehicle';
 })
 export class VehicleList {
   pageTitle = 'Vehicles';
+  private vehicleService = inject(VehicleService);
 
   selectedVehicle: Vehicle | undefined = undefined;
 

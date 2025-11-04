@@ -12,9 +12,9 @@ import { CartTotal } from '../../cart/cart-total/cart-total';
       </div>
     </div>
     <div class='row'>
-      <div class='col-md-6'>
+      <!-- <div class='col-md-6'>
         <sw-vehicle-detail/>
-      </div>
+      </div> -->
       <div class='col-md-6'>
         <sw-cart-total/>
       </div>
