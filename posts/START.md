@@ -3,10 +3,11 @@
 - Open all three user.* files
 - Leave START.md open to code at the bottom
 - Run the application
-- Set the browser to 125%
+- Set the browser to 110%
 
 *** user.service.ts ***
 import { Injectable } from '@angular/core';
+import { map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -50,4 +51,4 @@ export class UserPosts {
 
 
 *** Changes ***
-        map(items => items.sort((a, b) => a.name < b.name ? -1 : 0))
+  map(items => items.sort((a, b) => a.name < b.name ? -1 : 0))
