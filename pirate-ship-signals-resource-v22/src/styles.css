@@ -1,0 +1,26 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* Color variable */
+:root {
+  --accent-color: #B22222; /* Crimson Red – bold, for headings/links */
+  --base-color: #214345; /* Dark Teal – primary text color */
+  --secondary-accent: #EBDECD; /* Gold – highlights, borders, callouts */
+  --background-dark: #0B0B0B; /* Deep Black – base background */
+  --background-alt: #1C3F60; /* Sea Blue – section or card backgrounds */
+  --background-light: #EBDECD; /* Light background areas */
+  --text-light:#FFEA00; /* Main text on dark backgrounds */
+}
+/* #E2C797 #d2bf9f #D4AF37 */
+ 
+body {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(
+    270deg,
+    var(--background-light) 0%,
+    #D2C2A6 100%
+  );
+  color: var(--base-color);
+}
+

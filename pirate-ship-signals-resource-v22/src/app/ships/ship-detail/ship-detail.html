@@ -1,0 +1,48 @@
+@if (ship()) {
+  <div class="card">
+    <div class="header">
+      {{pageTitle()}}
+    </div>
+    <div class="body">
+      <div class="row">
+        <div class="cellLeft">Name:</div>
+        <div class="cellRight">{{ship()?.name}}</div>
+      </div>
+      <div class="row">
+        <div class="cellLeft">Classification:</div>
+        <div class="cellRight">{{ship()?.ship_class}}</div>
+      </div>
+      <div class="row">
+        <div class="cellLeft">Price (in gold coins):</div>
+        <div class="cellRight">{{ship()?.price | number:'1.2-2'}}</div>
+      </div>
+      <div class="row">
+        <div class="cellLeft">Crew:</div>
+        <div class="cellRight">{{ship()?.crew}}</div>
+      </div>
+      <div class="row">
+        <div class="cellLeft">Passengers:</div>
+        <div class="cellRight">{{ship()?.passengers}}</div>
+      </div>
+      <div class="row">
+        <div class="cellLeft">Cargo Capacity:</div>
+        <div class="cellRight">{{ship()?.cargo_capacity}}</div>
+      </div>
+
+      @if (films()) {
+        <div class="row">
+          <div class="cellLeft">Films:</div>
+          <div class="cellRight">
+            <ul class="film-list">
+              @for (film of films(); track film) {
+                <li class="film-list-item">
+                  {{film.title}}
+                </li>
+              }
+            </ul>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+}

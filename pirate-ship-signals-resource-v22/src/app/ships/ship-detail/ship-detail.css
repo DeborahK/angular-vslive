@@ -1,0 +1,65 @@
+/* Styles for ship-detail.html */
+.card {
+	display: grid;
+	grid-template-rows: auto 1fr;
+	background: #fff;
+	border-radius: 10px;
+	border: 2px solid var(--base-color);
+}
+
+.header {
+	background: var(--base-color);
+	color: var(--text-light);
+	font-size: 1.5rem;
+	font-weight: bold;
+  padding: .5rem;
+	border-radius: 8px 8px 0 0;
+	text-align: center;
+}
+
+.body {
+	display: grid;
+	gap: 1rem;
+	padding: 1.5rem 1.2rem 2rem 1.2rem;
+}
+
+.row {
+	display: grid;
+	grid-template-columns: .6fr 1fr;
+	align-items: top;
+}
+
+.cellLeft {
+  padding: 3px;
+  text-align: left;
+  grid-column: 1 / 2;
+}
+
+.cellRight {
+  font-weight: bold;
+  padding: 3px;
+  text-align: left;
+  grid-column: 2 / 3;
+}
+
+.film-list {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.film-list-item {
+  color: var(--accent-color); /* Crimson Red for text */
+  font-weight: bold;
+  background: var(--background-light); /* Light background */
+  border-radius: 6px;
+  margin-bottom: 0.3rem;
+  padding: 0.4rem 0.8rem;
+  font-size: 1rem;
+  border: 1px solid var(--secondary-accent); /* Gold border */
+  transition: background 0.2s, color 0.2s;
+}
+.film-list-item:hover {
+  background: var(--secondary-accent); /* Gold highlight on hover */
+  color: var(--base-color); /* Dark teal text on hover */
+}

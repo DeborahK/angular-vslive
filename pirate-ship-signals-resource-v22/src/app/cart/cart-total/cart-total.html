@@ -1,0 +1,37 @@
+@if (selectedShip()) {
+  <div class="cart-card">
+    <div class="cart-header">Cart Total</div>
+    <div class="cart-body">
+      <div class="cart-row">
+        <div class="cart-label">Price (gold coins)</div>
+        <div class="cart-value">{{price() | number:'1.0'}}</div>
+      </div>
+      <div class="cart-row">
+        <div class="cart-label cart-bold">Quantity</div>
+        <div class="cart-value">
+          <input type="number" class="cart-qty-input" [(ngModel)]="quantity">
+        </div>
+      </div>
+      <div class="cart-row">
+        <div class="cart-label">Subtotal:</div>
+        <div class="cart-value">{{subTotal() | number:'1.0'}}</div>
+      </div>
+      <div class="cart-row">
+        <div class="cart-label">Delivery:</div>
+        @if (deliveryFee()) {
+          <div class="cart-value">{{deliveryFee() | number:'1.0'}}</div>
+        } @else {
+          <div class="cart-value cart-free">Free</div>
+        }
+      </div>
+      <div class="cart-row">
+        <div class="cart-label">Estimated Tax:</div>
+        <div class="cart-value">{{tax() | number:'1.0'}}</div>
+      </div>
+      <div class="cart-row">
+        <div class="cart-label cart-bold">Total:</div>
+        <div class="cart-value cart-total">{{totalPrice() | number:'1.0'}}</div>
+      </div>
+    </div>
+  </div>
+}
