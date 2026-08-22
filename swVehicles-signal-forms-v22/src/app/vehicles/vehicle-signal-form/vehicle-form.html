@@ -1,0 +1,148 @@
+<div class="card">
+  <div class="card-header">
+    Add a Vehicle
+  </div>
+  <div class="card-body">
+    <form autocomplete="off">
+      <div class="row">
+        <label class="row-label"
+               for="vehicleNameId">
+          Name
+          @if (vehicleForm.vehicleName().required()) {
+          <span class="text-danger">*</span>
+          }
+        </label>
+        <div class="row-value">
+          <input type="text"
+                 class="form-control"
+                 [formField]="vehicleForm.vehicleName"
+                 id="vehicleNameId"
+                 placeholder="Vehicle name" />
+        </div>
+        @if (vehicleForm.vehicleName().invalid() && vehicleForm.vehicleName().touched()) {
+        <div class="alert alert-danger">
+          @for (error of vehicleForm.vehicleName().errors(); track error.kind) {
+          <div>{{ error.message }}</div>
+          }
+        </div>
+        }
+      </div>
+
+      <div class="row">
+        <label class="row-label"
+               for="vehicleTypeId">
+          Type
+          @if (vehicleForm.vehicleName().required()) {
+          <span class="text-danger">*</span>
+          }
+        </label>
+        <div class="row-value">
+          <input type="text"
+                 class="form-control"
+                 [formField]="vehicleForm.vehicleType"
+                 id="vehicleTypeId"
+                 placeholder="Vehicle type" />
+        </div>
+        @if (vehicleForm.vehicleType().invalid() && vehicleForm.vehicleType().touched()) {
+        <div class="alert alert-danger">
+          @for (error of vehicleForm.vehicleType().errors(); track error.kind) {
+          <div>{{ error.message }}</div>
+          }
+        </div>
+        }
+      </div>
+
+      <div class="row">
+        <label class="row-label"
+               for="descriptionId">
+          Description
+        </label>
+        <div class="row-value">
+          <input type="text"
+                 class="form-control"
+                 [formField]="vehicleForm.description"
+                 id="descriptionId"
+                 placeholder="Vehicle description" />
+        </div>
+        @if (vehicleForm.description().invalid() && vehicleForm.description().touched()) {
+        <div class="alert alert-danger">
+          @for (error of vehicleForm.description().errors(); track error.kind) {
+          <div>{{ error.message }}</div>
+          }
+        </div>
+        }
+      </div>
+
+      <div class="row">
+        <label class="row-label"
+               for="passengerId">
+          Passengers
+        </label>
+        <div class="row-value">
+          <input type="number"
+                 class="form-control"
+                 [formField]="vehicleForm.occupancy"
+                 id="passengerId"
+                 placeholder="Number of passengers" />
+        </div>
+        @if (vehicleForm.occupancy().invalid() && vehicleForm.occupancy().touched()) {
+        <div class="alert alert-danger">
+          @for (error of vehicleForm.occupancy().errors(); track error.kind) {
+          <div>{{ error.message }}</div>
+          }
+        </div>
+        }
+      </div>
+
+      <div class="row">
+        <label class="row-label"
+               for="manufactureDateId">
+          Manufacture Date
+        </label>
+        <div class="row-value">
+          <input type="date"
+                 class="form-control"
+                 [formField]="vehicleForm.manufactureDate"
+                 id="manufactureDateId" />
+        </div>
+        @if (vehicleForm.manufactureDate().invalid() && vehicleForm.manufactureDate().touched()) {
+        <div class="alert alert-danger">
+          @for (error of vehicleForm.manufactureDate().errors(); track error.kind) {
+          <div>{{ error.message }}</div>
+          }
+        </div>
+        }
+      </div>
+
+      <div class="row">
+        <div class="row-value">
+          <button type="button"
+                  title="Ensure the form is valid and required fields are entered before saving"
+                  class="btn btn-primary"
+                  [disabled]="this.vehicleForm().invalid()"
+                  (click)="onSave()">
+            Save Vehicle
+          </button>
+          <button type="button"
+                  class="btn btn-secondary"
+                  (click)="onCancel()">
+            Cancel
+          </button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="row-value">
+          @if (savedMessage()) {
+            <div class="alert alert-success"
+                role="status"
+                aria-live="polite">
+              {{savedMessage()}}
+            </div>
+          }
+        </div>
+      </div>
+    </form>
+
+  </div>
+</div>

@@ -1,0 +1,139 @@
+<div class="card">
+  <div class="card-header">
+    Add a Vehicle (reactive forms)
+  </div>
+  <div class="card-body">
+    <form [formGroup]="vehicleForm"
+          (ngSubmit)="onSave()"
+          autocomplete="off"
+          novalidate>
+      <div class="row">
+        <label class="row-label"
+               for="vehicleNameId">
+          Name
+          <span class="text-danger">*</span>
+        </label>
+        <div class="row-value">
+          <input type="text"
+                 class="form-control"
+                 formControlName="vehicleName"
+                 id="vehicleNameId"
+                 placeholder="Vehicle name" />
+        </div>
+        @let vn = vehicleForm.get('vehicleName');
+        @if (vn?.invalid && vn?.touched) {
+          <div class="alert alert-danger">
+            @if (vn?.hasError('required')) {
+              <div>Vehicle name is required</div>
+            } @else if (vn?.hasError('minlength')) {
+              <div>Vehicle name must be at least 5 characters</div>
+            }
+          </div>
+        }
+      </div>
+
+      <div class="row">
+        <label class="row-label"
+               for="vehicleTypeId">
+          Type
+          <span class="text-danger">*</span>
+        </label>
+        <div class="row-value">
+          <input type="text"
+                 class="form-control"
+                 formControlName="vehicleType"
+                 id="vehicleTypeId"
+                 placeholder="Vehicle type" />
+        </div>
+        @let vt = vehicleForm.get('vehicleType');
+        @if (vt?.invalid && vt?.touched) {
+        <div class="alert alert-danger">
+          <div>Vehicle type is required</div>
+        </div>
+        }
+      </div>
+
+      <div class="row">
+        <label class="row-label"
+               for="descriptionId">
+          Description
+        </label>
+        <div class="row-value">
+          <input type="text"
+                 class="form-control"
+                 formControlName="description"
+                 id="descriptionId"
+                 placeholder="Vehicle description" />
+        </div>
+        @let d = vehicleForm.get('description');
+        @if (d?.invalid && d?.touched) {
+        <div class="alert alert-danger">
+          <div>Description must be at least 10 characters</div>
+        </div>
+        }
+      </div>
+
+      <div class="row">
+        <label class="row-label"
+               for="passengerId">
+          Passengers
+        </label>
+        <div class="row-value">
+          <input type="number"
+                 class="form-control"
+                 formControlName="occupancy"
+                 id="passengerId"
+                 placeholder="Number of passengers" />
+        </div>
+        @let occ = vehicleForm.get('occupancy');
+        @if (occ?.invalid && occ?.touched) {
+        <div class="alert alert-danger">
+          <div>Occupancy cannot be negative</div>
+        </div>
+        }
+      </div>
+
+      <div class="row">
+        <label class="row-label"
+               for="manufactureDateId">
+          Manufacture Date
+        </label>
+        <div class="row-value">
+          <input type="date"
+                 class="form-control"
+                 formControlName="manufactureDate"
+                 id="manufactureDateId" />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="row-value">
+          <button type="submit"
+                  title="Ensure the form is valid and required fields are entered before saving"
+                  class="btn btn-primary"
+                  [disabled]="vehicleForm.invalid">
+            Save Vehicle
+          </button>
+          <button type="button"
+                  class="btn btn-secondary"
+                  (click)="onCancel()">
+            Cancel
+          </button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="row-value">
+          @if (savedMessage()) {
+          <div class="alert alert-success"
+               role="status"
+               aria-live="polite">
+            {{savedMessage()}}
+          </div>
+          }
+        </div>
+      </div>
+    </form>
+
+  </div>
+</div>

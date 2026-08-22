@@ -1,0 +1,45 @@
+/* Form Layout */
+form {
+  max-width: 100%;
+}
+
+.row {
+	display: grid;
+	grid-template-columns: .2fr 1fr;
+	align-items: top;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-md, 1rem);
+}
+
+.row-label {
+  padding: 3px;
+  text-align: left;
+  grid-column: 1 / 2;
+  color: var(--text-primary, #1a1612);
+  letter-spacing: 0.5px;
+}
+
+.row-value {
+  text-align: left;
+  grid-column: 2 / 3;
+}
+
+/* Form Controls */
+.form-check-input {
+  width: 1.125rem;
+  height: 1.125rem;
+  margin: 0 .5rem 0 0;
+  cursor: pointer;
+  accent-color: var(--primary-color, #b8860b);
+  transition: var(--transition-base, all 0.2s ease-in-out);
+}
+
+.form-check-input:focus {
+  box-shadow: 0 0 0 3px rgba(184, 134, 11, 0.25);
+}
+
+.form-check-label {
+  cursor: pointer;
+  user-select: none;
+  color: var(--text-primary);
+}

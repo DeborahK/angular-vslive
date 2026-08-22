@@ -1,0 +1,136 @@
+<div class="card">
+  <div class="card-header">
+    User Profile
+  </div>
+  <div class="card-body">
+    <form autocomplete="off">
+      <div class="row">
+        <label class="row-label"
+               for="firstNameId">
+          First Name
+          @if (userProfileForm.firstName().required()) {
+          <span class="text-danger">*</span>
+          }
+        </label>
+        <div class="row-value">
+          <input type="text"
+                 class="form-control"
+                 [formField]="userProfileForm.firstName"
+                 id="firstNameId"
+                 placeholder="First Name" />
+        </div>
+        @if (userProfileForm.firstName().invalid() && userProfileForm.firstName().touched()) {
+          <div class="alert alert-danger">
+            @for (error of userProfileForm.firstName().errors(); track error.kind) {
+              <div>{{ error.message }}</div>
+            }
+          </div>
+        }
+      </div>
+
+      <div class="row">
+        <label class="row-label"
+               for="lastNameId">
+          Last Name
+        </label>
+        <div class="row-value">
+          <input type="text"
+                 class="form-control"
+                 [formField]="userProfileForm.lastName"
+                 id="lastNameId"
+                 placeholder="Last Name" />
+        </div>
+      </div>
+
+      <div class="row">
+        <label class="row-label">
+          Social Links
+        </label>
+        <div class="row-value">
+          <div class="social-links-container">
+            @for (link of userProfileForm.socialLinks; track $index) {
+              <div class="social-link-row">
+                <input type="url"
+                      class="form-control"
+                      [formField]="userProfileForm.socialLinks[$index].linkUrl"
+                      [id]="'socialLink' + $index"
+                      placeholder="https://example.com/your-profile"
+                      title="URL to your profile on a social platform" />
+                <input type="text"
+                      class="form-control platform-input"
+                      [formField]="userProfileForm.socialLinks[$index].platform"
+                      [id]="'platform' + $index"
+                      placeholder="Platform name"
+                      title="Name of the social platform eg LinkedIn" />
+                <input type="number"
+                      class="form-control year-input"
+                      [formField]="userProfileForm.socialLinks[$index].memberSinceYear"
+                      [id]="'memberSinceYear' + $index"
+                      placeholder="Year"
+                      title="Year your membership started on this platform" />
+                <button type="button"
+                        class="btn btn-danger btn-sm"
+                        (click)="removeSocialLink($index)"
+                        title="Remove this social link">
+                  ✕
+                </button>
+              </div>
+              @let linkField = userProfileForm.socialLinks[$index].linkUrl;
+              @if (linkField().invalid() && linkField().touched()) {
+                <div class="alert alert-danger">
+                  @for (error of linkField().errors(); track error.kind) {
+                  <div>{{ error.message }}</div>
+                  }
+                </div>
+              }
+              @let platformField = userProfileForm.socialLinks[$index].platform;
+              <!-- Notice that this displays the error if the link field is touched -->
+              @if (platformField().invalid() && linkField().touched()) {
+                <div class="alert alert-danger">
+                  @for (error of platformField().errors(); track error.kind) {
+                  <div>{{ error.message }}</div>
+                  }
+                </div>
+              }
+              @let memberSinceYearField = userProfileForm.socialLinks[$index].memberSinceYear;
+              @if (memberSinceYearField().invalid() && memberSinceYearField().touched()) {
+                <div class="alert alert-danger">
+                  @for (error of memberSinceYearField().errors(); track error.kind) {
+                  <div>{{ error.message }}</div>
+                  }
+                </div>
+              }
+            } @empty {
+              <div class="empty-state">
+                No social links added yet. Click "Add Social Link" to get started.
+              </div>
+            }
+          </div>
+          <button type="button"
+                  class="btn btn-add-link"
+                  (click)="addSocialLink()"
+                  title="Add a new social link">
+            + Add Social Link
+          </button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="row-value">
+          <button type="button"
+                  title="Ensure the form is valid and required fields are entered before saving"
+                  class="btn btn-primary"
+                  [disabled]="this.userProfileForm().invalid()"
+                  (click)="onSubmit()">
+            Save Profile
+          </button>
+          <button type="button"
+                  class="btn btn-secondary"
+                  (click)="onCancel()">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

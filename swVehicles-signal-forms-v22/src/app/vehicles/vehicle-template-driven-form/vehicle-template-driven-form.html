@@ -1,0 +1,149 @@
+<div class="card">
+  <div class="card-header">
+    Add a Vehicle (template-driven forms)
+  </div>
+  <div class="card-body">
+    <form #f="ngForm"
+          (ngSubmit)="onSave(f)"
+          autocomplete="off"
+          novalidate>
+      <div class="row">
+        <label class="row-label"
+               for="vehicleNameId">
+          Name
+          <span class="text-danger">*</span>
+        </label>
+        <div class="row-value">
+          <input type="text"
+                 name="vehicleName"
+                 id="vehicleNameId"
+                 class="form-control"
+                 [(ngModel)]="vehicle.vehicleName"
+                 #vehicleName="ngModel"
+                 required
+                 minlength="5"
+                 placeholder="Vehicle name" />
+        </div>
+        @if (vehicleName.invalid && vehicleName.touched) {
+        <div class="alert alert-danger">
+          @if (vehicleName.hasError('required')) {
+            <div>Vehicle name is required</div>
+          } @else if (vehicleName.hasError('minlength')) {
+            <div>Vehicle name must be at least 5 characters</div>
+          }
+        </div>
+        }
+      </div>
+
+      <div class="row">
+        <label class="row-label"
+               for="vehicleTypeId">
+          Type
+          <span class="text-danger">*</span>
+        </label>
+        <div class="row-value">
+          <input type="text"
+                 name="vehicleType"
+                 id="vehicleTypeId"
+                 class="form-control"
+                 [(ngModel)]="vehicle.vehicleType"
+                 #vehicleType="ngModel"
+                 required
+                 placeholder="Vehicle type" />
+        </div>
+        @if (vehicleType.invalid && vehicleType.touched) {
+          <div class="alert alert-danger">
+            <div>Vehicle type is required</div>
+          </div>
+        }
+      </div>
+
+      <div class="row">
+        <label class="row-label"
+               for="descriptionId">
+          Description
+        </label>
+        <div class="row-value">
+          <input type="text"
+                 name="description"
+                 id="descriptionId"
+                 class="form-control"
+                 [(ngModel)]="vehicle.description"
+                 #description="ngModel"
+                 minlength="10"
+                 placeholder="Vehicle description" />
+        </div>
+        @if (description.invalid && description.touched) {
+        <div class="alert alert-danger">
+          <div>Description must be at least 10 characters</div>
+        </div>
+        }
+      </div>
+
+      <div class="row">
+        <label class="row-label"
+               for="passengerId">
+          Passengers
+        </label>
+        <div class="row-value">
+          <input type="number"
+                 name="occupancy"
+                 id="passengerId"
+                 class="form-control"
+                 [(ngModel)]="vehicle.occupancy"
+                 #occupancy="ngModel"
+                 min="0"
+                 placeholder="Number of passengers" />
+        </div>
+        @if (occupancy.invalid && occupancy.touched) {
+        <div class="alert alert-danger">
+          <div>Occupancy cannot be negative</div>
+        </div>
+        }
+      </div>
+
+      <div class="row">
+        <label class="row-label"
+               for="manufactureDateId">
+          Manufacture Date
+        </label>
+        <div class="row-value">
+          <input type="date"
+                 name="manufactureDate"
+                 id="manufactureDateId"
+                 class="form-control"
+                 [(ngModel)]="vehicle.manufactureDate" />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="row-value">
+          <button type="submit"
+                  title="Ensure the form is valid and required fields are entered before saving"
+                  class="btn btn-primary"
+                  [disabled]="f.invalid">
+            Save Vehicle
+          </button>
+          <button type="button"
+                  class="btn btn-secondary"
+                  (click)="onCancel(f)">
+            Cancel
+          </button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="row-value">
+          @if (savedMessage()) {
+          <div class="alert alert-success"
+               role="status"
+               aria-live="polite">
+            {{ savedMessage() }}
+          </div>
+          }
+        </div>
+      </div>
+    </form>
+
+  </div>
+</div>

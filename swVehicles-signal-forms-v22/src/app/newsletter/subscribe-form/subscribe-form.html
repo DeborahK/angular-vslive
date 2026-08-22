@@ -1,0 +1,161 @@
+<div class="card">
+  <div class="card-header">
+    Subscribe to our Newsletter
+  </div>
+  <div class="card-body">
+    <form autocomplete="off">
+      <div class="row">
+        <label class="row-label"
+               for="firstNameId">
+          First Name
+        </label>
+        <div class="row-value">
+          <input type="text"
+                 class="form-control"
+                 [formField]="subscribeForm.firstName"
+                 id="firstNameId"
+                 placeholder="First Name" />
+        </div>
+      </div>
+
+      <div class="row">
+        <label class="row-label"
+               for="lastNameId">
+          Last Name
+        </label>
+        <div class="row-value">
+          <input type="text"
+                 class="form-control"
+                 [formField]="subscribeForm.lastName"
+                 id="lastNameId"
+                 placeholder="Last Name" />
+        </div>
+      </div>
+
+      <div class="row">
+        <label class="row-label"
+               for="emailId">
+          Email
+          @if (subscribeForm.email().required()) {
+          <span class="text-danger">*</span>
+          }
+        </label>
+        <div class="row-value">
+          <input type="email"
+                 class="form-control"
+                 [formField]="subscribeForm.email"
+                 id="emailId"
+                 placeholder="Email" />
+        </div>
+        @if (subscribeForm.email().invalid() && subscribeForm.email().touched()) {
+        <div class="alert alert-danger">
+          @for (error of subscribeForm.email().errors(); track error.kind) {
+          <div>{{ error.message }}</div>
+          }
+        </div>
+        }
+      </div>
+
+      <div class="row">
+        <label class="row-label"
+               for="phoneId">
+          Phone
+          @if (subscribeForm.phone().required()) {
+          <span class="text-danger">*</span>
+          }
+        </label>
+        <div class="row-value">
+          <input type="tel"
+                 class="form-control"
+                 [formField]="subscribeForm.phone"
+                 id="phoneId"
+                 placeholder="Cell Phone Number" />
+        </div>
+        @if (subscribeForm.phone().invalid() && subscribeForm.phone().touched()) {
+        <div class="alert alert-danger">
+          @for (error of subscribeForm.phone().errors(); track error.kind) {
+          <div>{{ error.message }}</div>
+          }
+        </div>
+        }
+      </div>
+
+      <div class="row">
+        <label class="row-label">
+          Send via
+        </label>
+        <div class="row-value">
+          <div class="form-check">
+            <input type="checkbox"
+                   class="form-check-input"
+                   [formField]="subscribeForm.sendViaEmail"
+                   id="sendViaEmailId" />
+            <label class="form-check-label"
+                   for="sendViaEmailId">
+              Email
+            </label>
+          </div>
+          @if (subscribeForm.sendViaEmail().invalid()) {
+            <div class="alert alert-danger">
+              @for (error of subscribeForm.sendViaEmail().errors(); track error.kind) {
+                <div>{{ error.message }}</div>
+              }
+            </div>
+          }
+          <div class="form-check">
+            <input type="checkbox"
+                   class="form-check-input"
+                   [formField]="subscribeForm.sendViaText"
+                   id="sendViaTextId" />
+            <label class="form-check-label"
+                   for="sendViaTextId">
+              Text
+            </label>
+          </div>
+          @if (subscribeForm.sendViaText().invalid()) {
+            <div class="alert alert-danger">
+              @for (error of subscribeForm.sendViaText().errors(); track error.kind) {
+                <div>{{ error.message }}</div>
+              }
+            </div>
+          }
+        </div>
+      </div>
+
+      <div class="row">
+        <label class="row-label"
+               for="yearsAsFanId">
+          Years as a Fan
+        </label>
+        <div class="row-value">
+          <input type="number"
+                 class="form-control"
+                 [formField]="subscribeForm.yearsAsFan"
+                 id="yearsAsFanId"
+                 placeholder="How many years have you been a Star Wars fan?" />
+        </div>
+        @if (subscribeForm.yearsAsFan().invalid() && subscribeForm.yearsAsFan().touched()) {
+        <div class="alert alert-danger">
+          @for (error of subscribeForm.yearsAsFan().errors(); track error.kind) {
+          <div>{{ error.message }}</div>
+          }
+        </div>
+        }
+      </div>
+
+      <div class="row">
+        <div class="row-value">
+          <button type="button"
+                  title="Ensure the form is valid and required fields are entered before subscribing"
+                  class="btn btn-primary">
+            Subscribe
+          </button>
+          <button type="button"
+                  class="btn btn-secondary">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
