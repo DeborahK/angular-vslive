@@ -10,7 +10,7 @@
 .header {
 	background: var(--base-color);
 	color: var(--text-light);
-	font-size: 1.5rem;
+  font-size: var(--font-size-base);
 	font-weight: bold;
   padding: .5rem;
 	border-radius: 8px 8px 0 0;
@@ -55,7 +55,7 @@
   border-radius: 6px;
   margin-bottom: 0.3rem;
   padding: 0.4rem 0.8rem;
-  font-size: 1rem;
+  font-size: var(--font-size-sm);
   border: 1px solid var(--secondary-accent); /* Gold border */
   transition: background 0.2s, color 0.2s;
 }

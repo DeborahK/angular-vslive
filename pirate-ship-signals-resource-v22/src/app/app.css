@@ -23,8 +23,8 @@
 }
 
 .navbar-brand {
-  color: white;
-  font-size: 1.5rem;
+  color: var(--text-light);
+  font-size: var(--font-size-base);
   font-weight: bold;
   text-decoration: none;
   margin-left: 0;
@@ -43,7 +43,7 @@
 
 .nav-link {
   color: #fff;
-  font-size: 1.1rem;
+  font-size: var(--font-size-base);
   text-decoration: none;
   cursor: pointer;
   transition: color 0.2s;

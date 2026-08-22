@@ -8,12 +8,15 @@
   --background-dark: #0B0B0B; /* Deep Black – base background */
   --background-alt: #1C3F60; /* Sea Blue – section or card backgrounds */
   --background-light: #EBDECD; /* Light background areas */
-  --text-light:#FFEA00; /* Main text on dark backgrounds */
+  --font-size-base: 1.5rem;
+  --font-size-sm: 1.25rem;
+  --text-light: #F9c873; /* Main text on dark backgrounds */
 }
 /* #E2C797 #d2bf9f #D4AF37 */
  
 body {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: var(--font-size-base);
   margin: 0;
   padding: 0;
   background: linear-gradient(

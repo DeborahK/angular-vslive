@@ -10,7 +10,7 @@
 .header {
   background: var(--base-color);
 	color: var(--text-light);
-  font-size: 1.5rem;
+  font-size: var(--font-size-base);
   font-weight: bold;
   padding: .5rem;
   border-radius: 8px 8px 0 0;
@@ -43,7 +43,7 @@
   border: 1.5px solid var(--base-color);
   border-radius: 5px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  font-size: 1rem;
+  font-size: var(--font-size-sm);
   color: var(--base-color);
 	background: #fff;
 }
@@ -65,7 +65,7 @@ select>option {
   color: var(--base-color, #214345);
   border: none;
   border-radius: 5px;
-  font-size: 1rem;
+  font-size: var(--font-size-sm);
   font-weight: bold;
   cursor: pointer;
   transition: background 0.2s, color 0.2s, box-shadow 0.2s;
