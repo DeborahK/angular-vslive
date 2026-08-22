@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { initialData, VehicleFormData } from '../vehicle';
 
@@ -6,6 +6,7 @@ import { initialData, VehicleFormData } from '../vehicle';
   selector: 'swv-vehicle-template-driven-form',
   templateUrl: './vehicle-template-driven-form.html',
   styleUrl: './vehicle-template-driven-form.css',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FormsModule]
 })
 export class VehicleTemplateDrivenForm {

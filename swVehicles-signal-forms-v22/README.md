@@ -9,7 +9,7 @@ Features:
 - User profile form
 - CSS styles (no Bootstrap)
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.1.5.
+This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.1.5.
 
 ## Development server
 

@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 import { form, FormField, submit } from '@angular/forms/signals';
 import { initialData, VehicleFormData, vehicleSchema } from '../vehicle';
 
@@ -6,6 +6,7 @@ import { initialData, VehicleFormData, vehicleSchema } from '../vehicle';
   selector: 'swv-vehicle-form',
   imports: [FormField],
   templateUrl: './vehicle-form.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './vehicle-form.css',
 })
 export class VehicleForm {

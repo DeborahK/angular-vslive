@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { initialData } from '../vehicle';
 
@@ -6,6 +6,7 @@ import { initialData } from '../vehicle';
   selector: 'swv-vehicle-reactive-form',
   templateUrl: './vehicle-reactive-form.html',
   styleUrl: './vehicle-reactive-form.css',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [ReactiveFormsModule]
 })
 export class VehicleReactiveForm {

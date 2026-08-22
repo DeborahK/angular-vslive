@@ -14,7 +14,7 @@
       </div>
       <div class="row">
         <div class="row-label">Price (in credits):</div>
-        <div class="row-value">{{vehicle()?.cost_in_credits | number:'1.2-2'}}</div>
+        <div class="row-value">{{$safeNavigationMigration(vehicle()?.cost_in_credits) | number:'1.2-2'}}</div>
       </div>
       <div class="row">
         <div class="row-label">Crew:</div>
