@@ -5,6 +5,9 @@ Features:
 - Films for vehicle
 - Cart feature by vehicle only (Quantity/Total - no full implementation)
 - Add Vehicle form (form only, doesn't actually save)
+- Add Vehicle form implemented with signal forms
+- Add Vehicle form implemented with template-driven form
+- Add Vehicle form implemented with reactive form
 - Subscribe form
 - User profile form
 - CSS styles (no Bootstrap)
