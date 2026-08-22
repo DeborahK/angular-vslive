@@ -1,5 +1,5 @@
 import { httpResource } from '@angular/common/http';
-import { Injectable, effect, linkedSignal, signal } from '@angular/core';
+import { Injectable, effect, linkedSignal } from '@angular/core';
 import { Ship } from './ship';
 
 @Injectable({
