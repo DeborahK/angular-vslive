@@ -9,7 +9,7 @@ export interface UserProfile {
 export interface ProfileLink {
   linkUrl: string;
   platform: string;
-  memberSinceYear: string;
+  memberSinceYear: number | null;
 }
 
 export const initialData: UserProfile = {
@@ -21,7 +21,7 @@ export const initialData: UserProfile = {
 export const initialLink: ProfileLink = {
   linkUrl: '',
   platform: '',
-  memberSinceYear: ''
+  memberSinceYear: null
 }
 
 export const userProfileSchema = schema<UserProfile>(rootPath => {
@@ -44,7 +44,8 @@ const linksSchema = schema<ProfileLink>((path) => {
   });
   min(path.memberSinceYear, minYear, { message: 'Year must be 1990 or later' });
   max(path.memberSinceYear, currentYear, { message: 'Year must be this year or earlier' });
-  pattern(path.memberSinceYear, /^\d{4}$/, { message: 'Year must be four digits (YYYY)' });
+  // Since memberSinceYear is number, it cannot be validated with pattern
+  // pattern(path.memberSinceYear, /^\d{4}$/, { message: 'Year must be four digits (YYYY)' });
 });
 
 const currentYear = new Date().getFullYear();
