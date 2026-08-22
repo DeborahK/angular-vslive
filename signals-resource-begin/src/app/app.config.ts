@@ -9,7 +9,6 @@ import { AppData } from './app-data';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
-    provideZonelessChangeDetection(),
     provideRouter(routes),
     provideHttpClient(withFetch()),
     importProvidersFrom(

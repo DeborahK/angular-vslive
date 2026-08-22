@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { VehicleList } from "../vehicle-list/vehicle-list";
 import { VehicleDetail } from "../vehicle-detail/vehicle-detail";
 import { CartTotal } from '../../cart/cart-total/cart-total';
@@ -20,6 +20,7 @@ import { CartTotal } from '../../cart/cart-total/cart-total';
       </div>
     </div>
   `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [VehicleList, VehicleDetail, CartTotal]
 })
 export class VehicleShell {

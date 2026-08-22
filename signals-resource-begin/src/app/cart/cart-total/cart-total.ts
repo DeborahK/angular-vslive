@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CartService } from '../cart.service';
@@ -7,6 +7,7 @@ import { VehicleService } from '../../vehicles/vehicle.service';
 @Component({
   selector: 'sw-cart-total',
   imports: [DecimalPipe, FormsModule],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './cart-total.html'
 })
 export class CartTotal {
