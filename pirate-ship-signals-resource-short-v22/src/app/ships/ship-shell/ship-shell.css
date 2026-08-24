@@ -1,0 +1,20 @@
+.body {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto;
+  width: 100%;
+  max-width: 1200px;
+  font-size: 18px;
+  align-items: start;
+}
+
+.list-container {
+  grid-column: 1;
+  grid-row: 1;
+  padding: 1em 1em .5em 1em;
+}
+.total-container {
+  grid-column: 1;
+  grid-row: 2;
+  padding: .5em 1em 1em .5em;
+}

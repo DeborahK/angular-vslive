@@ -1,0 +1,56 @@
+/* Pirate icon in navbar using sprite technique */
+.navbar-pirate-icon {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  background-image: url('/assets/pirate.png');
+  background-size: 200% 200%; /* 2x2 grid, so each icon is 50% of width/height */
+  background-position: right top; /* upper right quadrant */
+  background-repeat: no-repeat;
+  margin-right: 12px;
+  vertical-align: middle;
+}
+/* Navigation bar using CSS Grid */
+.navbar {
+  display: flex;
+  align-items: center;
+  background-color: var(--base-color);
+  padding: 0.5rem 1rem;
+}
+
+.navbar-light .navbar-nav .nav-link.active {
+  color:var(--text-light)
+}
+
+.navbar-brand {
+  color: var(--text-light);
+  font-size: var(--font-size-base);
+  font-weight: bold;
+  text-decoration: none;
+  margin-left: 0;
+  margin-right: 2rem;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.navbar-nav {
+  display: flex;
+  gap: 1.5rem;
+  list-style: none;
+  margin: 0 0 0 auto;
+  padding: 0;
+}
+
+.nav-link {
+  color: #fff;
+  font-size: var(--font-size-base);
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.nav-link.active,
+.nav-link:focus,
+.nav-link:hover {
+  color: #ffd700;
+}

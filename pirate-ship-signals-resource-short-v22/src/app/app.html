@@ -1,0 +1,21 @@
+<nav class="navbar navbar-expand navbar-light bg-light">
+  <span class="navbar-pirate-icon" aria-label="Pirate Icon"></span>
+  <a class="navbar-brand">{{pageTitle}}</a>
+  <ul class="navbar-nav">
+    <li class="nav-item">
+      <a class="nav-link"
+        [routerLink]="['/home']"
+      routerLinkActive="active">Home</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link"
+        [routerLink]="['/ships']"
+        routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact : true}">Ship List</a>
+    </li>
+  </ul>
+</nav>
+
+<div class="container">
+  <router-outlet></router-outlet>
+</div>
