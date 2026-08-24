@@ -1,11 +1,9 @@
 import { httpResource } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { inject, Service } from '@angular/core';
 import { Film } from './film';
 import { ShipService } from '../ships/ship.service';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Service()
 export class FilmService {
   private url = 'api/films';
   private shipService = inject(ShipService);

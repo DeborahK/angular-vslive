@@ -1,10 +1,8 @@
 import { httpResource } from '@angular/common/http';
-import { Injectable, effect, linkedSignal } from '@angular/core';
+import { Service, effect, linkedSignal } from '@angular/core';
 import { Ship } from './ship';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Service()
 export class ShipService {
   private url = 'api/ships';
 
