@@ -68,6 +68,8 @@ Can now see the list of ships
 
 # Handle the selected ship
 
+*** Can NOT handle selectedShip until data is retrieved ***
+
 ## ship.service.ts
 ```
   // Expose signals from this service

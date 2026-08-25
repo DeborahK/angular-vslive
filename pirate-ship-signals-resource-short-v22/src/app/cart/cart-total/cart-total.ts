@@ -17,7 +17,8 @@ export class CartTotal {
 
   // Signals used in the UI
   selectedShip = this.shipService.selectedShip;
-  pageTitle = computed(() => this.selectedShip() ? `Total for: ${this.selectedShip()?.name}` : '');
+  pageTitle = computed(() => this.selectedShip() ? 
+    `Total for: ${this.selectedShip()?.name}` : 'Total');
 
   price = this.cartService.price;
   quantity = this.cartService.quantity;
