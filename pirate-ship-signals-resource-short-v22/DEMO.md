@@ -83,11 +83,6 @@ Can now see the list of ships
   selectedShip = signal<Ship | undefined>(undefined);
 ```
 
-## ship-list.ts
-```
-  selectedShip = this.shipService.selectedShip;
-```
-
 ## cart.service.ts
 ```
   price = computed(() => this.shipService.selectedShip()?.price ?? 0);
@@ -129,6 +124,7 @@ export class CartTotal {
   private cartService = inject(CartService);
   private shipService = inject(ShipService);
 
+  selectedShip = this.shipService.selectedShip;
   pageTitle = signal('Total');
 
 }
@@ -141,6 +137,8 @@ import { Ship } from './ship';
 @Service()
 export class ShipService {
   private url = 'api/ships';
+
+  selectedShip = undefined;
 
 }
 
@@ -162,7 +160,7 @@ export class ShipList {
   private shipService = inject(ShipService);
 
   // Component signals
-  selectedShip = undefined;
+  selectedShip = this.shipService.selectedShip;
 
   ships = signal<Ship[]>([]);
   isLoading = signal(false);
