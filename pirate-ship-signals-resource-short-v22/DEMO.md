@@ -12,15 +12,11 @@
 
 Do NOT attempt to run ... HTML has errors
 
-## ship.service.ts
-  // Expose signals from this service
-  selectedShip = signal<Ship | undefined>(undefined);
-
 ## cart.service.ts
 ```
   // Initial value
   quantity = signal(1);
-  price = computed(() => this.shipService.selectedShip()?.price ?? 0);
+  price = signal(5000);
   
   subTotal = computed(() => this.quantity() * this.price());
   deliveryFee = computed(() => this.subTotal() < 50000 ? 999 : 0);
@@ -29,9 +25,6 @@ Do NOT attempt to run ... HTML has errors
 ```
 ## cart-total.ts
 ```
-  selectedShip = this.shipService.selectedShip;
-  pageTitle = computed(() => this.selectedShip() ? `Total for: ${this.selectedShip()?.name}` : '');
-
   price = this.cartService.price;
   quantity = this.cartService.quantity;
 
@@ -42,14 +35,12 @@ Do NOT attempt to run ... HTML has errors
 ```
 ## cart-total.html
 
-* Fix bindings
-* NOT two-way binding
+* View bindings
+* View two-way binding
 
 ## *** RUN ***
 
 When quantity changes, the calculated properties automatically change!
-
-## *** RUN ***
 
 # Retrieve Ships with httpResource()
 
@@ -75,10 +66,28 @@ Change each variable to read a signal:
 
 Can now see the list of ships
 
+# Handle the selected ship
+
+## ship.service.ts
+```
+  // Expose signals from this service
+  selectedShip = signal<Ship | undefined>(undefined);
+```
+
+## cart.service.ts
+```
+  price = computed(() => this.shipService.selectedShip()?.price ?? 0);
+```
+
+## cart-total.ts
+```
+  pageTitle = signal('Total');
+```
+
 # REPLACEMENT INSTRUCTIONS
 
 ## Replace the cart.service.ts file with this:
-import { inject, Service } from "@angular/core";
+import { inject, Service, signal } from "@angular/core";
 import { ShipService } from "../ships/ship.service";
 
 @Service()
@@ -104,6 +113,8 @@ import { ShipService } from '../../ships/ship.service';
 export class CartTotal {
   private cartService = inject(CartService);
   private shipService = inject(ShipService);
+
+  pageTitle = 'Total';
 
 }
 
