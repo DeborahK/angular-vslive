@@ -49,14 +49,10 @@ When quantity changes, the calculated properties automatically change!
 
 ## ship.service.ts
 ```
-selectedShip = signal<Ship | undefined>(undefined);
-
 shipsResource = httpResource<Ship[]>(() => this.url, { defaultValue: [] });
 ```
 ## ship-list.ts
 ```
-  selectedShip =this.shipService.selectedShip;
-  
   ships = this.shipService.shipsResource.value;
   isLoading = this.shipService.shipsResource.isLoading;
   error = this.shipService.shipsResource.error;
