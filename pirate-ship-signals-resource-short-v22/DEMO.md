@@ -5,13 +5,14 @@
   cart.service.ts, cart-total.ts, ship.service.ts, ship-list.ts
 
 # Set up (RIGHT BEFORE TALK)
+* Launch VS Code with project
 * Open needed files: cart.service.ts, cart-total.ts, ship.service.ts, ship-list.ts
 
 # Basic Signals
 
-## *** DO NOT RUN ***
+## *** RUN ***
 
-Do NOT attempt to run ... HTML has errors
+HTML has errors ... ignore for now
 
 ## cart.service.ts
 ```
