@@ -97,7 +97,7 @@ Can now see the list of ships
 # REPLACEMENT INSTRUCTIONS
 
 ## Replace the cart.service.ts file with this:
-import { inject, Service, signal } from "@angular/core";
+import { computed, inject, Service, signal } from "@angular/core";
 import { ShipService } from "../ships/ship.service";
 
 @Service()
