@@ -20,7 +20,4 @@ export class ShipList {
   error = this.shipService.shipsResource.error;
   errorMessage = computed(() => this.error() ? this.error()?.message : '');
 
-  refreshData() {
-    this.shipService.shipsResource.reload();
-  }
 }

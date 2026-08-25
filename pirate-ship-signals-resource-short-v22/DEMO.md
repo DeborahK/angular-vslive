@@ -1,10 +1,11 @@
 # Demo Instructions
 
-# Set up
-* Update files (see Replacement Instructions below)
-* Open needed files
-* Run the application
-* Set browser to 125%
+# Set up (DAY BEFORE)
+* Update files (see Replacement Instructions below):
+  cart.service.ts, cart-total.ts, ship.service.ts, ship-list.ts
+
+# Set up (RIGHT BEFORE TALK)
+* Open needed files: cart.service.ts, cart-total.ts, ship.service.ts, ship-list.ts
 
 # Basic Signals
 
@@ -40,16 +41,22 @@ Do NOT attempt to run ... HTML has errors
 
 ## *** RUN ***
 
+* Set browser to 125%
+
 When quantity changes, the calculated properties automatically change!
 
 # Retrieve Ships with httpResource()
 
 ## ship.service.ts
 ```
+selectedShip = signal<Ship | undefined>(undefined);
+
 shipsResource = httpResource<Ship[]>(() => this.url, { defaultValue: [] });
 ```
 ## ship-list.ts
 ```
+  selectedShip =this.shipService.selectedShip;
+  
   ships = this.shipService.shipsResource.value;
   isLoading = this.shipService.shipsResource.isLoading;
   error = this.shipService.shipsResource.error;
@@ -76,6 +83,11 @@ Can now see the list of ships
   selectedShip = signal<Ship | undefined>(undefined);
 ```
 
+## ship-list.ts
+```
+  selectedShip = this.shipService.selectedShip;
+```
+
 ## cart.service.ts
 ```
   price = computed(() => this.shipService.selectedShip()?.price ?? 0);
@@ -83,7 +95,8 @@ Can now see the list of ships
 
 ## cart-total.ts
 ```
-  pageTitle = signal('Total');
+  pageTitle = computed(() => this.selectedShip() ? 
+    `Total for: ${this.selectedShip()?.name}` : 'Total');
 ```
 
 # REPLACEMENT INSTRUCTIONS
@@ -99,7 +112,7 @@ export class CartService {
 }
 
 ## Replace the cart-total.ts file with this:
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 
 import { CartService } from '../cart.service';
@@ -116,7 +129,7 @@ export class CartTotal {
   private cartService = inject(CartService);
   private shipService = inject(ShipService);
 
-  pageTitle = 'Total';
+  pageTitle = signal('Total');
 
 }
 
@@ -149,14 +162,11 @@ export class ShipList {
   private shipService = inject(ShipService);
 
   // Component signals
-  selectedShip = this.shipService.selectedShip;
+  selectedShip = undefined;
 
   ships = signal<Ship[]>([]);
   isLoading = signal(false);
   error = signal<Error|undefined>(undefined);
   errorMessage = computed(() => this.error() ? this.error()?.message : '');
-
-  refreshData() {
-  }
 }
 

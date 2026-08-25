@@ -58,23 +58,3 @@
 select>option {
   color: var(--base-color);
 }
-
-.refresh-btn {
-  padding: 0.4rem 1rem;
-  background: var(--secondary-accent, #FFD700);
-  color: var(--base-color, #214345);
-  border: none;
-  border-radius: 5px;
-  font-size: var(--font-size-sm);
-  font-weight: bold;
-  cursor: pointer;
-  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
-  box-shadow: 0 1px 4px rgba(33,67,69,0.08);
-}
-
-.refresh-btn:hover,
-.refresh-btn:focus {
-  background: var(--base-color, #214345);
-  color: #fff;
-  outline: none;
-}
