@@ -32,9 +32,10 @@ export class VehicleTemplateDrivenForm {
   }
 
   onCancel(form?: NgForm) {
-    // Clear any timer
+    // Clear any message or timer
     clearTimeout(this.savedTimer);
     this.savedTimer = 0;
+    this.savedMessage.set('');
 
     // Reset the form
     this.vehicle = { ...initialData };
