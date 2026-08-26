@@ -3,7 +3,8 @@
     Add a Vehicle
   </div>
   <div class="card-body">
-    <form autocomplete="off">
+    <form autocomplete="off"
+      (submit)="onSave($event)">
       <div class="row">
         <label class="row-label"
                for="vehicleNameId">
@@ -32,7 +33,7 @@
         <label class="row-label"
                for="vehicleTypeId">
           Type
-          @if (vehicleForm.vehicleName().required()) {
+          @if (vehicleForm.vehicleType().required()) {
           <span class="text-danger">*</span>
           }
         </label>
@@ -116,11 +117,10 @@
 
       <div class="row">
         <div class="row-value">
-          <button type="button"
+          <button type="submit"
                   title="Ensure the form is valid and required fields are entered before saving"
                   class="btn btn-primary"
-                  [disabled]="this.vehicleForm().invalid()"
-                  (click)="onSave()">
+                  [disabled]="this.vehicleForm().invalid()">
             Save Vehicle
           </button>
           <button type="button"

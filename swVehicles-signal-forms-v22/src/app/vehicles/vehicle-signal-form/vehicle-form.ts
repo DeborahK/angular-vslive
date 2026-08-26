@@ -1,4 +1,4 @@
-import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { form, FormField, submit } from '@angular/forms/signals';
 import { initialData, VehicleFormData, vehicleSchema } from '../vehicle';
 
@@ -6,10 +6,11 @@ import { initialData, VehicleFormData, vehicleSchema } from '../vehicle';
   selector: 'swv-vehicle-form',
   imports: [FormField],
   templateUrl: './vehicle-form.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './vehicle-form.css',
 })
 export class VehicleForm {
+  savedMessage = signal('');
+  private savedTimer = 0;
 
   // Create a form model signal with form fields
   // This represents the form's data structure
@@ -19,22 +20,26 @@ export class VehicleForm {
   vehicleForm = form(this.vehicleModel, vehicleSchema);
 
   // Handle the buttons
-  onSave() {
+  onSave(event: SubmitEvent) {
+    event.preventDefault();
+    
     if (this.vehicleForm().valid()) {
       submit(this.vehicleForm, () => this.onSubmit())
     }
   }
 
   onCancel() {
+    // Clear any message or timer
+    clearTimeout(this.savedTimer);
+    this.savedTimer = 0;
+    this.savedMessage.set('');
+
     // Reset form (or navigate to another page)
     this.vehicleForm().reset(initialData);
   }
 
   // Process the save
-  savedMessage = signal('');
-  private savedTimer = 0;
-
-  async onSubmit() {
+  private async onSubmit() {
     // Submit to the server
     // Issue HTTP request and then add to retrieved list of vehicles
 

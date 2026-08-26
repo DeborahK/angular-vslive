@@ -6,7 +6,7 @@ form {
 .row {
 	display: grid;
 	grid-template-columns: .2fr 1fr;
-	align-items: top;
+	align-items: start;
   gap: var(--spacing-sm);
   margin-bottom: var(--spacing-md, 1rem);
 }
@@ -22,13 +22,6 @@ form {
 .row-value {
   text-align: left;
   grid-column: 2 / 3;
-}
-
-/* Responsive form layout */
-@media (max-width: 768px) {
-  .row {
-    grid-template-columns: 1fr;
-  }
 }
 
 /* Buttons */
@@ -72,4 +65,17 @@ form {
 
 .text-danger {
   color: #c0392b;
+}
+
+/* Responsive form layout */
+@media (max-width: 768px) {
+  .row {
+    grid-template-columns: 1fr;
+  }
+
+  .row-label,
+  .row-value,
+  .alert {
+    grid-column: 1;
+  }
 }
