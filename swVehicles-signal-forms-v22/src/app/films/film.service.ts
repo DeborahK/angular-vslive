@@ -1,14 +1,12 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, effect, inject } from '@angular/core';
+import { Service, effect, inject } from '@angular/core';
 import { forkJoin} from 'rxjs';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { VehicleService } from '../vehicles/vehicle.service';
 import { Film } from './film';
 import { getNestedError } from '../utils/error-handling';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Service()
 export class FilmService {
   private http = inject(HttpClient);
   private vehicleService = inject(VehicleService);

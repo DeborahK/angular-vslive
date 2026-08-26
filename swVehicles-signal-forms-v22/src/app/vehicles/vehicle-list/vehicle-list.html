@@ -13,7 +13,7 @@
     } @else {
       <div>
         <select [(ngModel)]="selectedVehicle">
-          <option value="undefined"
+          <option [ngValue]="undefined"
                   selected>--Select a vehicle--</option>
           @for(vehicle of vehicles(); track vehicle) {
             <option [ngValue]="vehicle">{{vehicle.name}}</option>

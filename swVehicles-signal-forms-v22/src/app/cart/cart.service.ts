@@ -1,9 +1,7 @@
-import { Injectable, computed, effect, inject, linkedSignal } from "@angular/core";
+import { Service, computed, effect, inject, linkedSignal } from "@angular/core";
 import { VehicleService } from "../vehicles/vehicle.service";
 
-@Injectable({
-  providedIn: 'root'
-})
+@Service()
 export class CartService {
   private vehicleService = inject(VehicleService);
 

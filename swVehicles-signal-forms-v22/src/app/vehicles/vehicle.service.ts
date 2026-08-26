@@ -1,10 +1,8 @@
 import { httpResource } from '@angular/common/http';
-import { Injectable, effect, signal } from '@angular/core';
+import { Service, effect, signal } from '@angular/core';
 import { Vehicle } from './vehicle';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Service()
 export class VehicleService {
   private url = 'api/vehicles';
 
