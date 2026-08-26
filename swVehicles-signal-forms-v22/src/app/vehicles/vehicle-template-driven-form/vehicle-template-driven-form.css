@@ -29,6 +29,12 @@ form {
   .row {
     grid-template-columns: 1fr;
   }
+  
+  .row-label,
+  .row-value,
+  .alert {
+    grid-column: 1;
+  }
 }
 
 /* Buttons */

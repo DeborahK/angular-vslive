@@ -1,4 +1,4 @@
-import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { initialData, VehicleFormData } from '../vehicle';
 
@@ -6,7 +6,6 @@ import { initialData, VehicleFormData } from '../vehicle';
   selector: 'swv-vehicle-template-driven-form',
   templateUrl: './vehicle-template-driven-form.html',
   styleUrl: './vehicle-template-driven-form.css',
-  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FormsModule]
 })
 export class VehicleTemplateDrivenForm {
@@ -19,7 +18,7 @@ export class VehicleTemplateDrivenForm {
   onSave(form: NgForm) {
     if (form.valid) {
       // Simulate successful save; integrate with service if needed
-      this.savedMessage.set(`Vehicle ${this.vehicle.vehicleName} saved!`);
+      this.savedMessage.set(`Vehicle ${this.vehicle.vehicleName} save simulated!`);
       clearTimeout(this.savedTimer);
       this.savedTimer = window.setTimeout(() => {
         this.savedMessage.set('');
@@ -33,6 +32,11 @@ export class VehicleTemplateDrivenForm {
   }
 
   onCancel(form?: NgForm) {
+    // Clear any timer
+    clearTimeout(this.savedTimer);
+    this.savedTimer = 0;
+
+    // Reset the form
     this.vehicle = { ...initialData };
     if (form) {
       form.resetForm(this.vehicle);
