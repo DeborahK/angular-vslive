@@ -1,4 +1,4 @@
-import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { initialData, Subscription, subscriptionSchema } from '../subscription';
 import { form, FormField } from '@angular/forms/signals';
 
@@ -6,7 +6,6 @@ import { form, FormField } from '@angular/forms/signals';
   selector: 'swv-subscribe-form',
   imports: [FormField],
   templateUrl: './subscribe-form.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './subscribe-form.css',
 })
 export class SubscribeForm {

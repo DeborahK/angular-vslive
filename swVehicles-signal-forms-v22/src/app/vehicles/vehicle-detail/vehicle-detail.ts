@@ -1,4 +1,4 @@
-import { Component, computed, inject, ChangeDetectionStrategy } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 import { VehicleService } from '../vehicle.service';
 import { FilmService } from '../../films/film.service';
@@ -7,7 +7,6 @@ import { FilmService } from '../../films/film.service';
   selector: 'sw-vehicle-detail',
   imports: [DecimalPipe],
   templateUrl: './vehicle-detail.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './vehicle-detail.css'
 })
 export class VehicleDetail {

@@ -1,4 +1,4 @@
-import { Component, computed, inject, ChangeDetectionStrategy } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { VehicleService } from '../vehicle.service';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -7,7 +7,6 @@ import { Router } from '@angular/router';
   selector: 'sw-vehicle-list',
   imports: [FormsModule],
   templateUrl: './vehicle-list.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './vehicle-list.css'
 })
 export class VehicleList {

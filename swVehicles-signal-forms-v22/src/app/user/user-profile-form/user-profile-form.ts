@@ -1,4 +1,4 @@
-import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { initialData, initialLink, UserProfile, userProfileSchema } from '../user-profile';
 import { form, FormField } from '@angular/forms/signals';
 
@@ -6,7 +6,6 @@ import { form, FormField } from '@angular/forms/signals';
   selector: 'swv-user-profile-form',
   imports: [FormField],
   templateUrl: './user-profile-form.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './user-profile-form.css',
 })
 export class UserProfileForm {

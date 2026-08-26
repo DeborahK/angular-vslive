@@ -1,9 +1,8 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   standalone: true,
   templateUrl: './home.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./home.css']
 })
 export class Home {
