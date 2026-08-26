@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, DestroyRef, inject, signal } from '@angular/core';
 import { form, FormField, submit } from '@angular/forms/signals';
 import { initialData, VehicleFormData, vehicleSchema } from '../vehicle';
 
@@ -9,6 +9,7 @@ import { initialData, VehicleFormData, vehicleSchema } from '../vehicle';
   styleUrl: './vehicle-form.css',
 })
 export class VehicleForm {
+  private readonly destroyRef = inject(DestroyRef);
   savedMessage = signal('');
   private savedTimer = 0;
 
@@ -19,12 +20,18 @@ export class VehicleForm {
   // Declare a form from the model and logic rules schema
   vehicleForm = form(this.vehicleModel, vehicleSchema);
 
+  constructor() {
+    this.destroyRef.onDestroy(() => {
+      clearTimeout(this.savedTimer);
+    });
+  }
+
   // Handle the buttons
   onSave(event: SubmitEvent) {
     event.preventDefault();
-    
+
     if (this.vehicleForm().valid()) {
-      submit(this.vehicleForm, () => this.onSubmit())
+      submit(this.vehicleForm, () => this.onSubmit());
     }
   }
 
@@ -44,7 +51,7 @@ export class VehicleForm {
     // Issue HTTP request and then add to retrieved list of vehicles
 
     // Show a message
-    this.savedMessage.set(`Vehicle ${this.vehicleModel().vehicleName} saved!`);
+    this.savedMessage.set(`Vehicle ${this.vehicleModel().vehicleName} save simulated!`);
     clearTimeout(this.savedTimer);
     this.savedTimer = window.setTimeout(() => {
       this.savedMessage.set('');
@@ -52,5 +59,4 @@ export class VehicleForm {
       this.vehicleForm().reset(initialData);
     }, 3000);
   }
-
 }

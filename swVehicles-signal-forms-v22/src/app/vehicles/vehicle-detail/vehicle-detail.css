@@ -1,7 +1,7 @@
 .row {
 	display: grid;
 	grid-template-columns: .6fr 1fr;
-	align-items: top;
+	align-items: start;
   gap: var(--spacing-sm);
   margin-bottom: var(--spacing-sm);
 }

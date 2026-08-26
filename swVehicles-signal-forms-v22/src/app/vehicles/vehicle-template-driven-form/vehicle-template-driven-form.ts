@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, DestroyRef, inject, signal } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { initialData, VehicleFormData } from '../vehicle';
 
@@ -9,11 +9,17 @@ import { initialData, VehicleFormData } from '../vehicle';
   imports: [FormsModule]
 })
 export class VehicleTemplateDrivenForm {
-  vehicle: VehicleFormData = { ...initialData };
-
-  // Use a signal for saved message to match project pattern
+  private readonly destroyRef = inject(DestroyRef);
   savedMessage = signal('');
   private savedTimer = 0;
+
+  vehicle: VehicleFormData = { ...initialData };
+
+  constructor() {
+    this.destroyRef.onDestroy(() => {
+      clearTimeout(this.savedTimer);
+    });
+  }
 
   onSave(form: NgForm) {
     if (form.valid) {

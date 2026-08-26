@@ -1,4 +1,13 @@
-import { applyEach, max, min, pattern, required, schema, SchemaPathTree, validate } from "@angular/forms/signals";
+import {
+  applyEach,
+  max,
+  min,
+  pattern,
+  required,
+  schema,
+  SchemaPathTree,
+  validate,
+} from '@angular/forms/signals';
 
 export interface UserProfile {
   firstName: string;
@@ -15,16 +24,16 @@ export interface ProfileLink {
 export const initialData: UserProfile = {
   firstName: '',
   lastName: '',
-  socialLinks: []
-}
+  socialLinks: [],
+};
 
 export const initialLink: ProfileLink = {
   linkUrl: '',
   platform: '',
-  memberSinceYear: null
-}
+  memberSinceYear: null,
+};
 
-export const userProfileSchema = schema<UserProfile>(rootPath => {
+export const userProfileSchema = schema<UserProfile>((rootPath) => {
   required(rootPath.firstName, { message: 'First name is required' });
   applyEach(rootPath.socialLinks, linksSchema);
 });
@@ -40,7 +49,7 @@ const linksSchema = schema<ProfileLink>((path) => {
   url(path.linkUrl, { message: 'The social link must be a valid URL' });
   required(path.platform, {
     message: 'Platform name is required when link is entered',
-    when: (ctx) => Boolean(ctx.valueOf(path.linkUrl))
+    when: (ctx) => Boolean(ctx.valueOf(path.linkUrl)),
   });
   min(path.memberSinceYear, minYear, { message: 'Year must be 1990 or later' });
   max(path.memberSinceYear, currentYear, { message: 'Year must be this year or earlier' });
@@ -55,15 +64,18 @@ const minYear = 1990;
 // NOTE: Validates that the url is well-formed, not that it exists
 function url(field: SchemaPathTree<string>, options?: { message?: string }) {
   validate(field, (ctx) => {
-    try {
-      // Use the URL constructor to determine if the value is a valid url
-      new URL(ctx.value());
-      return null;
-    } catch {
-      return {
-        kind: 'url',
-        message: options?.message || 'Please enter a valid URL',
-      };
+    if (ctx.value()) {
+      try {
+        // Use the URL constructor to determine if the value is a valid url
+        new URL(ctx.value());
+        return null;
+      } catch {
+        return {
+          kind: 'url',
+          message: options?.message || 'Please enter a valid URL',
+        };
+      }
     }
+    return null;
   });
 }

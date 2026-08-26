@@ -9,7 +9,6 @@ import { form, FormField } from '@angular/forms/signals';
   styleUrl: './user-profile-form.css',
 })
 export class UserProfileForm {
-
   // Create a form model signal with form fields
   // This represents the form's data structure
   userProfileModel = signal<UserProfile>(initialData);
@@ -19,21 +18,23 @@ export class UserProfileForm {
 
   // Add an empty social media profile link
   addSocialLink() {
-    this.userProfileModel.update(profile => ({
+    this.userProfileModel.update((profile) => ({
       ...profile,
-      socialLinks: [...profile.socialLinks, { ...initialLink }]
+      socialLinks: [...profile.socialLinks, { ...initialLink }],
     }));
   }
 
   // Delete a social media profile link
   removeSocialLink(index: number) {
-    this.userProfileModel.update(profile => ({
+    this.userProfileModel.update((profile) => ({
       ...profile,
-      socialLinks: profile.socialLinks.filter((_, i) => i !== index)
+      socialLinks: profile.socialLinks.filter((_, i) => i !== index),
     }));
   }
 
-  onSubmit() {
+  onSubmit(event: SubmitEvent) {
+    event.preventDefault();
+
     if (this.userProfileForm().valid()) {
       console.log('Form submitted:', this.userProfileModel());
       // Handle form submission here

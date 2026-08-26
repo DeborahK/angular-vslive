@@ -1,9 +1,5 @@
-import { Component, inject, signal } from '@angular/core';
-import {
-  FormBuilder,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { Component, DestroyRef, inject, signal } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { initialData } from '../vehicle';
 
 @Component({
@@ -13,20 +9,26 @@ import { initialData } from '../vehicle';
   imports: [ReactiveFormsModule],
 })
 export class VehicleReactiveForm {
+  private readonly destroyRef = inject(DestroyRef);
+  readonly savedMessage = signal('');
+  private savedTimer = 0;
+
   private readonly fb = inject(FormBuilder);
 
   readonly vehicleForm = this.fb.group({
-    vehicleName: ['', [
-      Validators.required, Validators.minLength(5)
-    ]],
+    vehicleName: ['', [Validators.required, Validators.minLength(5)]],
     vehicleType: ['', Validators.required],
     description: ['', Validators.minLength(10)],
     occupancy: [NaN, Validators.min(0)],
     manufactureDate: [null as Date | null],
   });
 
-  readonly savedMessage = signal('');
-  private savedTimer = 0;
+  constructor() {
+    this.destroyRef.onDestroy(() => {
+      clearTimeout(this.savedTimer);
+    });
+  }
+
   onSave() {
     if (this.vehicleForm.valid) {
       const formValue = this.vehicleForm.value;

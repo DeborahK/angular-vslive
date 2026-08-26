@@ -3,7 +3,8 @@
     User Profile
   </div>
   <div class="card-body">
-    <form autocomplete="off">
+    <form autocomplete="off"
+          (submit)="onSubmit($event)">
       <div class="row">
         <label class="row-label"
                for="firstNameId">
@@ -76,23 +77,24 @@
                 </button>
               </div>
               @let linkField = userProfileForm.socialLinks[$index].linkUrl;
-              @if (linkField().invalid() && linkField().touched()) {
+              @let platformField = userProfileForm.socialLinks[$index].platform;
+              @let memberSinceYearField = userProfileForm.socialLinks[$index].memberSinceYear;
+              @if (linkField().invalid() && 
+                (linkField().touched() || platformField().touched() || memberSinceYearField().touched())) {
                 <div class="alert alert-danger">
                   @for (error of linkField().errors(); track error.kind) {
                   <div>{{ error.message }}</div>
                   }
                 </div>
               }
-              @let platformField = userProfileForm.socialLinks[$index].platform;
-              <!-- Notice that this displays the error if the link field is touched -->
-              @if (platformField().invalid() && linkField().touched()) {
+              <!-- Notice that this displays the error also if the link field is touched -->
+              @if (platformField().invalid() && (platformField().touched() || linkField().touched())) {
                 <div class="alert alert-danger">
                   @for (error of platformField().errors(); track error.kind) {
                   <div>{{ error.message }}</div>
                   }
                 </div>
               }
-              @let memberSinceYearField = userProfileForm.socialLinks[$index].memberSinceYear;
               @if (memberSinceYearField().invalid() && memberSinceYearField().touched()) {
                 <div class="alert alert-danger">
                   @for (error of memberSinceYearField().errors(); track error.kind) {
@@ -117,11 +119,10 @@
 
       <div class="row">
         <div class="row-value">
-          <button type="button"
+          <button type="submit"
                   title="Ensure the form is valid and required fields are entered before saving"
                   class="btn btn-primary"
-                  [disabled]="this.userProfileForm().invalid()"
-                  (click)="onSubmit()">
+                  [disabled]="this.userProfileForm().invalid()">
             Save Profile
           </button>
           <button type="button"

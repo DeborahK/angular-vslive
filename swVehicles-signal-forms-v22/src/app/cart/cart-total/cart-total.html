@@ -7,7 +7,7 @@
       <div class="row">
         <div class="row-label">Price (credits)</div>
         <div class="row-value">
-          {{price() | number:'1.0-0'}}
+          {{price() | number}}
         </div>
       </div>
       <div class="row">
@@ -22,7 +22,7 @@
       <div class="row">
         <div class="row-label">Subtotal:</div>
         <div class="row-value">
-          {{subTotal() | number:'1.0-0'}}
+          {{subTotal() | number}}
         </div>
       </div>
       <div class="row">
@@ -36,13 +36,13 @@
       <div class="row">
         <div class="row-label">Estimated Tax:</div>
         <div class="row-value">
-          {{tax() | number:'1.0-0'}}
+          {{tax() | number}}
         </div>
       </div>
       <div class="row">
         <div class="row-label"><b>Total:</b></div>
         <div class="row-value total">
-          {{totalPrice() | number:'1.0-0'}}
+          {{totalPrice() | number}}
         </div>
       </div>
     </div>

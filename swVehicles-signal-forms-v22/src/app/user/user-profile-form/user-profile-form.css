@@ -4,9 +4,9 @@ form {
 }
 
 .row {
-	display: grid;
-	grid-template-columns: .2fr 1fr;
-	align-items: top;
+  display: grid;
+  grid-template-columns: 0.2fr 1fr;
+  align-items: start;
   gap: var(--spacing-sm);
   margin-bottom: var(--spacing-md, 1rem);
 }
@@ -22,13 +22,6 @@ form {
 .row-value {
   text-align: left;
   grid-column: 2 / 3;
-}
-
-/* Responsive form layout */
-@media (max-width: 768px) {
-  .row {
-    grid-template-columns: 1fr;
-  }
 }
 
 /* Social Links Specific Styles */
@@ -64,13 +57,6 @@ form {
   border-radius: var(--border-radius, 0.25rem);
   text-align: center;
   font-style: italic;
-
-  /* On narrow screens, allow wrapping while keeping order */
-  @media (max-width: 768px) {
-    .social-link-row {
-      flex-wrap: wrap;
-    }
-  }
   margin-bottom: var(--spacing-md, 1rem);
 }
 
@@ -85,8 +71,9 @@ form {
 .btn-primary:not(:disabled):hover {
   background-color: #9a7209;
   border-color: #9a7209;
-  box-shadow: 0 4px 16px rgba(184, 134, 11, 0.4),
-              0 0 20px rgba(184, 134, 11, 0.3);
+  box-shadow:
+    0 4px 16px rgba(184, 134, 11, 0.4),
+    0 0 20px rgba(184, 134, 11, 0.3);
 }
 
 .btn-secondary {
@@ -135,4 +122,18 @@ form {
   font-size: 0.75rem;
   min-width: 32px;
   height: 32px;
+}
+
+/* On narrow screens, allow wrapping while keeping order */
+@media (max-width: 768px) {
+  .row {
+    grid-template-columns: 1fr;
+  }
+  .social-link-row {
+    flex-wrap: wrap;
+  }
+  .social-link-row .platform-input,
+  .social-link-row .year-input {
+    flex-basis: 100%;
+  }
 }
