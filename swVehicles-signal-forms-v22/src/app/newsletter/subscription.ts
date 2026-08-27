@@ -7,7 +7,7 @@ export interface Subscription {
   phone: string;
   sendViaText: boolean;
   sendViaEmail: boolean;
-  yearsAsFan: number;
+  yearsAsFan: number | null;
 }
 
 export const initialData: Subscription = {
@@ -17,7 +17,7 @@ export const initialData: Subscription = {
   phone: '',
   sendViaText: true,
   sendViaEmail: true,
-  yearsAsFan: NaN
+  yearsAsFan: null
 };
 
 // Define the validation as part of the model
@@ -41,11 +41,6 @@ export const subscriptionSchema = schema<Subscription>((rootPath) => {
     const viaEmail = ctx.valueOf(rootPath.sendViaEmail);
     return checkSendVia(viaText, viaEmail);
   });
-  // validate(rootPath.sendViaEmail, (ctx) => {
-  //   const viaEmail = ctx.value();
-  //   const viaText = ctx.valueOf(rootPath.sendViaText);
-  //   return checkSendVia(viaText, viaEmail);
-  // });
   min(rootPath.yearsAsFan, 0, { message: 'Years cannot be negative' });
   max(rootPath.yearsAsFan, 100, { message: 'Please enter a valid number of years' });
 });

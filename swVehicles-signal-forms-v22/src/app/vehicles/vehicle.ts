@@ -16,7 +16,7 @@ export interface VehicleFormData {
   vehicleName: string;
   vehicleType: string;
   description: string;
-  occupancy: number;
+  occupancy: number | null;
   manufactureDate: Date | null; // null is the empty value for Date bound to <input type=date> 
 }
 
@@ -24,7 +24,7 @@ export const initialData: VehicleFormData = {
   vehicleName: '',
   vehicleType: '',
   description: '',
-  occupancy: NaN,
+  occupancy: null,
   manufactureDate: null
 }
 
