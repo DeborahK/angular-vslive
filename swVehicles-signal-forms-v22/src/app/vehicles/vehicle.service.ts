@@ -15,10 +15,9 @@ export class VehicleService {
   // Accessing the resource generates an error if the http request fails
   private eff = effect(() => {
     if (!this.vehiclesResource.error()) {
-      console.log('Vehicles', JSON.stringify(this.vehiclesResource.value()));
+      // console.log('Vehicles', JSON.stringify(this.vehiclesResource.value()));
     } else {
       console.error('Failed to load vehicles', this.vehiclesResource.error()?.message);
     }
   });
-
 }

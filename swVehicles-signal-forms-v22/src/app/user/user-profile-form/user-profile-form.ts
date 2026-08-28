@@ -1,6 +1,7 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { initialData, initialLink, UserProfile, userProfileSchema } from '../user-profile';
-import { form, FormField } from '@angular/forms/signals';
+import { form, FormField, submit } from '@angular/forms/signals';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'swv-user-profile-form',
@@ -9,6 +10,8 @@ import { form, FormField } from '@angular/forms/signals';
   styleUrl: './user-profile-form.css',
 })
 export class UserProfileForm {
+  private readonly router = inject(Router);
+
   // Create a form model signal with form fields
   // This represents the form's data structure
   userProfileModel = signal<UserProfile>(initialData);
@@ -35,11 +38,12 @@ export class UserProfileForm {
   onSubmit(event: SubmitEvent) {
     event.preventDefault();
 
-    if (this.userProfileForm().valid()) {
+    submit(this.userProfileForm, async () => {
       console.log('Form submitted:', this.userProfileModel());
       // Handle form submission here
       // Reset form or navigate to another page
-    }
+      await this.router.navigate(['/home']);
+    });
   }
 
   onCancel() {

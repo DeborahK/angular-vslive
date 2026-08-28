@@ -54,7 +54,7 @@ Displays the form, full name works
 
 # Basic Validation
 
-## In form()
+## STEP 1: Define the Rules In form()
 -> **subscription-form.ts**
 ```
   subscribeForm = form(this.subscribeModel, rootPath => {
@@ -63,7 +63,7 @@ Displays the form, full name works
   });
 ```
 
-## Define a Schema
+## STEP 1: Define the Rules with a Schema
 -> **subscription.ts**
 ```
 export const subscriptionSchema = schema<Subscription>((rootPath) => {
@@ -82,15 +82,83 @@ export const subscriptionSchema = schema<Subscription>((rootPath) => {
 -> **subscription-form.ts**
 ```
   subscribeForm = form(this.subscribeModel, subscriptionSchema);
-  ```
+```
 
+## STEP 2: Check Form/Field State
+-> **subscription-form.ts**
+```
+  @if (subscribeForm.email().required()) {
+    <span class="text-danger">*</span>
+  }
+```
+```
+  @if (subscribeForm.phone().required()) {
+    <span class="text-danger">*</span>
+  }
+```
+
+## Disable the submit button
+-> **subscription-form.ts**
+```
+  [disabled]="this.subscribeForm().invalid()"
+```
+
+## STEP 3: Display Validation Messages
+-> **subscription-form.ts**
+```
+  @if (subscribeForm.email().invalid() && subscribeForm.email().touched()) {
+    <div class="alert alert-danger">
+      @for (error of subscribeForm.email().errors(); track error.kind) {
+        <div>{{ error.message }}</div>
+      }
+    </div>
+  }
+```
+```
+  @if (subscribeForm.phone().invalid() && subscribeForm.phone().touched()) {
+    <div class="alert alert-danger">
+      @for (error of subscribeForm.phone().errors(); track error.kind) {
+        <div>{{ error.message }}</div>
+      }
+    </div>
+  }
+```
+```
+  @if (subscribeForm.yearsAsFan().invalid() && subscribeForm.yearsAsFan().touched()) {
+    <div class="alert alert-danger">
+      @for (error of subscribeForm.yearsAsFan().errors(); track error.kind) {
+        <div>{{ error.message }}</div>
+      }
+    </div>
+  }
+```
 ## *** RUN ***
 
-Can't see the validation errors.
-Need to read the state and display messages in the template.
+Try out each of the validation rules:
+- Email
+  - required
+  - Valid email address
+  - Min of 6 characters
+- Years as fan
+  - Not negative
+  - Not greater than 100
 
-# Accessing Validation State
+  BUT: We want cross-field validation for the checkboxes.
 
+# Conditional Validation
+-> **subscription.ts**
+```
+  required(rootPath.email, {
+    message: 'Your email address is required to receive our newsletter',
+    when: ({ valueOf }) => valueOf(rootPath.sendViaEmail) === true
+  });
+```
+
+
+
+# Custom Validation
+
+# Cross-field Validation
 
 
 
