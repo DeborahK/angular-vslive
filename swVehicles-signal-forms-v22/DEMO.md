@@ -22,7 +22,7 @@ View the model
 
 ## STEP 2: Declare the Model Signal
 
--> **subscription-form.ts**
+-> **subscribe-form.ts**
 ```
   // Declare the model
   subscribeModel = signal<Subscription>(initialData);
@@ -31,12 +31,12 @@ View the model
   fullName = computed(() => this.subscribeModel().firstName + ' ' + this.subscribeModel().lastName);
 ```
 ## STEP 3: Declare the form
--> **subscription-form.ts**
+-> **subscribe-form.ts**
 ```
   subscribeForm = form(this.subscribeModel);
 ```
 ## STEP 4: Map fields to controls
--> **subscription-form.html**
+-> **subscribe-form.html**
 ```
 Subscribe to our Newsletter {{fullName()}}
 
@@ -55,7 +55,7 @@ Displays the form, full name works
 # Basic Validation
 
 ## STEP 1: Define the Rules In form()
--> **subscription-form.ts**
+-> **subscribe-form.ts**
 ```
   subscribeForm = form(this.subscribeModel, rootPath => {
     required(rootPath.email, 
@@ -79,13 +79,13 @@ export const subscriptionSchema = schema<Subscription>((rootPath) => {
     { message: 'Enter a valid number' });
 });
 ```
--> **subscription-form.ts**
+-> **subscribe-form.ts**
 ```
   subscribeForm = form(this.subscribeModel, subscriptionSchema);
 ```
 
 ## STEP 2: Check Form/Field State
--> **subscription-form.ts**
+-> **subscribe-form.ts**
 ```
   @if (subscribeForm.email().required()) {
     <span class="text-danger">*</span>
@@ -98,13 +98,13 @@ export const subscriptionSchema = schema<Subscription>((rootPath) => {
 ```
 
 ## Disable the submit button
--> **subscription-form.ts**
+-> **subscribe-form.ts**
 ```
   [disabled]="this.subscribeForm().invalid()"
 ```
 
 ## STEP 3: Display Validation Messages
--> **subscription-form.ts**
+-> **subscribe-form.ts**
 ```
   @if (subscribeForm.email().invalid() && subscribeForm.email().touched()) {
     <div class="alert alert-danger">
