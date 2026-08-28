@@ -36,6 +36,10 @@ View the model
   subscribeForm = form(this.subscribeModel);
 ```
 ## STEP 4: Map fields to controls
+-> **subscribe-form.ts**
+```
+  imports: [FormField],
+```
 -> **subscribe-form.html**
 ```
 Subscribe to our Newsletter {{fullName()}}
@@ -168,11 +172,185 @@ Try out each of the validation rules:
 
 
 # Submission
+-> **subscribe-form.html**
+```
+    <form autocomplete="off" (submit)="onSubmit($event)">
+```
+```
+          <button
+            type="submit"
+            title="Ensure the form is valid and required fields are entered before subscribing"
+            class="btn btn-primary"
+          >
+```
+-> **subscribe-form.ts**
+```
+  onSubmit(event: SubmitEvent) {
+    event.preventDefault();
 
+    submit(this.subscribeForm, async () => {
+      // Handle form submission here
+      // Reset form or navigate to another page
+      this.thanksMessage.set(`Thanks for subscribing ${this.fullName()}!`);
 
+      await new Promise<void>((resolve) => {
+        setTimeout(resolve, 3000);
+      });
+
+      await this.router.navigate(['/home']);
+    });
+  }
+
+```
+-> **subscribe-form.ts**
+```
+    this.subscribeForm().reset(initialData);
+```
 
 
 # REPLACEMENT INSTRUCTIONS
 
-## Replace the subscribe.ts file with this:
+## Replace the subscription.ts file with this:
+import { applyWhen, email, max, min, minLength, required, schema, validate } from "@angular/forms/signals";
+
+export interface Subscription {
+  email: string;
+  firstName: string;
+  lastName: string;
+  phone: string;
+  sendViaText: boolean;
+  sendViaEmail: boolean;
+  yearsAsFan: number | null;
+}
+
+export const initialData: Subscription = {
+  email: '',
+  firstName: '',
+  lastName: '',
+  phone: '',
+  sendViaText: true,
+  sendViaEmail: true,
+  yearsAsFan: null
+};
+
+## Replace the subscribe-form.ts file with this:
+
+
+
+## Replace the subscribe-form.html file with this:
+<div class="card">
+  <div class="card-header">Subscribe to our Newsletter</div>
+  <div class="card-body">
+    <form autocomplete="off">
+      <div class="row">
+        <label class="row-label" for="firstNameId"> First Name </label>
+        <div class="row-value">
+          <input
+            type="text"
+            class="form-control"
+            id="firstNameId"
+            placeholder="First Name"
+          />
+        </div>
+      </div>
+
+      <div class="row">
+        <label class="row-label" for="lastNameId"> Last Name </label>
+        <div class="row-value">
+          <input
+            type="text"
+            class="form-control"
+            id="lastNameId"
+            placeholder="Last Name"
+          />
+        </div>
+      </div>
+
+      <div class="row">
+        <label class="row-label" for="emailId">
+          Email
+        </label>
+        <div class="row-value">
+          <input
+            type="email"
+            class="form-control"
+            id="emailId"
+            placeholder="Email"
+          />
+        </div>
+      </div>
+
+      <div class="row">
+        <label class="row-label" for="phoneId">
+          Phone
+        </label>
+        <div class="row-value">
+          <input
+            type="tel"
+            class="form-control"
+            id="phoneId"
+            placeholder="Cell Phone Number"
+          />
+        </div>
+      </div>
+
+      <div class="row">
+        <label class="row-label"> Send via </label>
+        <div class="row-value">
+          <div class="form-check">
+            <input
+              type="checkbox"
+              class="form-check-input"
+              id="sendViaEmailId"
+            />
+            <label class="form-check-label" for="sendViaEmailId"> Email </label>
+          </div>
+          <div class="form-check">
+            <input
+              type="checkbox"
+              class="form-check-input"
+              id="sendViaTextId"
+            />
+            <label class="form-check-label" for="sendViaTextId"> Text </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <label class="row-label" for="yearsAsFanId"> Years as a Fan </label>
+        <div class="row-value">
+          <input
+            type="number"
+            class="form-control"
+            id="yearsAsFanId"
+            placeholder="How many years have you been a Star Wars fan?"
+          />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="row-value">
+          <button
+            type="submit"
+            title="Ensure the form is valid and required fields are entered before subscribing"
+            class="btn btn-primary"
+          >
+            Subscribe
+          </button>
+          <button type="button" class="btn btn-secondary" (click)="onCancel()">Cancel</button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="row-value">
+          @if (thanksMessage()) {
+            <div class="alert alert-success" role="status" aria-live="polite">
+              {{ thanksMessage() }}
+            </div>
+          }
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
 
