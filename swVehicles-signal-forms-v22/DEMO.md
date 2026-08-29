@@ -77,6 +77,8 @@ export const subscriptionSchema = schema<Subscription>((rootPath) => {
     { message: 'Enter a valid email address' });
   minLength(rootPath.email, 6, 
     { message: 'Email must be at least 6 characters long' });
+  required(rootPath.phone, 
+    { message: 'Phone is required'});
   min(rootPath.yearsAsFan, 0, 
     { message: 'Years cannot be negative' });
   max(rootPath.yearsAsFan, 100, 
@@ -91,6 +93,7 @@ export const subscriptionSchema = schema<Subscription>((rootPath) => {
 ## STEP 2: Check Form/Field State
 -> **subscribe-form.ts**
 ```
+  Email
   @if (subscribeForm.email().required()) {
     <span class="text-danger">*</span>
   }
@@ -99,12 +102,6 @@ export const subscriptionSchema = schema<Subscription>((rootPath) => {
   @if (subscribeForm.phone().required()) {
     <span class="text-danger">*</span>
   }
-```
-
-## Disable the submit button
--> **subscribe-form.ts**
-```
-  [disabled]="this.subscribeForm().invalid()"
 ```
 
 ## STEP 3: Display Validation Messages
@@ -128,6 +125,15 @@ export const subscriptionSchema = schema<Subscription>((rootPath) => {
   }
 ```
 ```
+  @if (subscribeForm.sendViaText().invalid()) {
+    <div class="alert alert-danger">
+      @for (error of subscribeForm.sendViaText().errors(); track error.kind) {
+        <div>{{ error.message }}</div>
+      }
+    </div>
+  }
+```
+```
   @if (subscribeForm.yearsAsFan().invalid() && subscribeForm.yearsAsFan().touched()) {
     <div class="alert alert-danger">
       @for (error of subscribeForm.yearsAsFan().errors(); track error.kind) {
@@ -143,6 +149,8 @@ Try out each of the validation rules:
   - required
   - Valid email address
   - Min of 6 characters
+- Phone
+  - required
 - Years as fan
   - Not negative
   - Not greater than 100
@@ -154,22 +162,31 @@ Try out each of the validation rules:
 ```
   required(rootPath.email, {
     message: 'Your email address is required to receive our newsletter',
-    when: ({ valueOf }) => valueOf(rootPath.sendViaEmail) === true
+    when: (ctx) => ctx.valueOf(rootPath.sendViaEmail) === true
+  });
+```
+  // This example uses destructuring
+  required(rootPath.phone, {
+    message: 'Your phone number is required to receive our newsletter',
+    when: ({ valueOf }) => valueOf(rootPath.sendViaText) === true
   });
 ```
 
-
-
-# Custom Validation
-
-# Cross-field Validation
-
-
-
-
-
-
-
+# Custom Validation (cross-field)
+```
+function checkSendVia(viaText: boolean, viaEmail: boolean) {
+  if (viaEmail || viaText) return null;
+  return {
+    kind: 'sendViaMissing',
+    message: 'Must select to send via Email or Text or both'
+  };
+}
+```
+```
+  validate(rootPath.sendViaText, (ctx) => 
+    checkSendVia(ctx.value(), ctx.valueOf(rootPath.sendViaEmail))
+  );
+```
 
 # Submission
 -> **subscribe-form.html**
