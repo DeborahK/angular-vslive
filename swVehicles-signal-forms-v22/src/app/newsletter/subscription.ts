@@ -33,6 +33,7 @@ export const subscriptionSchema = schema<Subscription>((rootPath) => {
   minLength(rootPath.email, 6, { message: 'The email must be at least 6 characters long' });
 
   // Only validate any of the phone fields if sendViaText is checked
+  // applyWhen conditionally applies a group of rules
   applyWhen(
     rootPath.phone,
     ({ valueOf }) => valueOf(rootPath.sendViaText) === true,
