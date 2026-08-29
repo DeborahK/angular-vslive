@@ -191,39 +191,33 @@ function checkSendVia(viaText: boolean, viaEmail: boolean) {
 # Submission
 -> **subscribe-form.html**
 ```
-    <form autocomplete="off" (submit)="onSubmit($event)">
+    <form [formRoot]="subscribeForm" autocomplete="off">
 ```
-```
-          <button
-            type="submit"
-            title="Ensure the form is valid and required fields are entered before subscribing"
-            class="btn btn-primary"
-          >
-```
--> **subscribe-form.ts**
-```
-  onSubmit(event: SubmitEvent) {
-    event.preventDefault();
 
-    submit(this.subscribeForm, async () => {
-      // Handle form submission here
-      // Reset form or navigate to another page
-      this.thanksMessage.set(`Thanks for subscribing ${this.fullName()}!`);
+-> **subscribe-form.ts** (Subscription)
+```
+  imports: [FormField, FormRoot],
+```
+```
+  subscribeForm = form(this.subscribeModel, subscriptionSchema, {
+    submission: {
+      action: async (subscriptionFieldTree) => this.saveSubscription(subscriptionFieldTree),
+    },
+  });
+```
+```
+  private async saveSubscription(subscriptionFieldTree: FieldTree<Subscription>) {
+    console.log('Submitting data:', JSON.stringify(subscriptionFieldTree().value()));
+    this.thanksMessage.set(`Thanks for subscribing ${this.fullName()}!`);
+    await new Promise<void>((resolve) => setTimeout(resolve, 3000));
 
-      await new Promise<void>((resolve) => {
-        setTimeout(resolve, 3000);
-      });
-
-      await this.router.navigate(['/home']);
-    });
+    await this.router.navigate(['/home']);
   }
-
 ```
--> **subscribe-form.ts**
+-> **subscribe-form.ts** (Cancel button)
 ```
     this.subscribeForm().reset(initialData);
 ```
-
 
 # REPLACEMENT INSTRUCTIONS
 
@@ -348,7 +342,6 @@ export const initialData: Subscription = {
       <div class="row">
         <div class="row-value">
           <button
-            type="submit"
             title="Ensure the form is valid and required fields are entered before subscribing"
             class="btn btn-primary"
           >

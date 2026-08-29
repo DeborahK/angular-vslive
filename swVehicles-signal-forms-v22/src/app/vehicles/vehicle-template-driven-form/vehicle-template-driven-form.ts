@@ -10,7 +10,7 @@ import { initialData, VehicleFormData } from '../vehicle';
 })
 export class VehicleTemplateDrivenForm {
   private readonly destroyRef = inject(DestroyRef);
-  savedMessage = signal('');
+  readonly savedMessage = signal('');
   private savedTimer = 0;
 
   vehicle: VehicleFormData = { ...initialData };

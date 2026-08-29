@@ -1,5 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
-import { FieldTree, form, FormField, FormRoot, submit } from '@angular/forms/signals';
+import { FieldTree, form, FormField, FormRoot } from '@angular/forms/signals';
 import { initialData, VehicleFormData, vehicleSchema } from '../vehicle';
 
 @Component({
@@ -9,14 +9,14 @@ import { initialData, VehicleFormData, vehicleSchema } from '../vehicle';
   styleUrl: './vehicle-form.css',
 })
 export class VehicleForm {
-  savedMessage = signal('');
+  readonly savedMessage = signal('');
 
   // Create a form model signal with form fields
   // This represents the form's data structure
-  vehicleModel = signal<VehicleFormData>(initialData);
+  readonly vehicleModel = signal<VehicleFormData>(initialData);
 
   // Declare a form from the model and logic rules schema
-  vehicleForm = form(this.vehicleModel, vehicleSchema, {
+  readonly vehicleForm = form(this.vehicleModel, vehicleSchema, {
     submission: {
       action: async (vehicleFieldTree) => this.saveVehicle(vehicleFieldTree),
     },

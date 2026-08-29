@@ -1,4 +1,4 @@
-import { applyWhen, email, max, min, minLength, required, schema, validate } from "@angular/forms/signals";
+import { applyWhen, email, max, min, minLength, required, schema, validate } from '@angular/forms/signals';
 
 export interface Subscription {
   email: string;

@@ -1,6 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { initialData, initialLink, UserProfile, userProfileSchema } from '../user-profile';
-import { FieldTree, form, FormField, FormRoot, submit } from '@angular/forms/signals';
+import { FieldTree, form, FormField, FormRoot } from '@angular/forms/signals';
 import { Router } from '@angular/router';
 
 @Component({
@@ -14,10 +14,10 @@ export class UserProfileForm {
 
   // Create a form model signal with form fields
   // This represents the form's data structure
-  userProfileModel = signal<UserProfile>(initialData);
+  readonly userProfileModel = signal<UserProfile>(initialData);
 
   // Declare a form from the model and logic rules schema
-  userProfileForm = form(this.userProfileModel, userProfileSchema, {
+  readonly userProfileForm = form(this.userProfileModel, userProfileSchema, {
     submission: {
       action: async (profileFieldTree) => this.saveProfile(profileFieldTree),
     },

@@ -1,6 +1,6 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { initialData, Subscription, subscriptionSchema } from '../subscription';
-import { FieldTree, form, FormField, FormRoot, submit } from '@angular/forms/signals';
+import { FieldTree, form, FormField, FormRoot } from '@angular/forms/signals';
 import { Router } from '@angular/router';
 
 @Component({
@@ -11,17 +11,19 @@ import { Router } from '@angular/router';
 })
 export class SubscribeForm {
   private readonly router = inject(Router);
-  thanksMessage = signal('');
+  readonly thanksMessage = signal('');
 
   // Create a form model signal with form fields
   // This represents the form's data structure
-  subscribeModel = signal<Subscription>(initialData);
+  readonly subscribeModel = signal<Subscription>(initialData);
 
   // Access any of the signal properties as needed
-  fullName = computed(() => this.subscribeModel().firstName + ' ' + this.subscribeModel().lastName);
+  readonly fullName = computed(
+    () => this.subscribeModel().firstName + ' ' + this.subscribeModel().lastName,
+  );
 
   // Declare a form (FieldTree) from the model and validation/logic rules schema
-  subscribeForm = form(this.subscribeModel, subscriptionSchema, {
+  readonly subscribeForm = form(this.subscribeModel, subscriptionSchema, {
     submission: {
       action: async (subscriptionFieldTree) => this.saveSubscription(subscriptionFieldTree),
     },

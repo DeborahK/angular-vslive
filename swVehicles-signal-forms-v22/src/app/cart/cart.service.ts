@@ -10,7 +10,6 @@ export class CartService {
     source: this.vehicleService.selectedVehicle,
     computation: v => 1
   });
-  // quantity = signal(1);
 
   price = computed(() => this.vehicleService.selectedVehicle()?.cost_in_credits ?? 0);
 
