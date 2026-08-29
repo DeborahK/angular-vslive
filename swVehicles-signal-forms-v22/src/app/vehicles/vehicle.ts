@@ -42,9 +42,21 @@ export const vehicleSchema = schema<VehicleFormData>((rootPath) => {
     when: (ctx) => ctx.valueOf(rootPath.vehicleType).toLocaleLowerCase() === 'fighter',
   });
 
+  // Custom validation: Vehicle type cannot contain spaces
+  // Use destructuring to access only the value field and rename it
+  validate(rootPath.vehicleType, ({value: vehicleType}) => {
+    if (vehicleType().includes(' ')) {
+      return {
+        kind: 'noSpaces',
+        message: 'Spaces are not allowed in the vehicle type',
+      };
+    }
+    return null;
+  });
+
   // Custom validation: Vehicle names cannot contain "Death Star"
-  validate(rootPath.vehicleName, (context) => {
-    if (context.value().toLocaleLowerCase().includes('death star')) {
+  validate(rootPath.vehicleName, ({value: vehicleName}) => {
+    if (vehicleName().toLocaleLowerCase().includes('death star')) {
       return {
         kind: 'invalidVehicleName',
         message: 'Death Star is not an allowed vehicle name',
