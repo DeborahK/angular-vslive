@@ -21,10 +21,12 @@ export const initialData: Subscription = {
 };
 
 // Define the validation as part of the model
+// Demonstrate context object (ctx) in email example
+// Demonstrate destructuring ({ valueOf }) in phone example
 export const subscriptionSchema = schema<Subscription>((rootPath) => {
   required(rootPath.email, {
     message: 'Your email address is required to receive our newsletter',
-    when: ({ valueOf }) => valueOf(rootPath.sendViaEmail) === true
+    when: (ctx) => ctx.valueOf(rootPath.sendViaEmail) === true
   });
   email(rootPath.email, { message: 'Please enter a valid email address' });
   minLength(rootPath.email, 6, { message: 'The email must be at least 6 characters long' });
