@@ -32,7 +32,7 @@ export const vehicleSchema = schema<VehicleFormData>((rootPath) => {
   required(rootPath.vehicleName, { message: 'Vehicle name is required' });
   minLength(rootPath.vehicleName, 5, { message: 'The vehicle name must be at least 5 characters' });
   required(rootPath.vehicleType, { message: 'Vehicle type is required' });
-  min(rootPath.occupancy, 0, { message: 'The occupancy can not be negative' });
+  min(rootPath.occupancy, 0, { message: 'The occupancy cannot be negative' });
   minLength(rootPath.description, 10, {
     message: 'The description must be at least 10 characters',
   });
