@@ -1,4 +1,4 @@
-import { min, minLength, required, schema, validate } from '@angular/forms/signals';
+import { disabled, min, minLength, required, schema, validate } from '@angular/forms/signals';
 
 export interface Vehicle {
   cargo_capacity: number;
@@ -35,6 +35,11 @@ export const vehicleSchema = schema<VehicleFormData>((rootPath) => {
   min(rootPath.occupancy, 0, { message: 'The occupancy can not be negative' });
   minLength(rootPath.description, 10, {
     message: 'The description must be at least 10 characters',
+  });
+
+  // Disable the occupancy if the vehicle type is "fighter"
+  disabled(rootPath.occupancy, {
+    when: (ctx) => ctx.valueOf(rootPath.vehicleType).toLocaleLowerCase() === 'fighter',
   });
 
   // Custom validation: Vehicle names cannot contain "Death Star"

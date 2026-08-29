@@ -24,12 +24,15 @@ export const initialData: Subscription = {
 // Demonstrate context object (ctx) in email example
 // Demonstrate destructuring ({ valueOf }) in phone example
 export const subscriptionSchema = schema<Subscription>((rootPath) => {
+  // Email validation
   required(rootPath.email, {
     message: 'Your email address is required to receive our newsletter',
     when: (ctx) => ctx.valueOf(rootPath.sendViaEmail) === true
   });
   email(rootPath.email, { message: 'Please enter a valid email address' });
   minLength(rootPath.email, 6, { message: 'The email must be at least 6 characters long' });
+
+  // Only validate any of the phone fields if sendViaText is checked
   applyWhen(
     rootPath.phone,
     ({ valueOf }) => valueOf(rootPath.sendViaText) === true,
@@ -38,11 +41,15 @@ export const subscriptionSchema = schema<Subscription>((rootPath) => {
       minLength(phonePath, 10, { message: 'Minimum of 10 digits is required' })
     }
   );
+
+  // The user must check one of the two checkboxes
   validate(rootPath.sendViaText, (ctx) => {
     const viaText = ctx.value();
     const viaEmail = ctx.valueOf(rootPath.sendViaEmail);
     return checkSendVia(viaText, viaEmail);
   });
+
+  // Years as a fan validation and placeholder
   min(rootPath.yearsAsFan, 0, { message: 'Years cannot be negative' });
   max(rootPath.yearsAsFan, 100, { message: 'Please enter a valid number of years' });
 });
