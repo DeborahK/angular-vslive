@@ -3,8 +3,7 @@
     User Profile
   </div>
   <div class="card-body">
-    <form autocomplete="off"
-          (submit)="onSubmit($event)">
+    <form [formRoot]="userProfileForm" autocomplete="off">
       <div class="row">
         <label class="row-label"
                for="firstNameId">
@@ -119,10 +118,8 @@
 
       <div class="row">
         <div class="row-value">
-          <button type="submit"
-                  title="Ensure the form is valid and required fields are entered before saving"
-                  class="btn btn-primary"
-                  [disabled]="this.userProfileForm().invalid()">
+          <button title="Ensure the form is valid and required fields are entered before saving"
+                  class="btn btn-primary">
             Save Profile
           </button>
           <button type="button"

@@ -1,11 +1,11 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { initialData, Subscription, subscriptionSchema } from '../subscription';
-import { form, FormField, submit } from '@angular/forms/signals';
+import { FieldTree, form, FormField, FormRoot, submit } from '@angular/forms/signals';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'swv-subscribe-form',
-  imports: [FormField],
+  imports: [FormField, FormRoot],
   templateUrl: './subscribe-form.html',
   styleUrl: './subscribe-form.css',
 })
@@ -21,22 +21,20 @@ export class SubscribeForm {
   fullName = computed(() => this.subscribeModel().firstName + ' ' + this.subscribeModel().lastName);
 
   // Declare a form (FieldTree) from the model and validation/logic rules schema
-  subscribeForm = form(this.subscribeModel, subscriptionSchema);
+  subscribeForm = form(this.subscribeModel, subscriptionSchema, {
+    submission: {
+      action: async (subscriptionFieldTree) => this.saveSubscription(subscriptionFieldTree),
+    },
+  });
 
-  onSubmit(event: SubmitEvent) {
-    event.preventDefault();
+  private async saveSubscription(subscriptionFieldTree: FieldTree<Subscription>) {
+    // Handle the form submission
+    console.log('Submitting data:', JSON.stringify(subscriptionFieldTree().value()));
+    this.thanksMessage.set(`Thanks for subscribing ${this.fullName()}!`);
+    await new Promise<void>((resolve) => setTimeout(resolve, 3000));
 
-    submit(this.subscribeForm, async () => {
-      // Handle form submission here
-      // Reset form or navigate to another page
-      this.thanksMessage.set(`Thanks for subscribing ${this.fullName()}!`);
-
-      await new Promise<void>((resolve) => {
-        setTimeout(resolve, 3000);
-      });
-
-      await this.router.navigate(['/home']);
-    });
+    // Reset form or navigate to another page
+    await this.router.navigate(['/home']);
   }
 
   onCancel() {

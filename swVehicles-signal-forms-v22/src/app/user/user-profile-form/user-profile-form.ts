@@ -1,11 +1,11 @@
 import { Component, inject, signal } from '@angular/core';
 import { initialData, initialLink, UserProfile, userProfileSchema } from '../user-profile';
-import { form, FormField, submit } from '@angular/forms/signals';
+import { FieldTree, form, FormField, FormRoot, submit } from '@angular/forms/signals';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'swv-user-profile-form',
-  imports: [FormField],
+  imports: [FormField, FormRoot],
   templateUrl: './user-profile-form.html',
   styleUrl: './user-profile-form.css',
 })
@@ -17,7 +17,11 @@ export class UserProfileForm {
   userProfileModel = signal<UserProfile>(initialData);
 
   // Declare a form from the model and logic rules schema
-  userProfileForm = form(this.userProfileModel, userProfileSchema);
+  userProfileForm = form(this.userProfileModel, userProfileSchema, {
+    submission: {
+      action: async (profileFieldTree) => this.saveProfile(profileFieldTree),
+    },
+  });
 
   // Add an empty social media profile link
   addSocialLink() {
@@ -35,15 +39,12 @@ export class UserProfileForm {
     }));
   }
 
-  onSubmit(event: SubmitEvent) {
-    event.preventDefault();
+  private async saveProfile(profileFieldTree: FieldTree<UserProfile>) {
+    // Handle the form submission
+    console.log('Submitting data:', JSON.stringify(profileFieldTree().value()));
 
-    submit(this.userProfileForm, async () => {
-      console.log('Form submitted:', this.userProfileModel());
-      // Handle form submission here
-      // Reset form or navigate to another page
-      await this.router.navigate(['/home']);
-    });
+    // Reset form or navigate to another page
+    await this.router.navigate(['/home']);
   }
 
   onCancel() {

@@ -31,13 +31,4 @@ export class FilmService {
   //   }
   // });
 
-  // Accessing the resource generates an error if the http request fails
-  private eff = effect(() => {
-    let err = this.vehicleFilmsResource.error()
-    if (!err) {
-      console.log('Films', JSON.stringify(this.vehicleFilmsResource.value()));
-    } else {
-      console.error('Failed to load films', getNestedError(err));
-    }
-  });
 }
