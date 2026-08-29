@@ -20,7 +20,7 @@ export class SubscribeForm {
   // Access any of the signal properties as needed
   fullName = computed(() => this.subscribeModel().firstName + ' ' + this.subscribeModel().lastName);
 
-  // Declare a form from the model and logic rules schema
+  // Declare a form (FieldTree) from the model and validation/logic rules schema
   subscribeForm = form(this.subscribeModel, subscriptionSchema);
 
   onSubmit(event: SubmitEvent) {
