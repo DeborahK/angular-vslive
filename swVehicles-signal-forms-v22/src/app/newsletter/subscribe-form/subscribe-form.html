@@ -90,13 +90,6 @@
             />
             <label class="form-check-label" for="sendViaEmailId"> Email </label>
           </div>
-          @if (subscribeForm.sendViaEmail().invalid()) {
-            <div class="alert alert-danger">
-              @for (error of subscribeForm.sendViaEmail().errors(); track error.kind) {
-                <div>{{ error.message }}</div>
-              }
-            </div>
-          }
           <div class="form-check">
             <input
               type="checkbox"
