@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { FieldTree, form, FormField, FormRoot } from '@angular/forms/signals';
 import { initialData, VehicleFormData, vehicleSchema } from '../vehicle';
 
