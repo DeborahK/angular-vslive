@@ -1,5 +1,5 @@
 <div class="card">
-  <div class="card-header">Subscribe to our Newsletter {{fullName()}}</div>
+  <div class="card-header">Subscribe to our Newsletter {{ fullName() }}</div>
   <div class="card-body">
     <form [formRoot]="subscribeForm" autocomplete="off">
       <div class="row">
@@ -134,8 +134,13 @@
           <button
             title="Ensure the form is valid and required fields are entered before subscribing"
             class="btn btn-primary"
+            [disabled]="subscribeForm().submitting()"
           >
-            Subscribe
+            @if (subscribeForm().submitting()) {
+              Processing...
+            } @else {
+              Subscribe
+            }
           </button>
           <button type="button" class="btn btn-secondary" (click)="onCancel()">Cancel</button>
         </div>

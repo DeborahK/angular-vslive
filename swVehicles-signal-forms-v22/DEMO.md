@@ -165,6 +165,7 @@ Try out each of the validation rules:
     when: (ctx) => ctx.valueOf(rootPath.sendViaEmail) === true
   });
 ```
+```
   // This example uses destructuring
   required(rootPath.phone, {
     message: 'Your phone number is required to receive our newsletter',
@@ -194,7 +195,7 @@ function checkSendVia(viaText: boolean, viaEmail: boolean) {
     <form [formRoot]="subscribeForm" autocomplete="off">
 ```
 
--> **subscribe-form.ts** (Subscription)
+-> **subscribe-form.ts**
 ```
   imports: [FormField, FormRoot],
 ```
@@ -214,15 +215,34 @@ function checkSendVia(viaText: boolean, viaEmail: boolean) {
     await this.router.navigate(['/home']);
   }
 ```
--> **subscribe-form.ts** (Cancel button)
+
+## Cancel button
+
+-> **subscribe-form.ts**
 ```
     this.subscribeForm().reset(initialData);
+```
+## Disable submit button while submitting
+-> **subscribe-form.html**
+```
+  <button
+    title="Ensure the form is valid and required fields are entered before subscribing"
+    class="btn btn-primary"
+    [disabled]="subscribeForm().submitting()"
+  >
+```
+```
+  @if (subscribeForm().submitting()) {
+    Processing...
+  } @else {
+    Subscribe
+  }
 ```
 
 # REPLACEMENT INSTRUCTIONS
 
 ## Replace the subscription.ts file with this:
-import { applyWhen, email, max, min, minLength, required, schema, validate } from "@angular/forms/signals";
+import { applyWhen, email, max, min, minLength, required, schema, validate } from '@angular/forms/signals';
 
 export interface Subscription {
   email: string;
@@ -245,8 +265,24 @@ export const initialData: Subscription = {
 };
 
 ## Replace the subscribe-form.ts file with this:
+import { Component, computed, inject, signal } from '@angular/core';
+import { initialData, Subscription, subscriptionSchema } from '../subscription';
+import { FieldTree, form, FormField, FormRoot } from '@angular/forms/signals';
+import { Router } from '@angular/router';
 
+@Component({
+  selector: 'swv-subscribe-form',
+  imports: [FormField, FormRoot],
+  templateUrl: './subscribe-form.html',
+  styleUrl: './subscribe-form.css',
+})
+export class SubscribeForm {
+  private readonly router = inject(Router);
+  readonly thanksMessage = signal('');
 
+  onCancel() {
+  }
+}
 
 ## Replace the subscribe-form.html file with this:
 <div class="card">
