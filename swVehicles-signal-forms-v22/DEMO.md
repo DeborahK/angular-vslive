@@ -266,13 +266,11 @@ export const initialData: Subscription = {
 
 ## Replace the subscribe-form.ts file with this:
 import { Component, computed, inject, signal } from '@angular/core';
-import { initialData, Subscription, subscriptionSchema } from '../subscription';
-import { FieldTree, form, FormField, FormRoot } from '@angular/forms/signals';
+import { initialData, Subscription } from '../subscription';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'swv-subscribe-form',
-  imports: [FormField, FormRoot],
   templateUrl: './subscribe-form.html',
   styleUrl: './subscribe-form.css',
 })
@@ -292,52 +290,40 @@ export class SubscribeForm {
       <div class="row">
         <label class="row-label" for="firstNameId"> First Name </label>
         <div class="row-value">
-          <input
-            type="text"
-            class="form-control"
-            id="firstNameId"
-            placeholder="First Name"
-          />
+          <input type="text"
+                 class="form-control"
+                 id="firstNameId"
+                 placeholder="First Name" />
         </div>
       </div>
 
       <div class="row">
         <label class="row-label" for="lastNameId"> Last Name </label>
         <div class="row-value">
-          <input
-            type="text"
-            class="form-control"
-            id="lastNameId"
-            placeholder="Last Name"
-          />
+          <input type="text" 
+                 class="form-control" 
+                 id="lastNameId" 
+                 placeholder="Last Name" />
         </div>
       </div>
 
       <div class="row">
-        <label class="row-label" for="emailId">
-          Email
-        </label>
+        <label class="row-label" for="emailId"> Email </label>
         <div class="row-value">
-          <input
-            type="email"
-            class="form-control"
-            id="emailId"
-            placeholder="Email"
-          />
+          <input type="email" 
+                 class="form-control" 
+                 id="emailId" 
+                 placeholder="Email" />
         </div>
       </div>
 
       <div class="row">
-        <label class="row-label" for="phoneId">
-          Phone
-        </label>
+        <label class="row-label" for="phoneId"> Phone </label>
         <div class="row-value">
-          <input
-            type="tel"
-            class="form-control"
-            id="phoneId"
-            placeholder="Cell Phone Number"
-          />
+          <input type="tel" 
+                 class="form-control" 
+                 id="phoneId" 
+                 placeholder="Cell Phone Number" />
         </div>
       </div>
 
@@ -345,19 +331,15 @@ export class SubscribeForm {
         <label class="row-label"> Send via </label>
         <div class="row-value">
           <div class="form-check">
-            <input
-              type="checkbox"
-              class="form-check-input"
-              id="sendViaEmailId"
-            />
+            <input type="checkbox" 
+                   class="form-check-input"
+                   id="sendViaEmailId" />
             <label class="form-check-label" for="sendViaEmailId"> Email </label>
           </div>
           <div class="form-check">
-            <input
-              type="checkbox"
-              class="form-check-input"
-              id="sendViaTextId"
-            />
+            <input type="checkbox"
+                   class="form-check-input"
+                   id="sendViaTextId" />
             <label class="form-check-label" for="sendViaTextId"> Text </label>
           </div>
         </div>
@@ -399,4 +381,3 @@ export class SubscribeForm {
     </form>
   </div>
 </div>
-
