@@ -1,6 +1,6 @@
 import { Component, DestroyRef, inject, signal } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
-import { initialData, VehicleFormData } from '../vehicle';
+import { createInitialData, VehicleFormData } from '../vehicle';
 
 @Component({
   selector: 'swv-vehicle-template-driven-form',
@@ -13,7 +13,7 @@ export class VehicleTemplateDrivenForm {
   readonly savedMessage = signal('');
   private savedTimer = 0;
 
-  vehicle: VehicleFormData = { ...initialData };
+  vehicle: VehicleFormData = createInitialData();
 
   constructor() {
     this.destroyRef.onDestroy(() => {
@@ -28,7 +28,7 @@ export class VehicleTemplateDrivenForm {
       clearTimeout(this.savedTimer);
       this.savedTimer = window.setTimeout(() => {
         this.savedMessage.set('');
-        this.vehicle = { ...initialData };
+        this.vehicle = createInitialData();
         form.resetForm(this.vehicle);
       }, 3000);
     } else {
@@ -44,7 +44,7 @@ export class VehicleTemplateDrivenForm {
     this.savedMessage.set('');
 
     // Reset the form
-    this.vehicle = { ...initialData };
+    this.vehicle = createInitialData();
     if (form) {
       form.resetForm(this.vehicle);
     }

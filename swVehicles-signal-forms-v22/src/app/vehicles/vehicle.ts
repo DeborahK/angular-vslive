@@ -1,5 +1,6 @@
-import { disabled, min, minLength, required, schema, validate } from '@angular/forms/signals';
+import { disabled, maxDate, min, minDate, minLength, required, schema, validate } from '@angular/forms/signals';
 
+// Model for backend (could be different from form model)
 export interface Vehicle {
   cargo_capacity: number;
   crew: number;
@@ -12,6 +13,7 @@ export interface Vehicle {
   films: string[];
 }
 
+// Model for the form (including form field types)
 export interface VehicleFormData {
   vehicleName: string;
   vehicleType: string;
@@ -20,13 +22,15 @@ export interface VehicleFormData {
   manufactureDate: Date | null; // null is the empty value for Date bound to <input type=date>
 }
 
-export const initialData: VehicleFormData = {
+// Initial form values (defaults)
+// Use constant (for static values) or factory function (for dynamic data)
+export const createInitialData = () => ({
   vehicleName: '',
   vehicleType: '',
   description: '',
   occupancy: null,
-  manufactureDate: null
-};
+  manufactureDate: new Date()   // Dynamic data
+});
 
 export const vehicleSchema = schema<VehicleFormData>((rootPath) => {
   required(rootPath.vehicleName, { message: 'Vehicle name is required' });
@@ -35,6 +39,12 @@ export const vehicleSchema = schema<VehicleFormData>((rootPath) => {
   min(rootPath.occupancy, 0, { message: 'The occupancy cannot be negative' });
   minLength(rootPath.description, 10, {
     message: 'The description must be at least 10 characters',
+  });
+  minDate(rootPath.manufactureDate, new Date('1977-05-04'),{
+    message: 'The date must be on or after production began: May 4, 1977',
+  });
+  maxDate(rootPath.manufactureDate, new Date(),{
+    message: 'The date must be on or before today',
   });
 
   // Disable the occupancy if the vehicle type is "fighter"

@@ -1,6 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { FieldTree, form, FormField, FormRoot } from '@angular/forms/signals';
-import { initialData, VehicleFormData, vehicleSchema } from '../vehicle';
+import { createInitialData, VehicleFormData, vehicleSchema } from '../vehicle';
 
 @Component({
   selector: 'swv-vehicle-form',
@@ -13,7 +13,7 @@ export class VehicleForm {
 
   // Create a form model signal with form fields
   // This represents the form's data structure
-  readonly vehicleModel = signal<VehicleFormData>(initialData);
+  readonly vehicleModel = signal<VehicleFormData>(createInitialData());
 
   // Declare a form from the model and logic rules schema
   readonly vehicleForm = form(this.vehicleModel, vehicleSchema, {
@@ -31,7 +31,7 @@ export class VehicleForm {
 
     // Reset form or navigate to another page
     this.savedMessage.set('');
-    this.vehicleForm().reset(initialData);
+    this.vehicleForm().reset(createInitialData());
   }
 
   onCancel() {
@@ -39,6 +39,6 @@ export class VehicleForm {
     this.savedMessage.set('');
 
     // Reset form (or navigate to another page)
-    this.vehicleForm().reset(initialData);
+    this.vehicleForm().reset(createInitialData());
   }
 }

@@ -1,6 +1,6 @@
 import { Component, DestroyRef, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { initialData } from '../vehicle';
+import { createInitialData } from '../vehicle';
 
 @Component({
   selector: 'swv-vehicle-reactive-form',
@@ -36,7 +36,7 @@ export class VehicleReactiveForm {
       clearTimeout(this.savedTimer);
       this.savedTimer = window.setTimeout(() => {
         this.savedMessage.set('');
-        this.vehicleForm.reset(initialData);
+        this.vehicleForm.reset(createInitialData());
       }, 3000);
     } else {
       this.vehicleForm.markAllAsTouched();
@@ -50,6 +50,6 @@ export class VehicleReactiveForm {
     this.savedMessage.set('');
 
     // Reset the form
-    this.vehicleForm.reset(initialData);
+    this.vehicleForm.reset(createInitialData());
   }
 }

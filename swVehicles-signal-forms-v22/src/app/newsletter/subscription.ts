@@ -1,5 +1,6 @@
 import { applyWhen, email, max, min, minLength, required, schema, validate } from '@angular/forms/signals';
 
+// Model for the form (including form field types)
 export interface Subscription {
   email: string;
   firstName: string;
@@ -10,6 +11,8 @@ export interface Subscription {
   yearsAsFan: number | null;
 }
 
+// Initial form values (defaults)
+// Use constant (for static values) or factory function (for dynamic data) 
 export const initialData: Subscription = {
   email: '',
   firstName: '',
