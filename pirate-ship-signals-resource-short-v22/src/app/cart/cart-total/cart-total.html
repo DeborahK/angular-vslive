@@ -16,7 +16,7 @@
       <div class="cart-value">{{subTotal() | number:'1.0'}}</div>
     </div>
     <div class="cart-row">
-      <div class="cart-label">Delivery: {{deliveryFee()}}</div>
+      <div class="cart-label">Delivery:</div>
       @if (deliveryFee()) {
         <div class="cart-value">{{deliveryFee() | number:'1.0'}}</div>
       } @else {

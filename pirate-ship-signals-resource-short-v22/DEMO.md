@@ -127,7 +127,6 @@ export class CartTotal {
 }
 
 ## Replace the ship.service.ts file with this:
-
 import { Service, signal } from '@angular/core';
 import { Ship } from './ship';
 
@@ -140,7 +139,6 @@ export class ShipService {
 }
 
 ## Replace the ship-list.ts file with this:
-
 import { Component, computed, inject, signal } from '@angular/core';
 import { ShipService } from '../ship.service';
 import { FormsModule } from '@angular/forms';
@@ -164,4 +162,3 @@ export class ShipList {
   error = signal<Error|undefined>(undefined);
   errorMessage = computed(() => this.error() ? this.error()?.message : '');
 }
-
