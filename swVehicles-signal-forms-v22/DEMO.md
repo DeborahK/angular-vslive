@@ -2,11 +2,11 @@
 
 # Set up (DAY BEFORE)
 * Update files (see Replacement Instructions below):
-  subscribe-form.html, subscribe-form.ts, subscription.ts
+  subscription.ts, subscribe-form.ts, subscribe-form.html 
 
 # Set up (RIGHT BEFORE TALK)
 * Launch VS Code with project
-* Open needed files: subscribe-form.html, subscribe-form.ts, subscription.ts
+* Open needed files: subscription.ts, subscribe-form.ts, subscribe-form.html
 
 # Signal Forms First Look
 
