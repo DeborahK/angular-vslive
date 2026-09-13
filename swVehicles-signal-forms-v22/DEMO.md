@@ -193,6 +193,8 @@ function checkSendVia(viaText: boolean, viaEmail: boolean) {
 
 ## *** RUN ***
 
+NOTE: Must click out of the field for the error message to appear
+
 # Submission
 -> **subscribe-form.html**
 ```
