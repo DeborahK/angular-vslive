@@ -272,7 +272,7 @@ export const initialData: Subscription = {
 
 ## Replace the subscribe-form.ts file with this:
 import { Component, computed, inject, signal } from '@angular/core';
-import { initialData, Subscription, subscriptionSchema } from '../subscription';
+import { initialData, Subscription } from '../subscription';
 import { Router } from '@angular/router';
 import { FieldTree, form, FormField, FormRoot } from '@angular/forms/signals';
 
