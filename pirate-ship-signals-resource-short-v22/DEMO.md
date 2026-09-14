@@ -104,7 +104,7 @@ export class CartService {
 }
 
 ## Replace the cart-total.ts file with this:
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, computed } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 
 import { CartService } from '../cart.service';
