@@ -8,7 +8,8 @@
     "strings": "off"
   },
   "editor.suggestOnTriggerCharacters": true,
-  "editor.inlineSuggest.enabled": false
+  "editor.inlineSuggest.enabled": false,
+  "angular.enable-strict-mode-prompt": false
   // "editor.quickSuggestionsDelay": 1000,
   //"editor.hover.enabled": false,
   // "editor.parameterHints": false,

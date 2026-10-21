@@ -16,7 +16,6 @@ HTML has errors ... ignore for now
 
 ## cart.service.ts
 ```
-  // Initial value
   quantity = signal(1);
   price = signal(5000);
   
@@ -56,12 +55,6 @@ shipsResource = httpResource<Ship[]>(() => this.url, { defaultValue: [] });
   isLoading = this.shipService.shipsResource.isLoading;
   error = this.shipService.shipsResource.error;
 ```
-## ship-list.html
-
-Change each variable to read a signal:
-* isLoading
-* error
-* ships
 
 ## *** RUN ***
 
@@ -90,11 +83,22 @@ Can now see the list of ships
     `Detail for: ${this.ship()?.name}` : 'Detail');
 ```
 
+## cart-total.html
+Uncomment the first and last lines
+```
+@if (selectedShip()) {
+}
+```
+
+## *** RUN ***
+
+Selected ship now works!
+
 # Add films
 
 ## film.service.ts
   filmsResource = httpResource<Film[]>(() => 
-    `${this.url}?ship_id=${this.shipService.selectedShip()?.ship_id}`, 
+    `${this.url}?ship_id=^${this.shipService.selectedShip()?.ship_id}$`, 
     { defaultValue: [] });
 
 ## ship-detail.ts
@@ -139,6 +143,10 @@ export class CartTotal {
 
 }
 
+## Modify the cart-total.html file to comment out the first and last lines
+<!-- @if (selectedShip()) { -->
+<!-- } -->
+
 ## Replace the ship.service.ts file with this:
 import { Service, signal } from '@angular/core';
 import { Ship } from './ship';
@@ -147,30 +155,7 @@ import { Ship } from './ship';
 export class ShipService {
   private url = 'api/ships';
 
-}
-
-## Replace the ship-detail.ts file with this:
-
-import { Component, computed, inject, signal } from '@angular/core';
-import { DecimalPipe } from '@angular/common';
-import { ShipService } from '../ship.service';
-import { FilmService } from '../../films/film.service';
-import { Film } from '../../films/film';
-
-@Component({
-  selector: 'sw-ship-detail',
-  imports: [DecimalPipe],
-  templateUrl: './ship-detail.html',
-  styleUrls: ['./ship-detail.css']
-})
-export class ShipDetail {
-  private shipService = inject(ShipService);
-  private filmService = inject(FilmService);
-
-  // Signals used in the template
-  ship = this.shipService.selectedShip;
-  films = signal<Film[]>([]);
-  pageTitle = computed(() => this.ship() ? `Detail for: ${this.ship()?.name}` : '');
+  selectedShip = signal(undefined);
 
 }
 
@@ -196,10 +181,7 @@ export class ShipList {
   ships = signal<Ship[]>([]);
   isLoading = signal(false);
   error = signal<Error|undefined>(undefined);
-  errorMessage = computed(() => this.error() ? this.error()?.message : '');
 
-  refreshData() {
-  }
 }
 
 ## Replace the ship-detail.ts file with this:
@@ -222,12 +204,11 @@ export class ShipDetail {
   films = signal(undefined);
   isLoadingFilm = signal(undefined);
   
-  pageTitle = 'Detail';
+  pageTitle = signal('Detail');
 
 }
 
 ## Replace the film.service.ts file with this:
-
 import { httpResource } from '@angular/common/http';
 import { inject, Service } from '@angular/core';
 import { Film } from './film';
