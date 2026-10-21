@@ -16,6 +16,8 @@ export class ShipDetail {
   // Signals used in the template
   ship = this.shipService.selectedShip;
   films = this.filmService.filmsResource.value;
-  pageTitle = computed(() => this.ship() ? `Detail for: ${this.ship()?.name}` : '');
+  isLoadingFilm = this.filmService.filmsResource.isLoading;
+  
+  pageTitle = computed(() => this.ship() ? `Detail for: ${this.ship()?.name}` : 'Detail');
 
 }

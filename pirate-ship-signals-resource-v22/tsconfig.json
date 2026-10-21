@@ -8,6 +8,7 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "skipLibCheck": true,
+    "strict": true,
     "isolatedModules": true,
     "experimentalDecorators": true,
     "importHelpers": true,
@@ -17,7 +18,9 @@
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
-    "strictInputAccessModifiers": true
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true,
+    "strictUnclaimedEventNames": true
   },
   "files": [],
   "references": [

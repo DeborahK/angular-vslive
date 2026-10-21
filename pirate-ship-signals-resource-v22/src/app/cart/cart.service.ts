@@ -8,7 +8,7 @@ export class CartService {
   // Manage state with signals
   quantity = linkedSignal({
     source: this.shipService.selectedShip,
-    computation: v => 1
+    computation: () => 1
   });
   // quantity = signal(1);
 
@@ -17,7 +17,7 @@ export class CartService {
   // Total before delivery and tax
   subTotal = computed(() => this.quantity() * this.price());
 
-  // Delivery is free if spending more than 50000 gold coins
+  // Delivery is free if spending more than 50000 
   deliveryFee = computed(() => this.subTotal() < 50000 ? 999 : 0);
 
   // Tax could be based on shipping address zip code

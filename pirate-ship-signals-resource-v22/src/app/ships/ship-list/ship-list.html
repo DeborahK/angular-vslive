@@ -1,28 +1,25 @@
 <div class="card">
   <div class="header">
-    {{pageTitle}}
+    {{ pageTitle }}
   </div>
 
   @if (isLoading()) {
     <div class="ship-list-loading">...Loading</div>
-  } @else if (errorMessage()) {
+  } @else if (error(); as error) {
     <div class="ship-list-error">
-      {{errorMessage() }}
+      {{ error.message }}
     </div>
   } @else {
-  <div class="body">
-    <div class="row">
-      <select class="ship-list-select"
-              [(ngModel)]="selectedShip">
-        <option value="undefined"
-                selected>--Select a ship--</option>
-        @for(ship of ships(); track ship) {
-        <option [ngValue]="ship">{{ship.name}}</option>
-        }
-      </select>
-      <button class="refresh-btn" (click)="refreshData()">Refresh</button>
+    <div class="body">
+      <div class="row">
+        <select class="ship-list-select" [(ngModel)]="selectedShip">
+          <option [ngValue]="undefined" selected>--Select a ship--</option>
+          @for (ship of ships(); track ship.ship_id) {
+            <option [ngValue]="ship">{{ ship.name }}</option>
+          }
+        </select>
+        <button class="refresh-btn" (click)="refreshData()">Refresh</button>
+      </div>
     </div>
-  </div>
   }
-
 </div>

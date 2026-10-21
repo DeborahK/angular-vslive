@@ -9,10 +9,12 @@ export class ShipService {
   // Retrieve data with httpResource: simpliest/most flexible
   shipsResource = httpResource<Ship[]>(() => this.url, { defaultValue: [] });
 
+  // Use linkedSignal to maintain a writable state while
+  // responding to changes in another signal
   selectedShip = linkedSignal<Ship[], Ship | undefined>({
     source: this.shipsResource.value,
     computation: (ships, previous) =>
-      ships.find(ship => ship.name === previous?.value?.name) ?? undefined
+      ships.find(ship => ship.ship_id === previous?.value?.ship_id) ?? undefined
   });
 
   // Accessing the resource generates an error if the http request fails

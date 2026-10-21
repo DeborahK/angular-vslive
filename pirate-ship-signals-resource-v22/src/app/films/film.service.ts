@@ -9,8 +9,10 @@ export class FilmService {
   private shipService = inject(ShipService);
 
   // Retrieve all films using httpResource
-  filmsResource = httpResource<Film[]>(() => 
-    `${this.url}?ship_id=${this.shipService.selectedShip()?.ship_id}`, 
+  // Use RegEx to ensure an id of '1' doesn't match '10' or '21'
+  filmsResource = httpResource<Film[]>(() =>
+    this.shipService.selectedShip()?.ship_id ? 
+    `${this.url}?ship_id=^${this.shipService.selectedShip()?.ship_id}$` : undefined, 
     { defaultValue: [] });
 
 }

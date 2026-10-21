@@ -38,7 +38,7 @@
 
 .ship-list-select {
   width: 100%;
-  max-width: 250px;
+  max-width: 300px;
   padding: 0.4rem 0.7rem;
   border: 1.5px solid var(--base-color);
   border-radius: 5px;

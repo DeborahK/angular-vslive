@@ -2,11 +2,11 @@
 
 # Set up (DAY BEFORE)
 * Update files (see Replacement Instructions below):
-  cart.service.ts, cart-total.ts, ship.service.ts, ship-list.ts
+  cart.service.ts, cart-total.ts, ship.service.ts, ship-list.ts, ship-detail.ts, film.service.ts
 
 # Set up (RIGHT BEFORE TALK)
 * Launch VS Code with project
-* Open needed files: cart.service.ts, cart-total.ts, ship.service.ts, ship-list.ts
+* Open needed files: cart.service.ts, cart-total.ts, ship.service.ts, ship-list.ts, ship-detail.ts, film.service.ts
 
 # Basic Signals
 
@@ -44,8 +44,6 @@ HTML has errors ... ignore for now
 
 When quantity changes, the calculated properties automatically change!
 
-## *** RUN ***
-
 # Retrieve Ships with httpResource()
 
 ## ship.service.ts
@@ -57,13 +55,12 @@ shipsResource = httpResource<Ship[]>(() => this.url, { defaultValue: [] });
   ships = this.shipService.shipsResource.value;
   isLoading = this.shipService.shipsResource.isLoading;
   error = this.shipService.shipsResource.error;
-  errorMessage = computed(() => this.error() ? this.error()?.message : '');
 ```
 ## ship-list.html
 
 Change each variable to read a signal:
 * isLoading
-* errorMessage (2 times)
+* error
 * ships
 
 ## *** RUN ***
@@ -85,21 +82,26 @@ Can now see the list of ships
   price = computed(() => this.shipService.selectedShip()?.price ?? 0);
 ```
 
-## cart-total.ts
+## ship-detail.ts
 ```
-  pageTitle = computed(() => this.selectedShip() ? 
-    `Total for: ${this.selectedShip()?.name}` : 'Total');
+  ship = this.shipService.selectedShip;
+
+  pageTitle = computed(() => this.ship() ? 
+    `Detail for: ${this.ship()?.name}` : 'Detail');
 ```
 
 # Add films
 
-## Add code to retrieve the films using httpResource and a parameter (film.service.ts)
+## film.service.ts
   filmsResource = httpResource<Film[]>(() => 
     `${this.url}?ship_id=${this.shipService.selectedShip()?.ship_id}`, 
     { defaultValue: [] });
 
-## Adjust the code in the component (ship-detail.ts)
+## ship-detail.ts
+```
   films = this.filmService.filmsResource.value;
+  isLoadingFilm = this.filmService.filmsResource.isLoading;
+```
 
 
 # REPLACEMENT INSTRUCTIONS
@@ -200,6 +202,30 @@ export class ShipList {
   }
 }
 
+## Replace the ship-detail.ts file with this:
+import { Component, computed, inject, signal } from '@angular/core';
+import { DecimalPipe } from '@angular/common';
+import { ShipService } from '../ship.service';
+import { FilmService } from '../../films/film.service';
+
+@Component({
+  selector: 'sw-ship-detail',
+  imports: [DecimalPipe],
+  templateUrl: './ship-detail.html',
+  styleUrls: ['./ship-detail.css']
+})
+export class ShipDetail {
+  private shipService = inject(ShipService);
+  private filmService = inject(FilmService);
+
+  ship = signal(undefined);
+  films = signal(undefined);
+  isLoadingFilm = signal(undefined);
+  
+  pageTitle = 'Detail';
+
+}
+
 ## Replace the film.service.ts file with this:
 
 import { httpResource } from '@angular/common/http';
@@ -212,5 +238,5 @@ export class FilmService {
   private url = 'api/films';
   private shipService = inject(ShipService);
 
-  // `${this.url}?ship_id=${this.shipService.selectedShip()?.ship_id}`
+  // `${this.url}?ship_id=^${this.shipService.selectedShip()?.ship_id}$`
 }
