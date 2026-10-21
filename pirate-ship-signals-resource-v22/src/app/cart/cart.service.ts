@@ -1,5 +1,5 @@
-import { Service, computed, effect, inject, linkedSignal } from "@angular/core";
-import { ShipService } from "../ships/ship.service";
+import { Service, computed, effect, inject, linkedSignal } from '@angular/core';
+import { ShipService } from '../ships/ship.service';
 
 @Service()
 export class CartService {
@@ -17,14 +17,16 @@ export class CartService {
   // Total before delivery and tax
   subTotal = computed(() => this.quantity() * this.price());
 
-  // Delivery is free if spending more than 50000 
-  deliveryFee = computed(() => this.subTotal() < 50000 ? 999 : 0);
+  // Delivery is free if spending more than 50000
+  deliveryFee = computed(() => (this.subTotal() < 50000 ? 999 : 0));
 
   // Tax could be based on shipping address zip code
   tax = computed(() => Math.round(this.subTotal() * 10.75) / 100);
 
   // Total price
-  totalPrice = computed(() => this.subTotal() + this.deliveryFee() + this.tax());
+  totalPrice = computed(
+    () => this.subTotal() + this.deliveryFee() + this.tax(),
+  );
 
   private readonly eff = effect(() => console.log('Qty:', this.quantity()));
 }

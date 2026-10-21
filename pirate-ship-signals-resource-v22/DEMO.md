@@ -2,17 +2,18 @@
 
 # Set up (DAY BEFORE)
 * Update files (see Replacement Instructions below):
-  cart.service.ts, cart-total.ts, ship.service.ts, ship-list.ts, ship-detail.ts, film.service.ts
+  * cart.service.ts, cart-total.ts, cart-total.html, ship.service.ts, ship-list.ts, ship-detail.ts, ship-detail.html, film.service.ts
 
 # Set up (RIGHT BEFORE TALK)
 * Launch VS Code with project
-* Open needed files: cart.service.ts, cart-total.ts, ship.service.ts, ship-list.ts, ship-detail.ts, film.service.ts
-
-# Basic Signals
+* Open needed files: 
+  * cart.service.ts, cart-total.ts, cart-total.html, ship.service.ts, ship-list.ts, ship-detail.ts, ship-detail.html, film.service.ts
 
 ## *** RUN ***
 
-HTML has errors ... ignore for now
+Will see warnings ... ignore for now
+
+# Basic Signals
 
 ## cart.service.ts
 ```
@@ -35,6 +36,12 @@ HTML has errors ... ignore for now
   totalPrice = this.cartService.totalPrice;
 ```
 ## cart-total.html
+Uncomment the file - except for the first and last lines
+```
+@if (selectedShip()) {
+  ...
+}
+```
 
 * View bindings
 * View two-way binding
@@ -49,11 +56,13 @@ When quantity changes, the calculated properties automatically change!
 ```
 shipsResource = httpResource<Ship[]>(() => this.url, { defaultValue: [] });
 ```
+
 ## ship-list.ts
 ```
   ships = this.shipService.shipsResource.value;
   isLoading = this.shipService.shipsResource.isLoading;
   error = this.shipService.shipsResource.error;
+
 ```
 
 ## *** RUN ***
@@ -83,6 +92,10 @@ Can now see the list of ships
     `Detail for: ${this.ship()?.name}` : 'Detail');
 ```
 
+## ship-detail.html
+* Uncomment the file
+* Comment out the films
+
 ## cart-total.html
 Uncomment the first and last lines
 ```
@@ -107,6 +120,9 @@ Selected ship now works!
   isLoadingFilm = this.filmService.filmsResource.isLoading;
 ```
 
+## ship-detail.html
+* Uncomment the films
+
 
 # REPLACEMENT INSTRUCTIONS
 
@@ -121,7 +137,7 @@ export class CartService {
 }
 
 ## Replace the cart-total.ts file with this:
-import { Component, inject, signal, computed } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 
 import { CartService } from '../cart.service';
@@ -142,9 +158,9 @@ export class CartTotal {
 
 }
 
-## Modify the cart-total.html file to comment out the first and last lines
-<!-- @if (selectedShip()) { -->
-<!-- } -->
+## Comment out the entire the cart-total.html file
+<!-- @if (selectedShip()) {
+} -->
 
 ## Replace the ship.service.ts file with this:
 import { Service, signal } from '@angular/core';
@@ -154,7 +170,7 @@ import { Ship } from './ship';
 export class ShipService {
   private url = 'api/ships';
 
-  selectedShip = signal(undefined);
+  selectedShip = undefined;
 
 }
 
@@ -181,6 +197,8 @@ export class ShipList {
   isLoading = signal(false);
   error = signal<Error|undefined>(undefined);
 
+  refreshData() {
+  }
 }
 
 ## Replace the ship-detail.ts file with this:
@@ -199,13 +217,11 @@ export class ShipDetail {
   private shipService = inject(ShipService);
   private filmService = inject(FilmService);
 
-  ship = signal(undefined);
-  films = signal(undefined);
-  isLoadingFilm = signal(undefined);
-  
-  pageTitle = signal('Detail');
-
 }
+
+## Comment out the entire the ship-detail.html file
+<!-- @if (ship()) {
+} -->
 
 ## Replace the film.service.ts file with this:
 import { httpResource } from '@angular/common/http';

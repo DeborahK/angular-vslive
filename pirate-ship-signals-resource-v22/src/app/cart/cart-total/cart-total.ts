@@ -24,5 +24,4 @@ export class CartTotal {
   deliveryFee = this.cartService.deliveryFee;
   tax = this.cartService.tax;
   totalPrice = this.cartService.totalPrice;
-
 }

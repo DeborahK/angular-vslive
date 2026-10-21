@@ -10,9 +10,11 @@ export class FilmService {
 
   // Retrieve all films using httpResource
   // Use RegEx to ensure an id of '1' doesn't match '10' or '21'
-  filmsResource = httpResource<Film[]>(() =>
-    this.shipService.selectedShip()?.ship_id ? 
-    `${this.url}?ship_id=^${this.shipService.selectedShip()?.ship_id}$` : undefined, 
-    { defaultValue: [] });
-
+  filmsResource = httpResource<Film[]>(
+    () =>
+      this.shipService.selectedShip()?.ship_id
+        ? `${this.url}?ship_id=^${this.shipService.selectedShip()?.ship_id}$`
+        : undefined,
+    { defaultValue: [] },
+  );
 }

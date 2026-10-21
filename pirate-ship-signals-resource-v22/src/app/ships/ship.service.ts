@@ -14,7 +14,8 @@ export class ShipService {
   selectedShip = linkedSignal<Ship[], Ship | undefined>({
     source: this.shipsResource.value,
     computation: (ships, previous) =>
-      ships.find(ship => ship.ship_id === previous?.value?.ship_id) ?? undefined
+      ships.find((ship) => ship.ship_id === previous?.value?.ship_id) ??
+      undefined,
   });
 
   // Accessing the resource generates an error if the http request fails
@@ -22,8 +23,10 @@ export class ShipService {
     if (!this.shipsResource.error()) {
       console.log('Ships', JSON.stringify(this.shipsResource.value()));
     } else {
-      console.error('Failed to load ships', this.shipsResource.error()?.message);
+      console.error(
+        'Failed to load ships',
+        this.shipsResource.error()?.message,
+      );
     }
   });
-
 }

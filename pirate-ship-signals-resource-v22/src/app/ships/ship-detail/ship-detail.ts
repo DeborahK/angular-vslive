@@ -17,7 +17,8 @@ export class ShipDetail {
   ship = this.shipService.selectedShip;
   films = this.filmService.filmsResource.value;
   isLoadingFilm = this.filmService.filmsResource.isLoading;
-  
-  pageTitle = computed(() => this.ship() ? `Detail for: ${this.ship()?.name}` : 'Detail');
 
+  pageTitle = computed(() =>
+    this.ship() ? `Detail for: ${this.ship()?.name}` : 'Detail',
+  );
 }

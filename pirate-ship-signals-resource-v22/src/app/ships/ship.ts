@@ -4,8 +4,8 @@ export interface Ship {
   crew: number;
   name: string;
   model: string;
-  manufacturer: string,
-  price: number,
+  manufacturer: string;
+  price: number;
   passengers: number;
   ship_class: string;
 }
