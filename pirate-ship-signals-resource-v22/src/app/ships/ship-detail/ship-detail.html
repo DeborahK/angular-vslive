@@ -34,7 +34,7 @@
         @if (!isLoadingFilm()) {
           <div class="cellRight">
             <ul class="film-list">
-              @for (film of films(); track film) {
+              @for (film of films(); track film.film_id) {
                 <li class="film-list-item">
                   {{ film.title }}
                 </li>
