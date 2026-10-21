@@ -1,32 +1,24 @@
 # Demo Instructions
 
-# Set up
-* Update files (see Replacement Instructions below)
-* Open needed files
-* Run the application
-* Set browser to 125%
+# Set up (DAY BEFORE)
+* Update files (see Replacement Instructions below):
+  cart.service.ts, cart-total.ts, ship.service.ts, ship-list.ts
+
+# Set up (RIGHT BEFORE TALK)
+* Launch VS Code with project
+* Open needed files: cart.service.ts, cart-total.ts, ship.service.ts, ship-list.ts
 
 # Basic Signals
 
-## *** DO NOT RUN ***
+## *** RUN ***
 
-Do NOT attempt to run ... HTML has errors
-
-## ship.service.ts
-  // Expose signals from this service
-  selectedShip = signal<Ship | undefined>(undefined);
-
-## ship-detail.ts
-```
-  ship = this.shipService.selectedShip;
-  pageTitle = computed(() => this.ship() ? `Detail for: ${this.ship()?.name}` : '');
-```
+HTML has errors ... ignore for now
 
 ## cart.service.ts
 ```
   // Initial value
   quantity = signal(1);
-  price = computed(() => this.shipService.selectedShip()?.price ?? 0);
+  price = signal(5000);
   
   subTotal = computed(() => this.quantity() * this.price());
   deliveryFee = computed(() => this.subTotal() < 50000 ? 999 : 0);
@@ -35,7 +27,6 @@ Do NOT attempt to run ... HTML has errors
 ```
 ## cart-total.ts
 ```
-  selectedShip = this.shipService.selectedShip;
   price = this.cartService.price;
   quantity = this.cartService.quantity;
 
@@ -46,8 +37,8 @@ Do NOT attempt to run ... HTML has errors
 ```
 ## cart-total.html
 
-* Fix bindings
-* NOT two-way binding
+* View bindings
+* View two-way binding
 
 ## *** RUN ***
 
@@ -79,7 +70,28 @@ Change each variable to read a signal:
 
 Can now see the list of ships
 
-# Add films (if time permits)
+# Handle the selected ship
+
+*** Can NOT handle selectedShip until data is retrieved ***
+
+## ship.service.ts
+```
+  // Expose signals from this service
+  selectedShip = signal<Ship | undefined>(undefined);
+```
+
+## cart.service.ts
+```
+  price = computed(() => this.shipService.selectedShip()?.price ?? 0);
+```
+
+## cart-total.ts
+```
+  pageTitle = computed(() => this.selectedShip() ? 
+    `Total for: ${this.selectedShip()?.name}` : 'Total');
+```
+
+# Add films
 
 ## Add code to retrieve the films using httpResource and a parameter (film.service.ts)
   filmsResource = httpResource<Film[]>(() => 
@@ -93,7 +105,7 @@ Can now see the list of ships
 # REPLACEMENT INSTRUCTIONS
 
 ## Replace the cart.service.ts file with this:
-import { inject, Service } from "@angular/core";
+import { computed, inject, Service, signal } from "@angular/core";
 import { ShipService } from "../ships/ship.service";
 
 @Service()
@@ -103,7 +115,7 @@ export class CartService {
 }
 
 ## Replace the cart-total.ts file with this:
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal, computed } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 
 import { CartService } from '../cart.service';
@@ -120,10 +132,12 @@ export class CartTotal {
   private cartService = inject(CartService);
   private shipService = inject(ShipService);
 
+  selectedShip = this.shipService.selectedShip;
+  pageTitle = signal('Total');
+
 }
 
 ## Replace the ship.service.ts file with this:
-
 import { Service, signal } from '@angular/core';
 import { Ship } from './ship';
 
@@ -159,7 +173,6 @@ export class ShipDetail {
 }
 
 ## Replace the ship-list.ts file with this:
-
 import { Component, computed, inject, signal } from '@angular/core';
 import { ShipService } from '../ship.service';
 import { FormsModule } from '@angular/forms';

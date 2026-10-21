@@ -1,5 +1,5 @@
 # angular-http-resource-pirates
-Pirate themed example of Angular's httpResource features
+Pirate themed example for teaching signals and httpResource
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.1.5.
 
