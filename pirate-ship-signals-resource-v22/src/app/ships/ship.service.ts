@@ -6,7 +6,7 @@ import { Ship } from './ship';
 export class ShipService {
   private url = 'api/ships';
 
-  // Retrieve data with httpResource: simpliest/most flexible
+  // Retrieve data with httpResource: simplest/most flexible
   shipsResource = httpResource<Ship[]>(() => this.url, { defaultValue: [] });
 
   // Use linkedSignal to maintain a writable state while

@@ -26,5 +26,5 @@ export class CartService {
   // Total price
   totalPrice = computed(() => this.subTotal() + this.deliveryFee() + this.tax());
 
-  eff = effect(() => console.log('Qty:', this.quantity()));
+  private readonly eff = effect(() => console.log('Qty:', this.quantity()));
 }

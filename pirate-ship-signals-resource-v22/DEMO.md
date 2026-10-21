@@ -139,7 +139,6 @@ export class CartTotal {
   private shipService = inject(ShipService);
 
   selectedShip = this.shipService.selectedShip;
-  pageTitle = signal('Total');
 
 }
 

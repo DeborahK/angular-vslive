@@ -1,4 +1,4 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ShipService } from '../ship.service';
 import { FormsModule } from '@angular/forms';
 

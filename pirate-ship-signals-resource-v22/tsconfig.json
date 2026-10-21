@@ -19,10 +19,7 @@
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
-    // Set to false so the templates compile
-    // before all of the component variables are set
-    // during the demo process
-    "strictTemplates": false,    
+    "strictTemplates": true,    
     "strictUnclaimedEventNames": true
   },
   "files": [],
