@@ -18,7 +18,7 @@ Will see warnings ... ignore for now
 ## cart.service.ts
 ```
   quantity = signal(1);
-  price = signal(5000);
+  price = signal(3000);
   
   subTotal = computed(() => this.quantity() * this.price());
   deliveryFee = computed(() => this.subTotal() < 50000 ? 999 : 0);
@@ -46,7 +46,7 @@ Uncomment the file - except for the first and last lines
 * View bindings
 * View two-way binding
 
-## *** RUN ***
+## *** RUN (MAY NEED A REFRESH) *** 
 
 When quantity changes, the calculated properties automatically change!
 
@@ -158,7 +158,7 @@ export class CartTotal {
 
 }
 
-## Comment out the entire the cart-total.html file
+## Comment out the entire the cart-total.html file (CTRL+K, C)
 <!-- @if (selectedShip()) {
 } -->
 
@@ -219,7 +219,7 @@ export class ShipDetail {
 
 }
 
-## Comment out the entire the ship-detail.html file
+## Comment out the entire the ship-detail.html file (CTRL+K, C)
 <!-- @if (ship()) {
 } -->
 
